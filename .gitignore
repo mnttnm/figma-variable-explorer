@@ -1,0 +1,11 @@
+# Node
+*.log
+*.log.*
+node_modules
+
+out/
+dist/
+build/
+code.js
+
+.vscode/

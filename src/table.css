@@ -1,0 +1,53 @@
+.table {
+  padding: 8px;
+  border: 1px solid grey;
+  width: 100vw;
+}
+
+th {
+  font-weight: normal;
+  width: 100vw;
+  border-bottom: 1px solid grey;
+}
+
+tr {
+  width: 100vw;
+}
+
+td {
+  width: 100vw;
+}
+
+.th-variable {
+  text-align: left;
+}
+
+.th-value {
+  text-align: right;
+}
+
+.td-variable {
+  text-align: left;
+}
+
+.td-value {
+  text-align: right;
+}
+
+/* Button.css */
+
+/* Normal state */
+.button {
+  border-color: var(--figma-color-border-strong);
+  width: 150px;
+  border-width: "2";
+}
+/* Hover state */
+.button:hover {
+  background-color: var(--figma-color-bg-hover);
+}
+
+/* Active state (when clicked) */
+.button:active {
+  border-color: var(--figma-color-border);
+}

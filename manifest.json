@@ -1,0 +1,14 @@
+{
+  "api": "1.0.0",
+  "editorType": [
+    "figma",
+    "dev"
+  ],
+  "capabilities" : [
+    "inspect"
+  ],
+  "id": "1310888112326715990",
+  "name": "Figma Variable Explorer",
+  "main": "build/main.js",
+  "ui": "build/ui.js"
+}
