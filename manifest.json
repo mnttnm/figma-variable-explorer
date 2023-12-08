@@ -7,6 +7,9 @@
   "capabilities" : [
     "inspect"
   ],
+  "networkAccess": {
+    "allowedDomains": ["none"]
+  },
   "id": "1310888112326715990",
   "name": "Figma Variable Explorer",
   "main": "build/main.js",

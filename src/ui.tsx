@@ -16,7 +16,7 @@ import { Fragment, JSX, h } from "preact";
 import { useCallback, useEffect, useState } from "preact/hooks";
 
 import { GetVariableHandler } from "./types";
-import { AliasValue, CollectionsData, VariableValueInfo } from "./main";
+import { AliasValue, CollectionsData, ColorValue, VariableValueInfo } from "./main";
 import copy from "copy-to-clipboard";
 import TableCSS from "./table.css";
 
@@ -58,11 +58,11 @@ function ValueRenderer({ varValueInfo, showCollection, type }: ValueRendererProp
             style={{
               width: "16px",
               height: "16px",
-              backgroundColor: varValueInfo.value as string,
+              backgroundColor: (varValueInfo.value as ColorValue).rgbaValue,
             }}
           ></div>
-          <div style={{ width: "130px", userSelect: "text", cursor: "text", overflow: "auto" }}>
-            {varValueInfo.value}
+          <div style={{ width: "130px", userSelect: "text", cursor: "text"}}>
+            {(varValueInfo.value as ColorValue).hexValue}
           </div>
         </Columns>
       ) : (
@@ -72,7 +72,7 @@ function ValueRenderer({ varValueInfo, showCollection, type }: ValueRendererProp
             textAlign: "left",
             userSelect: "text",
             cursor: "text",
-            overflow: "auto",
+            overflowX: "auto",
           }}
         >
           {varValueInfo.value}
@@ -106,6 +106,8 @@ function getSimplifiedCollectionData(filteredVarCollectionData: CollectionsData)
           ? `${(varInfo.values[mode].value as AliasValue).aliasLabel
               .replace(" ", "-")
               .replace("/", "-")}`
+          : varInfo.type === "COLOR"
+          ? (varInfo.values[mode].value as ColorValue).rgbaValue
           : varInfo.values[mode].value;
         collectionObject[mode] = { ...collectionObject[mode], [varName]: { varValue, isAlias } };
       });

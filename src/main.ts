@@ -17,9 +17,14 @@ export interface AliasValue {
   collection: string;
 }
 
+export interface ColorValue {
+  hexValue: string;
+  rgbaValue: string;
+}
+
 export interface VariableValueInfo {
   isAlias: boolean;
-  value: string | AliasValue;
+  value: string | AliasValue | ColorValue;
 }
 
 
@@ -42,6 +47,17 @@ export interface CollectionsData {
   [collectionName: string]: VariableData;
 }
 
+function alphaToHex(alpha: number): string {
+  const alphaDecimal = Math.round(alpha * 255);
+
+  const alphaHex = alphaDecimal.toString(16);
+
+  // Ensure the alpha value is at least two characters long
+  const paddedAlphaHex = alphaHex.padStart(2, "0");
+
+  return paddedAlphaHex;
+}
+
 function getResolvedVariableValue(value: VariableValue, isColor: boolean) {
   let varValue;
   if (isVariableAlias(value)) {
@@ -52,7 +68,15 @@ function getResolvedVariableValue(value: VariableValue, isColor: boolean) {
     } as AliasValue;
   } else {
     if (isColor) {
-      varValue = '#' + convertRgbColorToHexColor(value as RGBA) ?? '';
+      const { r, g, b, a } = value as RGBA;
+      varValue = {
+        hexValue: `#${convertRgbColorToHexColor({ r, g, b }) ?? ""}, ${
+          Number(a.toFixed(2)) * 100
+        }%`,
+        rgbaValue: `rgba(${Math.round(r * 255)},${Math.round(g * 255)},${Math.round(
+          b * 255
+        )},${a.toFixed(2)})`,
+      } as ColorValue;
     } else {
       varValue = value.toString();
     }
