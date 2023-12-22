@@ -9,7 +9,7 @@ import {
   Link,
   Toggle,
   Divider,
-  Button,
+  Button
 } from "@create-figma-plugin/ui";
 import { emit, on } from "@create-figma-plugin/utilities";
 import { Fragment, JSX, h } from "preact";
@@ -162,9 +162,9 @@ function getCSSResponseByMode(filteredVarCollectionData: CollectionsData) {
 
 function Plugin() {
   const [varCollectionData, setVarCollectionDataData] = useState<CollectionsData>({});
-  const [collections, setCollections] = useState<string[]>(["All"]);
+  const [, setCollections] = useState<string[]>(["All"]);
   const [filteredVarCollectionData, setFilteredVarCollectionData] = useState<CollectionsData>({});
-  const [selectedCollection, setSelectedCollection] = useState<string>("All");
+  const [, setSelectedCollection] = useState<string>("All");
   const [viewingMode, setViewingMode] = useState<ViewingMode>("List");
   const [showCollection, setShowCollection] = useState<boolean>(true);
   const [isCopying, setIsCopying] = useState<boolean>(false);
@@ -232,6 +232,20 @@ function Plugin() {
   return Object.keys(varCollectionData).length > 0 ? (
     <div style={{ padding: "8px 16px", fontSize: "14px" }}>
       <Stack space="small">
+        {/* Add a header bar showing plugin name and an action button to alllow the users to submit issue */}
+        {/* <Text style={{ fontWeight: "600" }}>Variables</Text> */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "flex-end",
+          }}
+        >
+          <a href={"https://tally.so/r/3N7e9j"} target={"blank"}>
+            Submit Feedback
+          </a>
+        </div>
         <label>Format</label>
         <Dropdown
           onChange={handleViewingModeChange}
@@ -440,3 +454,4 @@ function Plugin() {
 }
 
 export default render(Plugin);
+
