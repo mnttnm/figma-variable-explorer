@@ -9,7 +9,8 @@ import {
   Link,
   Toggle,
   Divider,
-  Button
+  Button,
+  IconSwap32,
 } from "@create-figma-plugin/ui";
 import { emit, on } from "@create-figma-plugin/utilities";
 import { Fragment, JSX, h } from "preact";
@@ -50,18 +51,24 @@ function ValueRenderer({ varValueInfo, showCollection, type }: ValueRendererProp
           {`${
             showCollection ? (varValueInfo.value as AliasValue as AliasValue).collection + ":" : ""
           }
-                            ${(varValueInfo.value as AliasValue as AliasValue).aliasLabel}`}
+                  ${(varValueInfo.value as AliasValue as AliasValue).aliasLabel}`}
         </Link>
       ) : type === "COLOR" ? (
         <Columns space="extraSmall" style={{ alignItems: "center" }}>
           <div
             style={{
-              width: "16px",
-              height: "16px",
+              width: "18px",
+              height: "18px",
               backgroundColor: (varValueInfo.value as ColorValue).rgbaValue,
+              borderRadius: "4px",
+              border: "1px solid var(--figma-color-border)",
+              // change pointer cursor to "text" for copy button
+              cursor: "pointer",
             }}
+            onClick={() => copy((varValueInfo.value as ColorValue).hexValue.split(",")[0])}
+            title={"Click to Copy"}
           ></div>
-          <div style={{ width: "130px", userSelect: "text", cursor: "text"}}>
+          <div style={{ width: "130px", userSelect: "text", cursor: "text" }}>
             {(varValueInfo.value as ColorValue).hexValue}
           </div>
         </Columns>
@@ -89,6 +96,10 @@ function getUniqueModes(filteredVarCollectionData: CollectionsData) {
   return Array.from(new Set(allModes));
 }
 
+function replaceSpacesAndSlashesWithHyphen(str: string) {
+  return str.replace(/\s+/g, "-").replace(/\//g, "-");
+}
+
 function getSimplifiedCollectionData(filteredVarCollectionData: CollectionsData) {
   let simplifiedCSSJson: any = {};
 
@@ -96,16 +107,14 @@ function getSimplifiedCollectionData(filteredVarCollectionData: CollectionsData)
     const collection = collectionName.toUpperCase();
     const collectionObject: any = {};
     Object.keys(filteredVarCollectionData[collectionName].variables).map((variableName) => {
-      const varName = `${variableName.replace(" ", "-").replace("/", "-")}`;
+      const varName = replaceSpacesAndSlashesWithHyphen(variableName);
       const varInfo = filteredVarCollectionData[collectionName].variables[variableName];
 
       // iterate variables and create mapping b/w modes and variables for the current collection
       Object.keys(varInfo.values).forEach((mode) => {
         const isAlias = varInfo.values[mode].isAlias;
         const varValue = isAlias
-          ? `${(varInfo.values[mode].value as AliasValue).aliasLabel
-              .replace(" ", "-")
-              .replace("/", "-")}`
+          ? replaceSpacesAndSlashesWithHyphen((varInfo.values[mode].value as AliasValue).aliasLabel)
           : varInfo.type === "COLOR"
           ? (varInfo.values[mode].value as ColorValue).rgbaValue
           : varInfo.values[mode].value;
@@ -168,12 +177,17 @@ function Plugin() {
   const [viewingMode, setViewingMode] = useState<ViewingMode>("List");
   const [showCollection, setShowCollection] = useState<boolean>(true);
   const [isCopying, setIsCopying] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [isRefreshing, setIsRefreshing] = useState<boolean>(false);
 
   const handleVariableRendering = useCallback((varCollectionData: CollectionsData) => {
     const collections = Object.keys(varCollectionData);
     setCollections(collections);
     setVarCollectionDataData(varCollectionData);
     setFilteredVarCollectionData(varCollectionData);
+    setTimeout(() => {
+      setIsRefreshing(false);
+    }, 500);
   }, []);
 
   on("DONE", handleVariableRendering);
@@ -182,28 +196,9 @@ function Plugin() {
     emit<GetVariableHandler>("GET_VARIABLES");
   }, []);
 
-  function getCollectionOptionsFromArray(collections: string[]) {
-    return [
-      {
-        value: "All",
-      },
-      ...collections.map((coll) => {
-        return { value: coll };
-      }),
-    ];
-  }
-
-  function handleCollectionSelection(event: JSX.TargetedEvent<HTMLInputElement>) {
-    const selectedCollection = event.currentTarget.value;
-    setSelectedCollection(selectedCollection);
-
-    // get variables for selected collection
-    if (selectedCollection.toLowerCase() === "all") {
-      setFilteredVarCollectionData(varCollectionData);
-    } else {
-      const filteredVars = varCollectionData[selectedCollection];
-      setFilteredVarCollectionData({ [selectedCollection]: filteredVars });
-    }
+  function onRefresh() {
+    setIsRefreshing(true);
+    emit<GetVariableHandler>("GET_VARIABLES");
   }
 
   function handleViewingModeChange(event: JSX.TargetedEvent<HTMLInputElement>) {
@@ -229,6 +224,12 @@ function Plugin() {
     }, 1000);
   }
 
+  function handleSearchChange(searchString: string) {
+    setSearchTerm(searchString);
+  }
+
+  const lowerCaseSearchTerm = searchTerm.toLowerCase();
+
   return Object.keys(varCollectionData).length > 0 ? (
     <div style={{ padding: "8px 16px", fontSize: "14px" }}>
       <Stack space="small">
@@ -239,14 +240,29 @@ function Plugin() {
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
-            justifyContent: "flex-end",
+            justifyContent: "space-between",
           }}
         >
+          <div
+            onClick={onRefresh}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              color: "var(--figma-color-text-component)",
+              cursor: "pointer",
+            }}
+          >
+            <IconSwap32 />
+            <Text style={{ color: "var(--figma-color-text-component)" }}>
+              {isRefreshing ? "Refreshing..." : `Refresh`}
+            </Text>
+          </div>
           <a href={"https://tally.so/r/3N7e9j"} target={"blank"}>
             Submit Feedback
           </a>
         </div>
-        <label>Format</label>
+        <label style={{ fontWeight: "600" }}>Format</label>
         <Dropdown
           onChange={handleViewingModeChange}
           options={[
@@ -266,44 +282,33 @@ function Plugin() {
         />
       </Stack>
       <VerticalSpace space="small" />
-      {/* <Stack space="small">
-        <Text style={{ fontWeight: "600" }}>Collection</Text>
-        <Dropdown
-          onChange={handleCollectionSelection}
-          options={getCollectionOptionsFromArray(collections)}
-          placeholder="Collection"
-          value={selectedCollection}
-          variant="border"
-        />
-      </Stack>
-      <VerticalSpace space="medium" /> */}
       {viewingMode === "List" && (
-        <Fragment>
-          <Toggle onChange={onShowCollectionChange} value={showCollection}>
-            <Text>Show Collections</Text>
-          </Toggle>
-          <VerticalSpace space="small" />
-        </Fragment>
+        <Stack space="small">
+          <Fragment>
+            <Toggle onChange={onShowCollectionChange} value={showCollection}>
+              <Text>Show Collections</Text>
+            </Toggle>
+            <VerticalSpace space="small" />
+          </Fragment>
+          <label style={{ fontWeight: "600" }}>Search</label>
+          <input
+            style={{
+              padding: "4px 4px",
+              fontSize: "14px",
+              border: "1px solid grey",
+              width: "100%",
+            }}
+            type="text"
+            onInput={(e) => {
+              handleSearchChange(e.currentTarget.value);
+            }}
+            value={searchTerm}
+            placeholder="Search"
+          />
+          <VerticalSpace space="extraSmall" />
+        </Stack>
       )}
-      {
-        // make copy functionality available only in css and json view
-        viewingMode !== "List" && (
-          <div style={{ textAlign: "right" }}>
-            <Button
-              style={{
-                borderColor: "var(--figma-color-border-strong)",
-                width: "150",
-                borderWidth: "2",
-              }}
-              class={TableCSS.button}
-              onClick={handleCopyButtonClick}
-              secondary
-            >
-              {isCopying ? `Copied!` : `Copy ${viewingMode}`}
-            </Button>
-          </div>
-        )
-      }
+
       {viewingMode === "List" && (
         <div>
           {!showCollection && (
@@ -313,6 +318,7 @@ function Plugin() {
                   padding: "8px 0px",
                   textAlign: "left",
                   width: "150px",
+                  fontWeight: "600",
                   color: "var(--figma-color-text-secondary)",
                 }}
               >
@@ -325,6 +331,7 @@ function Plugin() {
                       padding: "8px 0px",
                       textAlign: "left",
                       width: "150px",
+                      fontWeight: "600",
                       color: "var(--figma-color-text-secondary)",
                     }}
                   >
@@ -334,8 +341,8 @@ function Plugin() {
               })}
             </Columns>
           )}
-          {Object.keys(filteredVarCollectionData).map((collectionName) => (
-            <Fragment>
+          {Object.keys(filteredVarCollectionData).map((collectionName) => {
+            return (
               <div>
                 {showCollection ? (
                   <Fragment>
@@ -343,8 +350,8 @@ function Plugin() {
                     <Text
                       style={{
                         fontSize: "12px",
-                        fontWeight: "500",
-                        color: "var(--figma-color-text-secondary)",
+                        fontWeight: "600",
+                        color: "var(--figma-color-text)",
                       }}
                     >
                       {collectionName.toUpperCase()}
@@ -357,6 +364,7 @@ function Plugin() {
                           padding: "8px 0px",
                           textAlign: "left",
                           width: "150px",
+                          fontWeight: "600",
                           color: "var(--figma-color-text-secondary)",
                         }}
                       >
@@ -369,6 +377,7 @@ function Plugin() {
                               padding: "8px 0px",
                               textAlign: "left",
                               width: "150px",
+                              fontWeight: "600",
                               color: "var(--figma-color-text-secondary)",
                             }}
                           >
@@ -377,11 +386,43 @@ function Plugin() {
                         );
                       })}
                     </Columns>
-                    <VerticalSpace space="small" />
                   </Fragment>
-                ) : null}
-                {Object.keys(filteredVarCollectionData[collectionName].variables).map(
-                  (variableName) => {
+                ) : (
+                  <Fragment> </Fragment>
+                )}
+                {Object.keys(filteredVarCollectionData[collectionName].variables)
+                  .filter((varName) => {
+                    if (lowerCaseSearchTerm === "") {
+                      return true;
+                    }
+                    const searchInVarName = varName.toLowerCase().includes(lowerCaseSearchTerm);
+
+                    if (searchInVarName) return true;
+
+                    // we are excluding object keys from being included into the search
+
+                    const variableValues = Object.values(
+                      filteredVarCollectionData[collectionName].variables[varName].values
+                    );
+
+                    for (const variableValue of variableValues) {
+                      console.log(variableValue);
+                      if (variableValue.isAlias) {
+                        return (variableValue.value as AliasValue).aliasLabel
+                          .toLowerCase()
+                          .includes(lowerCaseSearchTerm);
+                      }
+
+                      if (typeof variableValue.value === "string") {
+                        return variableValue.value.toLowerCase().includes(lowerCaseSearchTerm);
+                      }
+                      return (variableValue.value as ColorValue).hexValue
+                        .split(",")[0]
+                        .toLowerCase()
+                        .includes(lowerCaseSearchTerm);
+                    }
+                  })
+                  .map((variableName) => {
                     const varInfo =
                       filteredVarCollectionData[collectionName].variables[variableName];
                     return (
@@ -412,13 +453,31 @@ function Plugin() {
                         })}
                       </Columns>
                     );
-                  }
-                )}
+                  })}
               </div>
-            </Fragment>
-          ))}
+            );
+          })}
         </div>
       )}
+      {
+        // make copy functionality available only in css and json view
+        viewingMode !== "List" && (
+          <div style={{ textAlign: "right" }}>
+            <Button
+              style={{
+                borderColor: "var(--figma-color-border-strong)",
+                width: "150",
+                borderWidth: "2",
+              }}
+              class={TableCSS.button}
+              onClick={handleCopyButtonClick}
+              secondary
+            >
+              {isCopying ? `Copied!` : `Copy ${viewingMode}`}
+            </Button>
+          </div>
+        )
+      }
       {viewingMode === "JSON" && (
         <pre
           style={{
