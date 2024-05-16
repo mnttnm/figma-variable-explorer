@@ -103,6 +103,11 @@ function resolveVariableValuesByMode(variableValues: any, collection:VariableCol
 }
 
 export default function () {
+  on("RESIZE_WINDOW", function (windowSize: { width: number; height: number }) {
+    const { width, height } = windowSize;
+    figma.ui.resize(width, height);
+  });
+
   once<CloseHandler>("CLOSE", function () {
     figma.closePlugin();
   });
@@ -113,7 +118,7 @@ export default function () {
     collections.forEach((collection) => {
       const collectionVariables: VariableData = {
         modes: collection.modes.map((mode) => mode.name),
-        variables: {}
+        variables: {},
       };
       const collVariables = collection.variableIds;
 
@@ -122,7 +127,11 @@ export default function () {
         if (figmaVar) {
           const varInfo: InternalVariable = {
             type: figmaVar.resolvedType,
-            values: resolveVariableValuesByMode(figmaVar.valuesByMode, collection, figmaVar.resolvedType === 'COLOR'),
+            values: resolveVariableValuesByMode(
+              figmaVar.valuesByMode,
+              collection,
+              figmaVar.resolvedType === "COLOR"
+            ),
             id: figmaVar.id,
           };
           collectionVariables.variables[figmaVar.name] = varInfo;
@@ -136,6 +145,6 @@ export default function () {
 
   showUI({
     width: 500,
-    height: 800
+    height: 800,
   });
 }

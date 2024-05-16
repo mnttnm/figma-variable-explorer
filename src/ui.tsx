@@ -11,6 +11,9 @@ import {
   Divider,
   Button,
   IconSwap32,
+  useWindowResize,
+  DropdownOption,
+  IconLayerFrame16,
 } from "@create-figma-plugin/ui";
 import { emit, on } from "@create-figma-plugin/utilities";
 import { Fragment, JSX, h } from "preact";
@@ -33,9 +36,9 @@ function ValueRenderer({ varValueInfo, showCollection, type }: ValueRendererProp
   return (
     <div
       style={{
-        padding: "8px 0px",
         textAlign: "left",
-        width: "150px",
+        width: "200px",
+        maxWidth: "200px",
       }}
     >
       {varValueInfo.isAlias ? (
@@ -44,8 +47,8 @@ function ValueRenderer({ varValueInfo, showCollection, type }: ValueRendererProp
           style={{
             textDecoration: "underline",
             color: "var(--figma-color-text-component)",
-            width: "150px",
             overflow: "auto",
+            width: "200px",
           }}
         >
           {`${
@@ -68,7 +71,7 @@ function ValueRenderer({ varValueInfo, showCollection, type }: ValueRendererProp
             onClick={() => copy((varValueInfo.value as ColorValue).hexValue.split(",")[0])}
             title={"Click to Copy"}
           ></div>
-          <div style={{ width: "130px", userSelect: "text", cursor: "text" }}>
+          <div style={{ width: "180px", userSelect: "text", cursor: "text" }}>
             {(varValueInfo.value as ColorValue).hexValue}
           </div>
         </Columns>
@@ -196,6 +199,18 @@ function Plugin() {
     emit<GetVariableHandler>("GET_VARIABLES");
   }, []);
 
+  function onWindowResize(windowSize: { width: number; height: number }) {
+    emit("RESIZE_WINDOW", windowSize);
+  }
+
+  useWindowResize(onWindowResize, {
+    minWidth: 400,
+    minHeight: 600,
+    resizeBehaviorOnDoubleClick: "maximize",
+    maxHeight: window.screen.availHeight - 100,
+    maxWidth: window.screen.availWidth - 100,
+  });
+
   function onRefresh() {
     setIsRefreshing(true);
     emit<GetVariableHandler>("GET_VARIABLES");
@@ -251,6 +266,7 @@ function Plugin() {
               alignItems: "center",
               color: "var(--figma-color-text-component)",
               cursor: "pointer",
+              flex: 1,
             }}
           >
             <IconSwap32 />
@@ -258,7 +274,11 @@ function Plugin() {
               {isRefreshing ? "Refreshing..." : `Refresh`}
             </Text>
           </div>
-          <a href={"https://tally.so/r/3N7e9j"} target={"blank"}>
+          <a
+            style={{ flex: 1, textAlign: "right", color: "var(--figma-color-text-component)" }}
+            href={"https://tally.so/r/3N7e9j"}
+            target={"blank"}
+          >
             Submit Feedback
           </a>
         </div>
@@ -317,7 +337,8 @@ function Plugin() {
                 style={{
                   padding: "8px 0px",
                   textAlign: "left",
-                  width: "150px",
+                  width: "250px",
+                  maxWidth: "250px",
                   fontWeight: "600",
                   color: "var(--figma-color-text-secondary)",
                 }}
@@ -330,7 +351,7 @@ function Plugin() {
                     style={{
                       padding: "8px 0px",
                       textAlign: "left",
-                      width: "150px",
+                      width: "200px",
                       fontWeight: "600",
                       color: "var(--figma-color-text-secondary)",
                     }}
@@ -363,7 +384,7 @@ function Plugin() {
                         style={{
                           padding: "8px 0px",
                           textAlign: "left",
-                          width: "150px",
+                          width: "250px",
                           fontWeight: "600",
                           color: "var(--figma-color-text-secondary)",
                         }}
@@ -376,7 +397,8 @@ function Plugin() {
                             style={{
                               padding: "8px 0px",
                               textAlign: "left",
-                              width: "150px",
+                              width: "200px",
+                              maxWidth: "200px",
                               fontWeight: "600",
                               color: "var(--figma-color-text-secondary)",
                             }}
@@ -434,7 +456,8 @@ function Plugin() {
                             userSelect: "text",
                             textAlign: "left",
                             cursor: "text",
-                            width: "150px",
+                            width: "250px",
+                            maxWidth: "250px",
                             overflow: "auto",
                           }}
                           id={varInfo.id}
