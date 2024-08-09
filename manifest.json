@@ -4,14 +4,26 @@
     "figma",
     "dev"
   ],
-  "capabilities" : [
-    "inspect"
-  ],
-  "networkAccess": {
-    "allowedDomains": ["none"]
-  },
   "id": "1310888112326715990",
   "name": "Figma Variable Explorer",
   "main": "build/main.js",
-  "ui": "build/ui.js"
+  "ui": "build/ui.js",
+  "menu": [
+    {
+      "name": "Figma Variable Explorer New (Recommended)",
+      "command": "src-2.0/main.ts--default"
+    },
+    {
+      "name": "Figma Variable Explorer (Legacy)",
+      "command": "src/main.ts--default"
+    }
+  ],
+  "capabilities": [
+    "inspect"
+  ],
+  "networkAccess": {
+    "allowedDomains": [
+      "none"
+    ]
+  }
 }

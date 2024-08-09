@@ -1,0 +1,1091 @@
+:root {
+  /* mode-1: value */
+  /* collection: color primitives */
+  --sds-color-brand-100: rgba(245, 245, 245, 1);
+  --sds-color-brand-200: rgba(230, 230, 230, 1);
+  --sds-color-brand-300: rgba(217, 217, 217, 1);
+  --sds-color-brand-400: rgba(179, 179, 179, 1);
+  --sds-color-brand-500: rgba(117, 117, 117, 1);
+  --sds-color-brand-600: rgba(68, 68, 68, 1);
+  --sds-color-brand-700: rgba(56, 56, 56, 1);
+  --sds-color-brand-800: rgba(44, 44, 44, 1);
+  --sds-color-brand-900: rgba(30, 30, 30, 1);
+  --sds-color-brand-1000: rgba(17, 17, 17, 1);
+  --sds-color-black-100: rgba(12, 12, 13, 0.05);
+  --sds-color-black-200: rgba(12, 12, 13, 0.1);
+  --sds-color-black-300: rgba(12, 12, 13, 0.2);
+  --sds-color-black-400: rgba(12, 12, 13, 0.4);
+  --sds-color-black-500: rgba(12, 12, 13, 0.7);
+  --sds-color-black-600: rgba(12, 12, 13, 0.8);
+  --sds-color-black-700: rgba(12, 12, 13, 0.85);
+  --sds-color-black-800: rgba(12, 12, 13, 0.9);
+  --sds-color-black-900: rgba(12, 12, 13, 0.95);
+  --sds-color-black-1000: rgba(12, 12, 13, 1);
+  --sds-color-white-100: rgba(255, 255, 255, 0.05);
+  --sds-color-green-100: rgba(235, 255, 238, 1);
+  --sds-color-green-200: rgba(207, 247, 211, 1);
+  --sds-color-green-300: rgba(175, 244, 198, 1);
+  --sds-color-green-400: rgba(133, 224, 163, 1);
+  --sds-color-green-500: rgba(20, 174, 92, 1);
+  --sds-color-green-600: rgba(0, 153, 81, 1);
+  --sds-color-green-700: rgba(0, 128, 67, 1);
+  --sds-color-green-800: rgba(2, 84, 45, 1);
+  --sds-color-green-900: rgba(2, 64, 35, 1);
+  --sds-color-green-1000: rgba(6, 45, 27, 1);
+  --sds-color-gray-100: rgba(245, 245, 245, 1);
+  --sds-color-gray-200: rgba(230, 230, 230, 1);
+  --sds-color-gray-300: rgba(217, 217, 217, 1);
+  --sds-color-gray-400: rgba(179, 179, 179, 1);
+  --sds-color-gray-500: rgba(117, 117, 117, 1);
+  --sds-color-gray-600: rgba(68, 68, 68, 1);
+  --sds-color-gray-700: rgba(56, 56, 56, 1);
+  --sds-color-gray-800: rgba(44, 44, 44, 1);
+  --sds-color-gray-900: rgba(30, 30, 30, 1);
+  --sds-color-gray-1000: rgba(17, 17, 17, 1);
+  --sds-color-white-200: rgba(255, 255, 255, 0.1);
+  --sds-color-white-300: rgba(255, 255, 255, 0.2);
+  --sds-color-white-400: rgba(255, 255, 255, 0.4);
+  --sds-color-white-500: rgba(255, 255, 255, 0.7);
+  --sds-color-white-600: rgba(255, 255, 255, 0.8);
+  --sds-color-white-700: rgba(255, 255, 255, 0.85);
+  --sds-color-white-800: rgba(255, 255, 255, 0.9);
+  --sds-color-white-900: rgba(255, 255, 255, 0.95);
+  --sds-color-white-1000: rgba(255, 255, 255, 1);
+  --sds-color-pink-100: rgba(252, 241, 253, 1);
+  --sds-color-pink-200: rgba(250, 225, 250, 1);
+  --sds-color-pink-300: rgba(245, 192, 239, 1);
+  --sds-color-pink-400: rgba(241, 158, 220, 1);
+  --sds-color-pink-500: rgba(234, 63, 184, 1);
+  --sds-color-pink-600: rgba(215, 50, 168, 1);
+  --sds-color-pink-700: rgba(186, 42, 146, 1);
+  --sds-color-pink-800: rgba(138, 34, 111, 1);
+  --sds-color-pink-900: rgba(87, 24, 74, 1);
+  --sds-color-pink-1000: rgba(63, 21, 54, 1);
+  --sds-color-red-100: rgba(254, 233, 231, 1);
+  --sds-color-red-200: rgba(253, 211, 208, 1);
+  --sds-color-red-300: rgba(252, 179, 173, 1);
+  --sds-color-red-400: rgba(244, 119, 106, 1);
+  --sds-color-red-500: rgba(236, 34, 31, 1);
+  --sds-color-red-600: rgba(192, 15, 12, 1);
+  --sds-color-red-700: rgba(144, 11, 9, 1);
+  --sds-color-red-800: rgba(105, 8, 7, 1);
+  --sds-color-red-900: rgba(77, 11, 10, 1);
+  --sds-color-red-1000: rgba(48, 6, 3, 1);
+  --sds-color-slate-100: rgba(243, 243, 243, 1);
+  --sds-color-slate-200: rgba(227, 227, 227, 1);
+  --sds-color-slate-300: rgba(205, 205, 205, 1);
+  --sds-color-slate-400: rgba(178, 178, 178, 1);
+  --sds-color-slate-500: rgba(148, 148, 148, 1);
+  --sds-color-slate-600: rgba(118, 118, 118, 1);
+  --sds-color-slate-700: rgba(90, 90, 90, 1);
+  --sds-color-slate-800: rgba(67, 67, 67, 1);
+  --sds-color-slate-900: rgba(48, 48, 48, 1);
+  --sds-color-slate-1000: rgba(36, 36, 36, 1);
+  --sds-color-yellow-100: rgba(255, 251, 235, 1);
+  --sds-color-yellow-200: rgba(255, 241, 194, 1);
+  --sds-color-yellow-300: rgba(255, 232, 163, 1);
+  --sds-color-yellow-400: rgba(232, 185, 49, 1);
+  --sds-color-yellow-500: rgba(229, 160, 0, 1);
+  --sds-color-yellow-600: rgba(191, 106, 2, 1);
+  --sds-color-yellow-700: rgba(151, 81, 2, 1);
+  --sds-color-yellow-800: rgba(104, 45, 3, 1);
+  --sds-color-yellow-900: rgba(82, 37, 4, 1);
+  --sds-color-yellow-1000: rgba(64, 27, 1, 1);
+
+  /* collection: color */
+  --sds-color-background-default-default: var(--sds-color-gray-900);
+  --sds-color-background-neutral-default: var(--slate-400);
+  --sds-color-background-neutral-hover: var(--slate-500);
+  --sds-color-background-neutral-secondary: var(--slate-900);
+  --sds-color-background-neutral-secondary-hover: var(--slate-1000);
+  --sds-color-background-neutral-tertiary: var(--slate-900);
+  --sds-color-background-neutral-tertiary-hover: var(--slate-1000);
+  --sds-color-background-default-default-hover: var(--gray-700);
+  --sds-color-background-default-secondary: var(--sds-color-gray-800);
+  --sds-color-background-default-secondary-hover: var(
+    --sds-color-gray-900
+  );
+  --sds-color-background-default-tertiary: var(--gray-600);
+  --sds-color-background-default-tertiary-hover: var(--gray-700);
+  --sds-color-background-brand-default: var(--sds-color-brand-100);
+  --sds-color-background-brand-hover: var(--sds-color-brand-300);
+  --sds-color-background-brand-secondary: var(--sds-color-brand-600);
+  --sds-color-background-brand-secondary-hover: var(
+    --sds-color-brand-500
+  );
+  --sds-color-background-brand-tertiary: var(--sds-color-brand-600);
+  --sds-color-background-brand-tertiary-hover: var(
+    --sds-color-brand-800
+  );
+  --sds-color-background-positive-default: var(--green-700);
+  --sds-color-background-positive-hover: var(--green-800);
+  --sds-color-background-positive-secondary: var(--green-800);
+  --sds-color-background-positive-secondary-hover: var(--green-900);
+  --sds-color-background-positive-tertiary: var(--green-900);
+  --sds-color-background-positive-tertiary-hover: var(--green-1000);
+  --sds-color-background-warning-default: var(--yellow-400);
+  --sds-color-background-warning-hover: var(--yellow-500);
+  --sds-color-background-warning-secondary: var(--yellow-800);
+  --sds-color-background-warning-secondary-hover: var(--yellow-900);
+  --sds-color-background-warning-tertiary: var(--yellow-900);
+  --sds-color-background-warning-tertiary-hover: var(--yellow-1000);
+  --sds-color-background-danger-default: var(--red-600);
+  --sds-color-background-danger-hover: var(--red-700);
+  --sds-color-background-danger-secondary: var(--red-800);
+  --sds-color-background-danger-secondary-hover: var(--red-900);
+  --sds-color-background-danger-tertiary: var(--red-900);
+  --sds-color-background-danger-tertiary-hover: var(--red-1000);
+  --sds-color-background-disabled-default: var(--sds-color-brand-700);
+  --sds-color-background-utilities-scrim: rgba(0, 0, 0, 0.8);
+  --sds-color-background-utilities-blanket: rgba(0, 0, 0, 0.7);
+  --sds-color-background-utilities-overlay: rgba(0, 0, 0, 0.5);
+  --sds-color-background-utilities-measurement: var(--pink-800);
+  --sds-color-background-some-random-color-with-big-color-name: rgba(
+    255,
+    255,
+    255,
+    1
+  );
+  --sds-color-text-default-default: var(--sds-color-white-1000);
+  --sds-color-text-default-secondary: var(--sds-color-white-500);
+  --sds-color-text-default-tertiary: var(--sds-color-white-400);
+  --sds-color-text-neutral-default: var(--sds-color-slate-200);
+  --sds-color-text-neutral-secondary: var(--sds-color-slate-300);
+  --sds-color-text-neutral-tertiary: var(--sds-color-slate-400);
+  --sds-color-text-neutral-on-neutral: var(--sds-color-slate-1000);
+  --sds-color-text-neutral-on-neutral-secondary: var(
+    --sds-color-slate-100
+  );
+  --sds-color-text-neutral-on-neutral-tertiary: var(
+    --sds-color-slate-100
+  );
+  --sds-color-text-brand-default: var(--sds-color-brand-100);
+  --sds-color-text-brand-secondary: var(--sds-color-brand-300);
+  --sds-color-text-brand-tertiary: var(--sds-color-brand-400);
+  --sds-color-text-brand-on-brand: var(--sds-color-brand-900);
+  --sds-color-text-brand-on-brand-secondary: var(
+    --sds-color-brand-100
+  );
+  --sds-color-text-brand-on-brand-tertiary: var(
+    --sds-color-brand-100
+  );
+  --sds-color-text-positive-default: var(--green-200);
+  --sds-color-text-positive-secondary: var(--green-400);
+  --sds-color-text-positive-tertiary: var(--green-600);
+  --sds-color-text-positive-on-positive: var(--green-100);
+  --sds-color-text-positive-on-positive-secondary: var(--green-100);
+  --sds-color-text-positive-on-positive-tertiary: var(--green-100);
+  --sds-color-text-warning-default: var(--yellow-200);
+  --sds-color-text-warning-secondary: var(--yellow-400);
+  --sds-color-text-warning-tertiary: var(--yellow-600);
+  --sds-color-text-warning-on-warning: var(--yellow-1000);
+  --sds-color-text-warning-on-warning-secondary: var(--yellow-100);
+  --sds-color-text-warning-on-warning-tertiary: var(--yellow-100);
+  --sds-color-text-danger-default: var(--red-200);
+  --sds-color-text-danger-secondary: var(--red-400);
+  --sds-color-text-danger-tertiary: var(--red-500);
+  --sds-color-text-danger-on-danger: var(--red-100);
+  --sds-color-text-danger-on-danger-secondary: var(--red-100);
+  --sds-color-text-danger-on-danger-tertiary: var(--red-100);
+  --sds-color-text-disabled-default: var(--sds-color-brand-500);
+  --sds-color-text-utilities-text-on-overlay: var(--white-1000);
+  --sds-color-text-utilities-text-on-measurement: var(--pink-200);
+  --sds-color-text-disabled-on-disabled: var(--sds-color-brand-400);
+  --sds-color-border-default-default: var(--sds-color-gray-600);
+  --sds-color-border-default-secondary: var(--sds-color-gray-500);
+  --sds-color-border-default-tertiary: var(--sds-color-gray-400);
+  --sds-color-border-neutral-default: var(--slate-100);
+  --sds-color-border-neutral-secondary: var(--slate-500);
+  --sds-color-border-neutral-tertiary: var(--slate-600);
+  --sds-color-border-brand-default: var(--sds-color-brand-100);
+  --sds-color-border-brand-secondary: var(--sds-color-brand-300);
+  --sds-color-border-brand-tertiary: var(--sds-color-brand-400);
+  --sds-color-border-positive-default: var(--green-200);
+  --sds-color-border-positive-secondary: var(--green-400);
+  --sds-color-border-positive-tertiary: var(--green-600);
+  --sds-color-border-warning-default: var(--yellow-200);
+  --sds-color-border-warning-secondary: var(--yellow-400);
+  --sds-color-border-warning-tertiary: var(--yellow-600);
+  --sds-color-border-danger-default: var(--red-200);
+  --sds-color-border-danger-secondary: var(--red-400);
+  --sds-color-border-danger-tertiary: var(--red-500);
+  --sds-color-border-disabled-default: var(--sds-color-brand-600);
+  --sds-color-border-utilities-measurement: var(--pink-600);
+  --sds-color-border-utilities-swatch: rgba(255, 255, 255, 0.24);
+  --sds-color-icon-default-default: var(--white-1000);
+  --sds-color-icon-neutral-default: var(--slate-200);
+  --sds-color-icon-neutral-secondary: var(--slate-300);
+  --sds-color-icon-neutral-tertiary: var(--slate-400);
+  --sds-color-icon-neutral-on-neutral: var(--slate-1000);
+  --sds-color-icon-neutral-on-neutral-secondary: var(--slate-100);
+  --sds-color-icon-neutral-on-neutral-tertiary: var(--slate-100);
+  --sds-color-icon-default-secondary: var(--white-500);
+  --sds-color-icon-default-tertiary: var(--white-400);
+  --sds-color-icon-brand-default: var(--sds-color-brand-100);
+  --sds-color-icon-brand-secondary: var(--sds-color-brand-300);
+  --sds-color-icon-brand-tertiary: var(--sds-color-brand-400);
+  --sds-color-icon-brand-on-brand: var(--sds-color-brand-900);
+  --sds-color-icon-brand-on-brand-secondary: var(
+    --sds-color-brand-100
+  );
+  --sds-color-icon-brand-on-brand-tertiary: var(
+    --sds-color-brand-100
+  );
+  --sds-color-icon-positive-default: var(--green-200);
+  --sds-color-icon-positive-secondary: var(--green-400);
+  --sds-color-icon-positive-tertiary: var(--green-600);
+  --sds-color-icon-positive-on-positive: var(--green-100);
+  --sds-color-icon-positive-on-positive-secondary: var(--green-100);
+  --sds-color-icon-positive-on-positive-tertiary: var(--green-100);
+  --sds-color-icon-warning-default: var(--yellow-200);
+  --sds-color-icon-warning-secondary: var(--yellow-400);
+  --sds-color-icon-warning-tertiary: var(--yellow-600);
+  --sds-color-icon-warning-on-warning: var(--yellow-1000);
+  --sds-color-icon-warning-on-warning-secondary: var(--yellow-100);
+  --sds-color-icon-warning-on-warning-tertiary: var(--yellow-100);
+  --sds-color-icon-danger-default: var(--red-200);
+  --sds-color-icon-danger-secondary: var(--red-400);
+  --sds-color-icon-danger-tertiary: var(--red-500);
+  --sds-color-icon-danger-on-danger: var(--red-100);
+  --sds-color-icon-danger-on-danger-secondary: var(--red-100);
+  --sds-color-icon-danger-on-danger-tertiary: var(--red-100);
+  --sds-color-icon-disabled-default: var(--sds-color-brand-500);
+  --sds-color-icon-utilities-icon: var(--pink-400);
+  --sds-color-icon-utilities-icon-on-measurement: var(--pink-200);
+  --sds-color-icon-disabled-on-disabled: var(--sds-color-brand-400);
+
+  /* mode-4: default */
+
+  /* collection: typography primitives */
+  --family-sans: inter;
+  --family-serif: noto serif;
+  --family-mono: roboto mono;
+  --scale-01: 12px;
+  --scale-02: 14px;
+  --scale-03: 16px;
+  --scale-04: 20px;
+  --scale-05: 24px;
+  --scale-06: 32px;
+  --scale-07: 40px;
+  --scale-08: 48px;
+  --scale-09: 64px;
+  --scale-10: 72px;
+  --weight-thin: 100;
+  --weight-thin-italic: thin italic;
+  --weight-extra-light: 200;
+  --weight-extralight-italic: extra light italic;
+  --weight-light: 300;
+  --weight-light-italic: light italic;
+  --weight-regular: 400;
+  --weight-regular-italic: italic;
+  --weight-medium: 500;
+  --weight-medium-italic: medium italic;
+  --weight-semibold: 600;
+  --weight-semibold-italic: semi bold italic;
+  --weight-bold: 700;
+  --weight-bold-italic: bold italic;
+  --weight-extra-bold: 800;
+  --weight-extra-bold-italic: extra bold italic;
+  --weight-black: 900;
+  --weight-black-italic: black italic;
+
+  /* collection: size */
+  --sds-size-space-0: 0px;
+  --sds-size-space-050: 2px;
+  --sds-size-space-100: 4px;
+  --sds-size-space-150: 6px;
+  --sds-size-space-200: 8px;
+  --sds-size-space-300: 12px;
+  --sds-size-space-400: 16px;
+  --sds-size-space-600: 24px;
+  --sds-size-space-800: 32px;
+  --sds-size-space-1200: 48px;
+  --sds-size-space-1600: 64px;
+  --sds-size-space-2400: 96px;
+  --sds-size-space-4000: 160px;
+  --sds-size-space-negative-100: -4px;
+  --sds-size-space-negative-200: -8px;
+  --sds-size-space-negative-300: -12px;
+  --sds-size-space-negative-400: -16px;
+  --sds-size-space-negative-600: -24px;
+  --sds-size-radius-100: 4px;
+  --sds-size-radius-200: 8px;
+  --sds-size-radius-400: 16px;
+  --sds-size-blur-100: 4px;
+  --sds-size-radius-full: 9999px;
+  --sds-size-depth-0: 0px;
+  --sds-size-depth-025: 1px;
+  --sds-size-depth-100: 4px;
+  --sds-size-depth-200: 8px;
+  --sds-size-depth-400: 16px;
+  --sds-size-depth-800: 32px;
+  --sds-size-depth-1200: 48px;
+  --sds-size-depth-negative-025: -1px;
+  --sds-size-depth-negative-100: -4px;
+  --sds-size-depth-negative-200: -8px;
+  --sds-size-depth-negative-400: -16px;
+  --sds-size-depth-negative-800: -32px;
+  --sds-size-depth-negative-1200: -48px;
+  --sds-size-stroke-border: 1px;
+  --sds-size-stroke-focus-ring: 2px;
+  --sds-size-icon-small: 24px;
+  --sds-size-icon-medium: 32px;
+  --sds-size-icon-large: 40px;
+
+  /* mode-5: desktop */
+
+  /* collection: responsive */
+  --device: desktop;
+  --device-width: 1200;
+  --root-font-size: var(--scale-03);
+  --scale: 1;
+
+  /* mode-6: mobile */
+
+  /* collection: responsive */
+  --device: mobile;
+  --device-width: 375;
+  --root-font-size: var(--scale-03);
+  --scale: 1.25;
+
+  /* mode-7: tablet */
+
+  /* collection: responsive */
+  --device: tablet;
+  --device-width: 768;
+  --root-font-size: var(--scale-03);
+  --scale: 1;
+
+  /* mode-8: mode 1 */
+
+  /* collection: typography */
+  --sds-typography-title-hero-font-family: var(--family-sans);
+  --sds-typography-title-hero-size: var(--scale-10);
+  --sds-typography-title-hero-font-weight: var(--weight-bold);
+  --sds-typography-title-page-font-family: var(--family-sans);
+  --sds-typography-title-page-size-small: var(--scale-07);
+  --sds-typography-title-page-size-base: var(--scale-08);
+  --sds-typography-title-page-size-large: var(--scale-09);
+  --sds-typography-title-page-font-weight: var(--weight-bold);
+  --sds-typography-subtitle-font-family: var(--family-sans);
+  --sds-typography-subtitle-size-small: var(--scale-05);
+  --sds-typography-subtitle-size-base: var(--scale-06);
+  --sds-typography-subtitle-size-large: var(--scale-07);
+  --sds-typography-subtitle-font-weight: var(--weight-regular);
+  --sds-typography-heading-font-family: var(--family-sans);
+  --sds-typography-heading-size-small: var(--scale-04);
+  --sds-typography-heading-size-base: var(--scale-05);
+  --sds-typography-heading-size-large: var(--scale-06);
+  --sds-typography-heading-font-weight: var(--weight-semibold);
+  --sds-typography-subheading-font-family: var(--family-sans);
+  --sds-typography-subheading-size-small: var(--scale-03);
+  --sds-typography-subheading-size-medium: var(--scale-04);
+  --sds-typography-subheading-size-large: var(--scale-05);
+  --sds-typography-subheading-font-weight: var(--weight-regular);
+  --sds-typography-body-font-family: var(--family-sans);
+  --sds-typography-body-size-extra-small: var(--scale-01);
+  --sds-typography-body-size-small: var(--scale-02);
+  --sds-typography-body-size-medium: var(--scale-03);
+  --sds-typography-body-size-large: var(--scale-04);
+  --sds-typography-body-font-weight-regular: var(--weight-regular);
+  --sds-typography-body-font-weight-strong: var(--weight-semibold);
+  --sds-typography-body-font-style-italic: var(
+    --weight-regular-italic
+  );
+  --sds-typography-code-font-family: var(--family-mono);
+  --sds-typography-code-size-small: var(
+    --sds-typography-body-size-small
+  );
+  --sds-typography-code-size-base: var(
+    --sds-typography-body-size-medium
+  );
+  --sds-typography-code-size-large: var(
+    --sds-typography-body-size-large
+  );
+  --sds-typography-code-font-weight: var(
+    --sds-typography-body-font-weight-regular
+  );
+}
+
+ul,
+li,
+dl {
+  margin: 0;
+  padding: 0;
+}
+
+.theme-light {
+  /* mode-3: sds light */
+  --sds-color-background-default-default: var(--sds-color-white-1000);
+  --sds-color-background-neutral-default: var(--sds-color-slate-800);
+  --sds-color-background-neutral-secondary: var(
+    --sds-color-slate-300
+  );
+  --sds-color-background-neutral-secondary-hover: var(--slate-400);
+  --sds-color-background-neutral-tertiary: var(--slate-200);
+  --sds-color-background-neutral-tertiary-hover: var(--slate-300);
+  --sds-color-background-default-default-hover: var(--gray-100);
+  --sds-color-background-default-secondary: var(--sds-color-gray-100);
+  --sds-color-background-default-secondary-hover: var(--gray-200);
+  --sds-color-background-default-tertiary: var(--gray-300);
+  --sds-color-background-default-tertiary-hover: var(--gray-400);
+  --sds-color-background-brand-default: var(--sds-color-brand-800);
+  --sds-color-background-brand-hover: var(--sds-color-brand-900);
+  --sds-color-background-brand-secondary: var(--sds-color-brand-200);
+  --sds-color-background-brand-secondary-hover: var(
+    --sds-color-brand-300
+  );
+  --sds-color-background-brand-tertiary: var(--sds-color-brand-100);
+  --sds-color-background-brand-tertiary-hover: var(
+    --sds-color-brand-200
+  );
+  --sds-color-background-positive-default: var(--green-500);
+  --sds-color-background-positive-hover: var(--green-600);
+  --sds-color-background-positive-secondary: var(--green-200);
+  --sds-color-background-positive-secondary-hover: var(--green-300);
+  --sds-color-background-positive-tertiary: var(--green-100);
+  --sds-color-background-positive-tertiary-hover: var(--green-200);
+  --sds-color-background-warning-default: var(--yellow-400);
+  --sds-color-background-warning-hover: var(--yellow-500);
+  --sds-color-background-warning-secondary: var(--yellow-200);
+  --sds-color-background-warning-secondary-hover: var(--yellow-300);
+  --sds-color-background-warning-tertiary: var(--yellow-100);
+  --sds-color-background-warning-tertiary-hover: var(--yellow-200);
+  --sds-color-background-danger-default: var(--red-500);
+  --sds-color-background-danger-hover: var(--red-600);
+  --sds-color-background-danger-secondary: var(--red-200);
+  --sds-color-background-danger-secondary-hover: var(--red-300);
+  --sds-color-background-danger-tertiary: var(--red-100);
+  --sds-color-background-danger-tertiary-hover: var(--red-200);
+  --sds-color-background-disabled-default: var(--sds-color-brand-300);
+  --sds-color-background-utilities-scrim: rgba(255, 255, 255, 0.8);
+  --sds-color-background-utilities-blanket: rgba(0, 0, 0, 0.7);
+  --sds-color-background-utilities-overlay: rgba(0, 0, 0, 0.5);
+  --sds-color-background-utilities-measurement: var(--pink-200);
+  --sds-color-background-some-random-color-with-big-color-name: rgba(
+    255,
+    255,
+    255,
+    1
+  );
+  --sds-color-text-default-default: var(--gray-900);
+  --sds-color-text-default-secondary: var(--gray-500);
+  --sds-color-text-default-tertiary: var(--gray-400);
+  --sds-color-text-neutral-default: var(--slate-900);
+  --sds-color-text-neutral-secondary: var(--slate-700);
+  --sds-color-text-neutral-tertiary: var(--slate-600);
+  --sds-color-text-neutral-on-neutral: var(--slate-100);
+  --sds-color-text-neutral-on-neutral-secondary: var(--slate-900);
+  --sds-color-text-neutral-on-neutral-tertiary: var(--slate-800);
+  --sds-color-text-brand-default: var(--sds-color-brand-800);
+  --sds-color-text-brand-secondary: var(--sds-color-brand-600);
+  --sds-color-text-brand-tertiary: var(--sds-color-brand-500);
+  --sds-color-text-brand-on-brand: var(--sds-color-brand-100);
+  --sds-color-text-brand-on-brand-secondary: var(
+    --sds-color-brand-900
+  );
+  --sds-color-text-brand-on-brand-tertiary: var(
+    --sds-color-brand-800
+  );
+  --sds-color-text-positive-default: var(--green-800);
+  --sds-color-text-positive-secondary: var(--green-600);
+  --sds-color-text-positive-tertiary: var(--green-500);
+  --sds-color-text-positive-on-positive: var(--green-100);
+  --sds-color-text-positive-on-positive-secondary: var(--green-800);
+  --sds-color-text-positive-on-positive-tertiary: var(--green-800);
+  --sds-color-text-warning-default: var(--yellow-900);
+  --sds-color-text-warning-secondary: var(--yellow-700);
+  --sds-color-text-warning-tertiary: var(--yellow-600);
+  --sds-color-text-warning-on-warning: var(--yellow-1000);
+  --sds-color-text-warning-on-warning-secondary: var(--yellow-800);
+  --sds-color-text-warning-on-warning-tertiary: var(--yellow-900);
+  --sds-color-text-danger-default: var(--red-700);
+  --sds-color-text-danger-secondary: var(--red-600);
+  --sds-color-text-danger-tertiary: var(--red-500);
+  --sds-color-text-danger-on-danger: var(--red-100);
+  --sds-color-text-danger-on-danger-secondary: var(--red-700);
+  --sds-color-text-danger-on-danger-tertiary: var(--red-700);
+  --sds-color-text-disabled-default: var(--sds-color-brand-400);
+  --sds-color-text-utilities-text-on-overlay: var(--black-1000);
+  --sds-color-text-utilities-text-on-measurement: var(--pink-800);
+  --sds-color-text-disabled-on-disabled: var(--sds-color-brand-400);
+  --sds-color-border-default-default: var(--sds-color-gray-300);
+  --sds-color-border-default-secondary: var(--gray-500);
+  --sds-color-border-default-tertiary: var(--gray-700);
+  --sds-color-border-neutral-default: var(--slate-900);
+  --sds-color-border-neutral-secondary: var(--slate-600);
+  --sds-color-border-neutral-tertiary: var(--slate-400);
+  --sds-color-border-brand-default: var(--sds-color-brand-800);
+  --sds-color-border-brand-secondary: var(--sds-color-brand-600);
+  --sds-color-border-brand-tertiary: var(--sds-color-brand-500);
+  --sds-color-border-positive-default: var(--green-800);
+  --sds-color-border-positive-secondary: var(--green-600);
+  --sds-color-border-positive-tertiary: var(--green-500);
+  --sds-color-border-warning-default: var(--yellow-900);
+  --sds-color-border-warning-secondary: var(--yellow-700);
+  --sds-color-border-warning-tertiary: var(--yellow-600);
+  --sds-color-border-danger-default: var(--red-700);
+  --sds-color-border-danger-secondary: var(--red-600);
+  --sds-color-border-danger-tertiary: var(--red-500);
+  --sds-color-border-disabled-default: var(--sds-color-brand-400);
+  --sds-color-border-utilities-measurement: var(--pink-400);
+  --sds-color-border-utilities-swatch: rgba(0, 0, 0, 0.24);
+  --sds-color-icon-default-default: var(--sds-color-gray-900);
+  --sds-color-icon-neutral-default: var(--slate-900);
+  --sds-color-icon-neutral-secondary: var(--slate-700);
+  --sds-color-icon-neutral-tertiary: var(--slate-600);
+  --sds-color-icon-neutral-on-neutral: var(--slate-100);
+  --sds-color-icon-neutral-on-neutral-secondary: var(--slate-900);
+  --sds-color-icon-neutral-on-neutral-tertiary: var(--slate-800);
+  --sds-color-icon-default-secondary: var(--gray-500);
+  --sds-color-icon-default-tertiary: var(--gray-400);
+  --sds-color-icon-brand-default: var(--sds-color-brand-800);
+  --sds-color-icon-brand-secondary: var(--sds-color-brand-600);
+  --sds-color-icon-brand-tertiary: var(--sds-color-brand-500);
+  --sds-color-icon-brand-on-brand: var(--sds-color-brand-100);
+  --sds-color-icon-brand-on-brand-secondary: var(
+    --sds-color-brand-900
+  );
+  --sds-color-icon-brand-on-brand-tertiary: var(
+    --sds-color-brand-800
+  );
+  --sds-color-icon-positive-default: var(--green-800);
+  --sds-color-icon-positive-secondary: var(--green-600);
+  --sds-color-icon-positive-tertiary: var(--green-500);
+  --sds-color-icon-positive-on-positive: var(--green-100);
+  --sds-color-icon-positive-on-positive-secondary: var(--green-800);
+  --sds-color-icon-positive-on-positive-tertiary: var(--green-900);
+  --sds-color-icon-warning-default: var(--yellow-900);
+  --sds-color-icon-warning-secondary: var(--yellow-700);
+  --sds-color-icon-warning-tertiary: var(--yellow-600);
+  --sds-color-icon-warning-on-warning: var(--yellow-1000);
+  --sds-color-icon-warning-on-warning-secondary: var(--yellow-800);
+  --sds-color-icon-warning-on-warning-tertiary: var(--yellow-900);
+  --sds-color-icon-danger-default: var(--red-700);
+  --sds-color-icon-danger-secondary: var(--red-600);
+  --sds-color-icon-danger-tertiary: var(--red-500);
+  --sds-color-icon-danger-on-danger: var(--red-100);
+  --sds-color-icon-danger-on-danger-secondary: var(--red-700);
+  --sds-color-icon-danger-on-danger-tertiary: var(--red-700);
+  --sds-color-icon-disabled-default: var(--sds-color-brand-400);
+  --sds-color-icon-utilities-icon: var(--pink-600);
+  --sds-color-icon-utilities-icon-on-measurement: var(--pink-800);
+  --sds-color-icon-disabled-on-disabled: var(--sds-color-brand-400);
+}
+
+.pluginContainer {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-width: 300px;
+  height: 100vh;
+  flex-direction: column;
+  align-items: flex-start;
+  background: var(--sds-color-background-default-default);
+
+  /* Drop Shadow/400 */
+  box-shadow: var(--sds-size-depth-0) var(--sds-size-depth-400)
+      var(--sds-size-depth-800) var(--sds-size-depth-negative-100)
+      var(--sds-color-black-200),
+    var(--sds-size-depth-0) var(--sds-size-depth-100)
+      var(--sds-size-depth-100) var(--sds-size-depth-negative-100)
+      var(--sds-color-black-100);
+
+  overflow: auto;
+}
+
+.navbar {
+  position: absolute;
+  display: flex;
+  width: 207px;
+  height: 100vh;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--sds-size-space-400);
+  flex-shrink: 0;
+  border-right: var(--sds-size-stroke-border) solid
+    var(--sds-color-border-default-default);
+  background: var(--sds-color-background-default-secondary);
+  z-index: 10;
+}
+
+.navbarTitleContainer {
+  display: flex;
+  height: 48px;
+  padding: var(--sds-size-space-100);
+  align-items: center;
+  align-self: stretch;
+}
+
+.navItemsContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.navItemContainer {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: var(--sds-size-space-150) var(--sds-size-space-200);
+  gap: var(--sds-size-space-200);
+  border-radius: var(--sds-size-radius-150);
+  cursor: pointer;
+}
+
+.navItemContainer:hover {
+  background-color: var(
+    --sds-color-background-default-secondary-hover
+  );
+}
+
+.navItemLabel {
+  color: var(--sds-color-text-default-default);
+  /* Body Small */
+  font-family: var(--sds-typography-body-font-family);
+  font-size: var(--sds-typography-body-size-small);
+  font-style: normal;
+  font-weight: var(--sds-typography-body-font-weight-regular);
+  line-height: 140%;
+  cursor: pointer;
+}
+
+.header {
+  display: flex;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 48px;
+  padding: var(--sds-size-space-200);
+  align-items: center;
+  gap: var(--sds-size-space-200, 8px);
+  align-self: stretch;
+  border-bottom: var(--sds-size-stroke-border) solid
+    var(--sds-color-border-default-default);
+  background: var(--sds-color-background-default-default);
+  z-index: 1000;
+}
+
+.icon-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--sds-size-space-100);
+
+  width: var(--sds-size-icon-small);
+  height: var(--sds-size-icon-small);
+
+  color: var(--sds-color-icon-default-default);
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.icon-button-box {
+  display: flex;
+  padding: var(--sds-size-space-100);
+  align-items: center;
+  gap: var(--sds-size-space-400);
+  border-radius: var(--sds-size-radius-100);
+  border: var(--body-extra-small, 1px) solid
+    var(--sds-color-border-default-default);
+  background: var(--sds-color-background-default-secondary);
+}
+
+.collectionSelectorBox {
+  /* display: flex; */
+  padding: var(--sds-size-space-100);
+  align-items: center;
+  border-radius: var(--sds-size-radius-100);
+  border: var(--body-extra-small, 1px) solid
+    var(--sds-color-border-default-default);
+  background: var(--sds-color-background-default-secondary);
+}
+
+.actions-box {
+  display: flex;
+  align-items: center;
+  gap: var(--sds-size-space-200);
+}
+
+.tableContainer {
+  flex: 1;
+  align-self: stretch;
+  overflow: auto;
+  height: 100%;
+}
+
+.tableHeaderContainer,
+.tableRowContainer {
+  display: flex;
+  height: 32px;
+  padding: var(--sds-size-space-0) 0px;
+  align-items: center;
+  align-self: stretch;
+  border-bottom: var(--sds-size-stroke-border) solid
+    var(--sds-color-border-default-default);
+}
+
+.tableHead {
+  position: sticky;
+  top: 0;
+  z-index: 110;
+  background: var(--sds-color-background-default-default);
+}
+
+.tableHeaderContainer {
+  position: sticky;
+  top: 0;
+}
+
+.tableHeaderItemContainer,
+.tableValueItemContainer {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  width: 220px;
+  min-width: 150px;
+  padding: var(--sds-size-space-100);
+  text-align: start;
+  border-right: var(--sds-size-stroke-border) solid
+    var(--sds-color-border-default-secondary);
+  border-bottom: var(--sds-size-stroke-border) solid
+    var(--sds-color-border-default-secondary);
+  color: var(--sds-color-text-default-secondary);
+  font-family: var(--sds-typography-body-font-family);
+  font-size: var(--sds-typography-body-size-extra-small);
+  font-style: normal;
+  font-weight: var(--sds-typography-body-font-weight-regular);
+  line-height: 140%;
+  overflow: hidden;
+}
+
+.tableHeaderItemContainer > span,
+.tableValueItemContainer > span {
+  text-overflow: ellipsis;
+  /* Display ellipsis when text is too long */
+  white-space: nowrap;
+  /* Prevent text wrapping */
+  overflow: hidden;
+  /* Ensure text-overflow works */
+  flex-grow: 1;
+  -webkit-user-select: text;
+  user-select: text;
+  cursor: text;
+  /* Ensure the text takes up available space */
+}
+
+.tableValueItemContainer:nth-child(1),
+.tableHeaderItemContainer:nth-child(1) {
+  position: sticky;
+  left: 0;
+  background: var(--sds-color-background-default-default);
+  z-index: 10;
+}
+
+/* For tableheaderItemContainer except the first column, keep the width as 190px */
+.tableHeaderItemContainer:not(:first-child) {
+  width: 190px;
+  min-width: 150px;
+}
+
+.tableValueItemContainer:not(:first-child) {
+  width: 190px;
+  min-width: 150px;
+}
+
+.aliasValueContainer {
+  position: relative;
+  display: inline-block;
+  /* Ensure the container wraps its contents */
+}
+
+.aliasValue {
+  margin: 0;
+  color: var(--sds-color-text-default-default);
+  background-color: var(--sds-color-background-brand-secondary);
+  padding: var(--sds-size-space-050) var(--sds-size-space-100);
+  border-radius: var(--sds-size-radius-100);
+  border: 1px solid var(--sds-color-border-default-default);
+  opacity: 1;
+  font-size: var(--sds-typography-body-size-extra-small);
+  font-family: var(--sds-typography-body-font-family);
+  font-weight: var(--sds-typography-body-font-weight-regular);
+  max-width: 100%;
+  width: -moz-fit-content;
+  width: fit-content;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.aliasValue:hover {
+  cursor: pointer;
+  background-color: var(--sds-color-background-brand-secondary-hover);
+}
+
+.colorValueContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--sds-size-space-200);
+}
+
+.colorTileValue {
+  width: 18px;
+  height: 18px;
+  border-radius: var(--sds-size-radius-100);
+  border: var(--body-extra-small, 1px) solid
+    var(--sds-color-border-default-default);
+  cursor: pointer;
+}
+
+.stringValue {
+  margin: 0;
+  padding: 0;
+  -webkit-user-select: text;
+  user-select: text;
+  cursor: text;
+}
+
+.tooltip.aliasTooltip {
+  background-color: var(--sds-color-background-brand-secondary);
+  color: var(--sds-color-text-default-default);
+  border: var(--body-extra-small, 1px) solid
+    var(--sds-color-border-default-default);
+  font-size: var(--sds-typography-body-size-extra-small);
+  font-family: var(--sds-typography-body-font-family);
+  font-weight: var(--sds-typography-body-font-weight-regular);
+  padding: var(--sds-size-space-100);
+  border-radius: var(--sds-size-radius-100);
+}
+
+.tooltip.tooltipArrow {
+  display: none;
+}
+
+.aliasResolutionContainer {
+  position: absolute;
+  left: 100px;
+  top: 0px;
+  min-width: 150px;
+  z-index: 10000;
+  display: flex;
+  padding: var(--sds-size-space-300) var(--sds-size-space-200);
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sds-size-space-100);
+  border-radius: var(--sds-size-radius-100);
+  background: var(--sds-color-background-default-secondary);
+
+  box-shadow: var(--sds-size-depth-0) var(--sds-size-depth-400)
+    var(--sds-size-depth-800) var(--sds-size-depth-negative-200)
+    var(--sds-color-black-400);
+}
+
+.resolvedAliasLabel {
+  display: flex;
+  padding: var(--sds-size-space-100) var(--sds-size-space-150);
+  justify-content: center;
+  align-items: center;
+  gap: var(--sds-size-space-200);
+  border-radius: var(--sds-size-radius-100);
+  border: 1px solid var(--sds-color-border-default-default);
+  background: var(--sds-color-background-default-secondary-hover);
+}
+
+.resolvedAliasLabel:hover {
+  border: 1px solid var(--sds-color-border-default-secondary);
+  cursor: pointer;
+}
+
+.resolvedAliasValueContainer {
+  background-color: var(--sds-color-background-brand-tertiary);
+}
+
+.aliasFinalValue {
+  color: var(--sds-color-text-default-default);
+  font-weight: var(--sds-typography-body-font-weight-strong);
+}
+
+.icon path {
+  stroke: var(--sds-color-icon-brand-on-brand-secondary);
+  width: 15px;
+  height: 15px;
+}
+
+.icon:hover path {
+  stroke: var(--sds-color-icon-brand-secondary);
+}
+
+.icon:active path {
+  stroke: var(--sds-color-icon-brand-on-brand-secondary);
+}
+
+.popoverContainer {
+  position: absolute;
+  top: 100%;
+  right: 0%;
+  /* transform: translateX(-50%); */
+  /* margin-top: var(--sds-size-space-200); */
+  box-shadow: var(--sds-size-depth-0) var(--sds-size-depth-400)
+      var(--sds-size-depth-800) var(--sds-size-depth-negative-100)
+      var(--sds-color-black-200),
+    var(--sds-size-depth-0) var(--sds-size-depth-100)
+      var(--sds-size-depth-100) var(--sds-size-depth-negative-100)
+      var(--sds-color-black-100);
+  border-radius: var(--sds-size-radius-100);
+  min-width: 200px;
+  border: 1px solid var(--sds-color-border-default-secondary);
+  background: var(--sds-color-background-default-secondary);
+}
+
+.configurationForm {
+  display: flex;
+  padding: var(--sds-size-space-300);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sds-size-space-300);
+}
+
+.configurationBoxContainer {
+  position: relative;
+}
+
+.jsonViewContainer {
+  -webkit-user-select: auto;
+  user-select: text;
+  cursor: text;
+  border: 1px var(--figma-color-border) solid;
+  background: var(--figma-color-bg-secondary);
+  padding: 6px;
+  overflow: auto;
+  width: 100%;
+  margin-inline: var(--sds-size-space-100);
+}
+
+.cssViewContainer {
+  width: 100%;
+  -webkit-user-select: auto;
+  user-select: text;
+  cursor: text;
+  border: 1px var(--figma-color-border) solid;
+  background: var(--figma-color-bg-secondary);
+  padding: 6px;
+  overflow: auto;
+  margin-inline: var(--sds-size-space-100);
+}
+
+.searchContainer {
+  display: flex;
+  gap: var(--sds-size-space-150);
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.searchInput {
+  flex: 1;
+  display: flex;
+  padding: var(--sds-size-space-100);
+  align-items: center;
+  gap: var(--sds-size-space-200);
+  border-radius: var(--sds-size-radius-100);
+  border: var(--body-extra-small, 1px) solid
+    var(--sds-color-border-default-default);
+  background: var(--sds-color-background-default-secondary);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.optionsPopover {
+  padding: var(--sds-size-space-200);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sds-size-space-200);
+
+  li {
+    list-style: none;
+    font-size: small;
+    color: var(--sds-color-text-default-secondary);
+    opacity: 0; /* Initial state for fade-in */
+    animation: fadeIn 0.1s forwards;
+
+    &:hover:not(.disabledOption) {
+      cursor: pointer;
+      color: var(--sds-color-text-default-default);
+      transition: color 0.3s ease-in-out;
+    }
+
+    &.disabledOption {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      &:hover {
+        text-decoration: underline;
+        color: var(--sds-color-text-default-default);
+        transition: color 0.3s ease-in-out;
+      }
+    }
+
+    /* Delay each li's animation for a staggered effect */
+    &:nth-child(1) {
+      animation-delay: 0s;
+    }
+    &:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+    &:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+    &:nth-child(4) {
+      animation-delay: 0.3s;
+    }
+    &:nth-child(5) {
+      animation-delay: 0.4s;
+    }
+    &:nth-child(6) {
+      animation-delay: 0.6s;
+    }
+  }
+}
+
+.optionsPopoverFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--sds-size-space-100);
+  margin-top: var(--sds-size-space-300);
+}
+
+.modalContainer {
+  position: fixed;
+  inset: 0; 
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+.confirmationPopover {
+  padding: var(--sds-size-space-150) var(--sds-size-space-300);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sds-size-space-200);
+  background-color: var(--sds-color-background-default-default);
+  z-index: 20; /* Ensure it's above the overlay */
+}
+

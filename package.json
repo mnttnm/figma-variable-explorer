@@ -3,7 +3,9 @@
     "@create-figma-plugin/ui": "^2.5.1",
     "@create-figma-plugin/utilities": "^2.5.1",
     "copy-to-clipboard": "^3.3.3",
-    "preact": ">=10"
+    "preact": ">=10",
+    "react-tooltip": "^5.27.1",
+    "classnames": "^2.5.1"
   },
   "devDependencies": {
     "@create-figma-plugin/build": "^2.5.1",
@@ -16,13 +18,28 @@
     "build": "build-figma-plugin --typecheck --minify",
     "watch": "build-figma-plugin --typecheck --watch"
   },
+
   "figma-plugin": {
-    "editorType": [
-      "figma"
+    "capabilities": [
+      "inspect"
     ],
-    "id": "preact-rectangles",
-    "name": "Preact Rectangles",
-    "main": "src/main.ts",
-    "ui": "src/ui.tsx"
+    "editorType": [
+      "figma",
+      "dev"
+    ],
+        "id": "1310888112326715990",
+        "name": "Figma Variable Explorer",
+        "menu": [
+          {
+            "name": "Figma Variable Explorer-New (Recommended)",
+            "main": "src-2.0/main.ts",
+            "ui": "src-2.0/ui.tsx"
+          },
+          {
+            "name": "Figma Variable Explorer (Legacy)",
+            "main": "src/main.ts",
+            "ui": "src/ui.tsx"
+          }
+        ]
   }
 }

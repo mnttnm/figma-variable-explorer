@@ -1,0 +1,84 @@
+-- todo  --
+-----------
+- Export as csv, markdown 
+- Introduce new options for export
+- Show the menu options upfront as per the available space
+- Style dictionary translation
+- Documentation
+- Support and help page
+- Save user preferences in memory
+- Allow users to export variables from all the modes in the CSS export
+- Make code clean, use single source of truth for variable data in all three view mode
+- Test the plugin, probably share it with some existing users to get feedback.
+
+-- done ---
+-----------
+- While scrolling preserve the header row and also first column if scrolling in the horizontal direction - Done
+- Show collection/group for the alias resolved value - done [currently showing this on hover]
+- Code cleanup - done
+- The popup styling - done
+- Normalise the collection names - Done
+- Click to copy functionality - done
+- Probably code refactoring - done
+- provide the css in :root selector object - Done
+- Improve the styling of the alias values, make them similar to Figma - Done
+- Show Mode along with the resolved variable if the active mode is not the same as the resolved mode
+  (Tried but need to fix the bug in the resolver code for this to work properly)
+- Style dictionary support [done for json export]
+- Export as CSS - [Done]
+- HSL support - [Done]
+- Search - Done
+- Better UX for modes vs collections in css vs other view mode - Done, removed the mode selector from CSS
+
+
+-- notes --
+-----------
+- When the user decides to show the collection along with the variable alias, increase the column width
+- Show current alias in the popover as well.
+- the variable has a code syntax property where you can define, how it should be defined and used in the
+  css file, read that property if present and use it, if not use the default
+- use the variables name with collections/group/prefix
+- We will implement breadcrumb based navigation in future
+- For now, we are not allowing mode selection for a given collection, it will be good to have this in CSS mode
+]
+How do I want the search to function?
+
+-- features --
+--------------
+- Allow users to jump to the alias resolved variable on click
+- Style dictionary integration
+  - We can inform users to use one of the existing tools that supports style dictionary to process the output
+    of our plugin
+- Collection selector and associated functionality (this is done)
+- View mode functionality
+  - HSL support (This is done)
+  - Show groups separately
+- Export functionality
+  - Markdown export
+  - JSON style dictionary export
+- Search
+- The view configuration options - Introduce more configurations later
+
+
+-- limitations --
+-----------------
+
+- CSS copy to clipboard needs to be reviewed before being used in your code, the current just
+  gives you the raw text
+- Your preferences may not be saved and you may have to select the viewMode and the colorMode everytime.
+
+
+-- Learnings --
+--------------
+
+- Try to keep the implementation clean since the beginning
+- Be absolutely sure of the things that you want and do not want
+
+
+json conversion format
+
+- the original name is being stored in variableName property
+- for creating variable id from name, everything other than alphadigit is getting converted to _
+  - space (' ') gets replaced with _
+  - we keep hyphen ('-') as it is
+  - group name starts with $
