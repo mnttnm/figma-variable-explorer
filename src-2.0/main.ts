@@ -36,11 +36,20 @@ export default function () {
   });
 
   on<GetJsonDataHandler>(
-    "GET_JSON_DATA",
-    function (colorResolutionMode, activeCollection) {
+    "GET_JSON_DATA_FOR_EXPORT",
+    function (
+      colorResolutionMode,
+      exportContentType,
+      activeCollection
+    ) {
       // we are just forwarding the activeCollection value to the ui layer
       const jsonData = exportToJSON(colorResolutionMode);
-      emit("JSON_DATA_READY", jsonData, activeCollection);
+      emit(
+        "EXPORT_JSON_DATA_READY",
+        jsonData,
+        exportContentType,
+        activeCollection
+      );
     }
   );
 
@@ -86,24 +95,10 @@ export default function () {
         collectionsData[collectionName] = collectionVariables;
       });
 
-      switch (viewMode) {
-        case "table":
-          emit("DONE", collectionsData);
-          break;
-        case "json":
-          const jsonData = exportToJSON(colorResolutionMode);
-          emit("DONE", jsonData);
-          break;
-        case "css":
-          const cssData = getCSSResponseFromData(
-            collectionsData,
-            colorResolutionMode
-          );
-          emit("DONE", cssData);
-          break;
-        default:
-          emit("DONE", undefined);
-      }
+      emit("DONE", {
+        "collectionsData": collectionsData,
+        "jsonData": exportToJSON(colorResolutionMode),
+      });
     }
   );
 

@@ -2,6 +2,7 @@ import { h } from "preact";
 import styles from "../style.css";
 import { useContext, useMemo } from "preact/hooks";
 import {
+  VariableContextData,
   VariablesContext,
   VariableStatus,
 } from "../contexts/VariablesContext";
@@ -21,8 +22,8 @@ import ConfigurationContext from "../contexts/ConfigurationContext";
 import React from "preact/compat";
 
 export default function Variables() {
-  const { data, status, error, activeCollection, collections } =
-    useContext(VariablesContext)!;
+  const { data, status, error, activeCollection, collections, jsonData, cssData } =
+    useContext<VariableContextData>(VariablesContext)!;
 
   const { variableViewMode } = useContext(ConfigurationContext)!;
 
@@ -42,7 +43,7 @@ export default function Variables() {
     );
   }
 
-  if (!data || (data && Object.keys(data).length === 0)) {
+  if (!data || !cssData || !jsonData || (data && Object.keys(data).length === 0)) {
     return (
       <div>
         <p>No variables found</p>
@@ -50,14 +51,19 @@ export default function Variables() {
     );
   }
 
-  const activeCollectionData =
-    data[collections[activeCollection!].id];
+
 
   if (variableViewMode === "table") {
+    const activeCollectionData =
+      data[collections[activeCollection!].id];
     return TabularView(activeCollectionData);
   } else if (variableViewMode === "css") {
+    const activeCollectionData =
+      cssData[collections[activeCollection!].id];
     return CSSView(activeCollectionData);
   } else if (variableViewMode === "json") {
+    const activeCollectionData =
+      jsonData[collections[activeCollection!].id];
     return JSONView(activeCollectionData);
   } else {
     return null;

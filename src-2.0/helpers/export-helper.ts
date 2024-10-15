@@ -68,7 +68,7 @@ const getVariablesFromJSONGroup = (jsonData: any) => {
   return variables;
 };
 
-export const getMarkdownFromJSON = (jsonData: any) => {
+export const getMarkdownFromJSON = (jsonData: any, fileName: string = "variables.md") => {
   let markdownString = "";
   for (const [key, value] of Object.entries(jsonData)) {
     const collectionObj = value;
@@ -124,5 +124,5 @@ export const getMarkdownFromJSON = (jsonData: any) => {
     markdownString += "\n";
   }
 
-  createFileFromContent(`variables.md`, markdownString);
+  createFileFromContent(fileName, markdownString);
 };

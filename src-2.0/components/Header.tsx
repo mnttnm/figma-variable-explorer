@@ -27,6 +27,7 @@ import { Popover, ViewConfigurationPopover } from "./Popover";
 import { CustomModal } from "./CustomModal";
 import { OptionsPopover } from "./OptionsPopover";
 import React from "preact/compat";
+import { ExportContentType } from "../types";
 
 export default function Header() {
   const {
@@ -39,6 +40,8 @@ export default function Header() {
 
   const { isSearchActive, setIsSearchActive } =
     useContext<SearchContextState>(SearchContext);
+
+  const [exportContentType, setExportContentType] = useState<ExportContentType>("markdown");
 
   const iconRef = useRef<HTMLButtonElement>(null);
   const moreIconRef = useRef<HTMLButtonElement>(null);
@@ -75,7 +78,10 @@ export default function Header() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => setIsModalOpen(true);
+  const openModal = (exportContentType: ExportContentType) => {
+    setIsModalOpen(true);
+    setExportContentType(exportContentType);
+  };
   const closeModal = () => setIsModalOpen(false);
 
   return (
@@ -170,6 +176,7 @@ export default function Header() {
                 showModal={isModalOpen}
                 onClose={closeModal}
                 ref={modalRef}
+                exportContentType={exportContentType}
               />
             </div>
           </div>

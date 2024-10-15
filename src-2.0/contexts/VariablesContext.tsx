@@ -16,9 +16,12 @@ import {
   GetVariableHandler,
   JSONData,
   VariableViewMode,
+  ExportContentType,
 } from "../types";
 import ConfigurationContext from "./ConfigurationContext";
 import { getMarkdownFromJSON } from "../helpers/export-helper";
+import { createFileFromContent } from "../utils";
+import { getCSSResponseFromData } from "../helpers/variableResolverHelper";
 
 export enum VariableStatus {
   LOADING = "loading",
@@ -40,25 +43,35 @@ interface CollectionObject {
 export interface VariableContextData {
   status: VariableStatus;
   error: string;
-  data: CollectionsData | CSSData | JSONData | undefined;
+  data: CollectionsData | undefined;
   collections: CollectionObject[];
   activeCollection: number | undefined;
   changeActiveCollection: (collection: number) => void;
   handleCopyContent: () => void;
   changeDataStatus: (status: VariableStatus) => void;
-  handleExport: (isOnlyForActiveSelection: boolean) => void;
+  cssData: CSSData | undefined;
+  jsonData: JSONData | undefined;
+  handleExport: (
+    exportContentType: ExportContentType,
+    isOnlyForActiveSelection: boolean
+  ) => void;
 }
 
 export const kInitialVariableData: VariableContextData = {
   status: VariableStatus.LOADING,
   error: "",
   data: undefined,
+  cssData: undefined,
+  jsonData: undefined,
   collections: [],
   activeCollection: undefined,
   changeActiveCollection: (collection: number) => {},
   handleCopyContent: () => {},
   changeDataStatus: (status: VariableStatus) => {},
-  handleExport: (isOnlyForActiveSelection: boolean) => void {},
+  handleExport: (
+    exportContentType: ExportContentType,
+    isOnlyForActiveSelection: boolean
+  ) => { },
 };
 
 export const VariablesContext = createContext<VariableContextData>(
@@ -96,46 +109,49 @@ export const VariablesContextProvider = ({
     []
   );
 
-  const currentData = useMemo(() => {
-    if (activeCollection !== undefined)
-      return variablesData.data?.[
-        variablesData.collections[activeCollection].id
-      ];
 
-    return {};
-  }, [variablesData.data, activeCollection]);
 
   const handleCopyContent = useCallback(() => {
-    let contentToBeCopied = currentData;
+    let contentToBeCopied = "";
     if (variableViewMode === "json") {
-      contentToBeCopied = JSON.stringify(
-        {
-          [variablesData.collections[activeCollection!].id]:
-            currentData,
-        },
-        null,
-        2
-      );
+      const { jsonData, collections } = variablesData;
+      if (jsonData) {
+        contentToBeCopied = JSON.stringify(
+          jsonData[collections[activeCollection!].id!],
+          null,
+          2
+        );
+      } else {
+        contentToBeCopied = JSON.stringify({}, null, 2);
+      }
+    } else if (variableViewMode === "css") {
+      const { cssData, collections } = variablesData;
+      if (cssData) {
+        contentToBeCopied = cssData[collections[activeCollection!].id!];
+      } else {
+        contentToBeCopied = "";
+      }
     }
+
     copy(contentToBeCopied);
-  }, [currentData]);
+  }, [activeCollection, variableViewMode, variablesData]);
 
   function getCollectionsFromData(
-    data: CollectionsData | CSSData | JSONData,
+    data: any,
     variableViewMode: VariableViewMode
   ) {
     if (variableViewMode === "table" || variableViewMode === "css") {
-      return Object.keys(data).map((collectionKey) => {
+      return Object.keys(data["collectionsData"]).map((collectionKey) => {
         return {
           id: collectionKey,
           name: collectionKey,
         };
       });
     } else if (variableViewMode === "json") {
-      return Object.keys(data).map((collectionKey) => {
+      return Object.keys(data["jsonData"]).map((collectionKey) => {
         return {
           id: collectionKey,
-          name: data[collectionKey]["$collection_metadata"].name,
+          name: data["jsonData"][collectionKey]["$collection_metadata"].name,
         };
       });
     } else {
@@ -144,34 +160,37 @@ export const VariablesContextProvider = ({
   }
 
   const handleExport = useCallback(
-    (isOnlyForActiveSelection: boolean) => {
-      emit<GetJsonDataHandler>(
-        "GET_JSON_DATA",
-        colorResolutionMode,
-        isOnlyForActiveSelection ? activeCollection : undefined
-      );
-    },
-    [colorResolutionMode, activeCollection]
-  );
+    (exportContentType: ExportContentType, isOnlyForActiveSelection: boolean) => {
+      if (variablesData.status !== VariableStatus.SUCCESS) return;
 
-  const handleJsonDataReady = useCallback(
-    (data, activeCollection) => {
-      if (variablesData.status === VariableStatus.SUCCESS) {
-        const jsonData =
-          activeCollection !== undefined
-            ? Object.fromEntries([
-                Object.entries(data)[activeCollection],
-              ])
-            : data;
-        getMarkdownFromJSON(jsonData);
+      const { jsonData, cssData, collections } = variablesData;
+      const fileNamePrefix = isOnlyForActiveSelection && activeCollection !== undefined
+        ? collections[activeCollection].name.toLowerCase().replace(/\s+/g, '-')
+        : 'variables';
+
+      switch (exportContentType) {
+        case "json":
+          const jsonDataForExport = isOnlyForActiveSelection && activeCollection !== undefined && jsonData
+            ? { [Object.keys(jsonData)[activeCollection]]: Object.values(jsonData)[activeCollection] }
+            : jsonData || {}; // Fallback to an empty object if jsonData is undefined
+          createFileFromContent(`${fileNamePrefix}.json`, JSON.stringify(jsonDataForExport, null, 2));
+          break;
+        case "markdown":
+          const jsonForMarkdown = isOnlyForActiveSelection && activeCollection !== undefined && jsonData
+            ? { [Object.keys(jsonData)[activeCollection]]: Object.values(jsonData)[activeCollection] }
+            : jsonData || {}; // Fallback to an empty object if jsonData is undefined
+          getMarkdownFromJSON(jsonForMarkdown, `${fileNamePrefix}.md`);
+          break;
+        case "css":
+          const cssStringToExport = isOnlyForActiveSelection && activeCollection !== undefined && cssData
+            ? cssData[collections[activeCollection].id]
+            : Object.values(cssData ?? {}).join('\n');
+          createFileFromContent(`${fileNamePrefix}.css`, cssStringToExport);
+          break;
       }
     },
-    [variablesData.collections, activeCollection]
+    [variablesData, activeCollection]
   );
-
-  useEffect(() => {
-    on("JSON_DATA_READY", handleJsonDataReady);
-  }, [handleJsonDataReady]);
 
   useEffect(() => {
     once("DONE", (result) => {
@@ -185,7 +204,12 @@ export const VariablesContextProvider = ({
         setVariablesData({
           ...kInitialVariableData,
           status: VariableStatus.SUCCESS,
-          data: result,
+          data: result["collectionsData"],
+          cssData: getCSSResponseFromData(
+            result["collectionsData"],
+            colorResolutionMode
+          ),
+          jsonData: result["jsonData"],
           collections: getCollectionsFromData(
             result,
             variableViewMode

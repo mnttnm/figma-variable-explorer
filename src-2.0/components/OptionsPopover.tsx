@@ -4,11 +4,12 @@ import { createClassName, Divider } from "@create-figma-plugin/ui";
 import { useContext } from "preact/hooks";
 import ConfigurationContext from "../contexts/ConfigurationContext";
 import React from "preact/compat";
+import { ExportContentType } from "../types";
 
 export const OptionsPopover = ({
   openModal,
 }: {
-  openModal: () => void;
+    openModal: (exportContentType: ExportContentType) => void;
 }) => {
   const { setCurrentPopoverType } = useContext(ConfigurationContext)!;
 
@@ -16,11 +17,27 @@ export const OptionsPopover = ({
     <ul className={createClassName([styles.optionsPopover])}>
       <li
         onClick={() => {
-          openModal();
+          openModal("markdown");
           setCurrentPopoverType("none");
         }}
       >
         Export data as Markdown
+      </li>
+      <li
+        onClick={() => {
+          openModal("json");
+          setCurrentPopoverType("none");
+        }}
+      >
+        Export data as JSON
+      </li>
+      <li
+        onClick={() => {
+          openModal("css");
+          setCurrentPopoverType("none");
+        }}
+      >
+        Export data as CSS
       </li>
       <Divider />
       <li>

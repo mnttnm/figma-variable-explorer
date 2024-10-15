@@ -19,9 +19,10 @@ export interface GetVariableHandler extends EventHandler {
 }
 
 export interface GetJsonDataHandler extends EventHandler {
-  name: "GET_JSON_DATA";
+  name: "GET_JSON_DATA_FOR_EXPORT";
   handler: (
     colorResolutionMode: ColorResolutionMode,
+    exportContentType: ExportContentType,
     activeCollection?: number
   ) => void;
 }
@@ -80,3 +81,5 @@ export interface ValueRendererProps {
 
 export type CSSData = Record<string, string>;
 export type JSONData = Record<string, any>;
+export type ExportScope = "all" | "current";
+export type ExportContentType = "markdown" | "json" | "css";

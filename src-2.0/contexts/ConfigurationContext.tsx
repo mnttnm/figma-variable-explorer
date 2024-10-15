@@ -40,7 +40,6 @@ export const ConfigurationContextProvider = ({
   return (
     <ConfigurationContext.Provider
       value={{
-        // toggleConfigurationBox,
         colorResolutionMode,
         setColorResolutionMode,
         variableViewMode,

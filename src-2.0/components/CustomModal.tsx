@@ -15,10 +15,12 @@ import {
 import { VariablesContext } from "../contexts/VariablesContext";
 import React from "preact/compat";
 import { useEscape } from "../hooks/hooks";
+import { ExportScope, ExportContentType } from "../types";
 
 interface CustomModalProps {
   showModal: boolean;
   onClose: () => void;
+  exportContentType: ExportContentType;
 }
 
 export const CustomModal = forwardRef<
@@ -26,10 +28,10 @@ export const CustomModal = forwardRef<
   CustomModalProps
 >(
   (
-    { showModal, onClose }: CustomModalProps,
+    { showModal, onClose, exportContentType }: CustomModalProps,
     ref: ForwardedRef<HTMLDivElement>
   ) => {
-    const [exportType, setExportType] = useState("all");
+    const [exportScope, setExportScope] = useState<ExportScope>("all");
     const { handleExport } = useContext(VariablesContext)!;
 
     function handleOverlayClick(
@@ -58,9 +60,11 @@ export const CustomModal = forwardRef<
             <h3>Export Variables</h3>
             <form>
               <RadioButtons
-                onChange={(e) => setExportType(e.currentTarget.value)}
+                onChange={(e) =>
+                  setExportScope(e.currentTarget.value as ExportScope)
+                }
                 options={exportOptions}
-                value={exportType}
+                value={exportScope}
               />
               <footer className={styles.optionsPopoverFooter}>
                 <Button
@@ -76,7 +80,7 @@ export const CustomModal = forwardRef<
                 <Button
                   onClick={(e) => {
                     e.preventDefault();
-                    handleExport(exportType === "current");
+                    handleExport(exportContentType, exportScope === "current");
                     onClose();
                   }}
                   style={{ cursor: "pointer" }}
