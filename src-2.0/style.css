@@ -1013,10 +1013,10 @@ dl {
     list-style: none;
     font-size: small;
     color: var(--sds-color-text-default-secondary);
-    opacity: 0; /* Initial state for fade-in */
+    opacity: 0;
     animation: fadeIn 0.1s forwards;
 
-    &:hover:not(.disabledOption) {
+    &:hover:not(.disabledOption):not(.hireMeItem) {
       cursor: pointer;
       color: var(--sds-color-text-default-default);
       transition: color 0.3s ease-in-out;
@@ -1027,7 +1027,7 @@ dl {
       cursor: not-allowed;
     }
 
-    a {
+    a:not(.hireMeButton) {
       text-decoration: none;
       color: inherit;
 
@@ -1058,6 +1058,35 @@ dl {
       animation-delay: 0.6s;
     }
   }
+}
+
+.optionsPopover .hireMeItem {
+  margin-top: 8px;
+  color: var(--sds-color-brand-1000);
+}
+
+.optionsPopover .hireMeButton {
+  display: block;
+  padding: 4px 6px;
+  background-color: var(--sds-color-brand-300);
+  color: var(--sds-color-brand-1000);
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.2s ease;
+}
+
+.optionsPopover .hireMeButton:hover,
+.optionsPopover .hireMeButton:focus {
+  background-color: var(--sds-color-brand-400);
+  color: var(--sds-color-brand-1000);  /* Ensure color doesn't change on hover */
+  text-decoration: none;  /* Prevent underline on hover */
+}
+
+.optionsPopover .hireMeButton:focus {
+  outline: 2px solid var(--sds-color-brand-500);
+  outline-offset: 2px;
 }
 
 .optionsPopoverFooter {
