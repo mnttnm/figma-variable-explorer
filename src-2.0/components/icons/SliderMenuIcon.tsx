@@ -13,7 +13,7 @@ export const SliderMenuIcon = () => {
       <g clip-path="url(#clip0_74_7773)">
         <path
           d="M2.6665 14V9.33333M2.6665 6.66667V2M7.99984 14V8M7.99984 5.33333V2M13.3332 14V10.6667M13.3332 8V2M0.666504 9.33333H4.6665M5.99984 5.33333H9.99984M11.3332 10.6667H15.3332"
-          stroke="white"
+          stroke="var(--sds-color-icon-default-default)"
           stroke-width="1.6"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -21,7 +21,8 @@ export const SliderMenuIcon = () => {
       </g>
       <defs>
         <clipPath id="clip0_74_7773">
-          <rect width="16" height="16" fill="white" />
+          <rect width="16" height="16" stroke="var(--sds-color-icon-default-default)"
+          />
         </clipPath>
       </defs>
     </svg>

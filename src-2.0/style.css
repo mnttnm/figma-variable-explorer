@@ -212,7 +212,7 @@
   --sds-color-border-disabled-default: var(--sds-color-brand-600);
   --sds-color-border-utilities-measurement: var(--pink-600);
   --sds-color-border-utilities-swatch: rgba(255, 255, 255, 0.24);
-  --sds-color-icon-default-default: var(--white-1000);
+  --sds-color-icon-default-default: var(--sds-color-white-1000);
   --sds-color-icon-neutral-default: var(--slate-200);
   --sds-color-icon-neutral-secondary: var(--slate-300);
   --sds-color-icon-neutral-tertiary: var(--slate-400);
@@ -510,7 +510,7 @@ dl {
   --sds-color-text-utilities-text-on-measurement: var(--pink-800);
   --sds-color-text-disabled-on-disabled: var(--sds-color-brand-400);
   --sds-color-border-default-default: var(--sds-color-gray-300);
-  --sds-color-border-default-secondary: var(--gray-500);
+  --sds-color-border-default-secondary: var(--sds-color-gray-300);
   --sds-color-border-default-tertiary: var(--gray-700);
   --sds-color-border-neutral-default: var(--slate-900);
   --sds-color-border-neutral-secondary: var(--slate-600);
@@ -913,11 +913,11 @@ dl {
 }
 
 .icon:hover path {
-  stroke: var(--sds-color-icon-brand-secondary);
+  stroke: var(--sds-color-icon-default-secondary);
 }
 
 .icon:active path {
-  stroke: var(--sds-color-icon-brand-on-brand-secondary);
+  stroke: var(--sds-color-icon-default-tertiary);
 }
 
 .popoverContainer {

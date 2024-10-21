@@ -1,7 +1,7 @@
 import { h } from "preact";
 import styles from "../style.css";
-import { createClassName, Divider } from "@create-figma-plugin/ui";
-import { useContext, useEffect, useRef } from "preact/hooks";
+import { Divider } from "@create-figma-plugin/ui";
+import { useContext } from "preact/hooks";
 import ConfigurationContext from "../contexts/ConfigurationContext";
 import React from "preact/compat";
 import { ExportContentType } from "../types";

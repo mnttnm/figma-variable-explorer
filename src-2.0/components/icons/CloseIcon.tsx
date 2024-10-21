@@ -12,7 +12,7 @@ export const CloseIcon = () => {
     >
       <path
         d="M12 4L4 12M4 4L12 12"
-        stroke="white"
+        stroke="var(--sds-color-icon-default-default)"
         stroke-width="1.6"
         stroke-linecap="round"
         stroke-linejoin="round"
