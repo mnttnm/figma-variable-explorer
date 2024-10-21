@@ -1,5 +1,10 @@
 # Figma Variable Explorer
 
+## Tech Stack
+- ReactJS
+
+Reference: https://yuanqing.github.io/create-figma-plugin/
+
 ## Features
 
 This plugin allows you to see Figma variables at a single place in both dev mode and design mode. It allow the users to view the variables in three
