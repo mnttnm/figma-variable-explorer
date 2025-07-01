@@ -242,6 +242,14 @@ export const getColorValueForMode = (
   }
 };
 
+function roundNumberToFigmaPrecision(value: any): any {
+  if (typeof value === 'number') {
+    // Round to 2 decimal places to match Figma's precision (0.01)
+    return Math.round(value * 100) / 100;
+  }
+  return value;
+}
+
 function valueToJSON(
   value: any,
   resolvedType: string,
@@ -270,6 +278,8 @@ function valueToJSON(
   let resolvedValue = value;
   if (resolvedType === "COLOR") {
     resolvedValue = getColorValueForMode(value, colorResolutionMode);
+  } else if (resolvedType === "FLOAT") {
+    resolvedValue = roundNumberToFigmaPrecision(value);
   }
 
   return resolvedValue;

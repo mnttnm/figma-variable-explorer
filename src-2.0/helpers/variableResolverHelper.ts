@@ -10,7 +10,7 @@ import {
 } from "../types";
 
 function isVariableAlias(
-  value: VariableValue | undefined
+  value: any | undefined
 ): value is VariableAlias {
   return (
     typeof value === "object" &&
@@ -107,7 +107,7 @@ export function getColorValue(color: RGBA): ColorValue {
   };
 }
 
-function isColor(value: VariableValue): value is RGB | RGBA {
+function isColor(value: any): value is RGBA {
   return (
     typeof value === "object" &&
     value !== null &&
@@ -115,14 +115,24 @@ function isColor(value: VariableValue): value is RGB | RGBA {
   );
 }
 
+function roundNumberToFigmaPrecision(value: any): string {
+  if (typeof value === 'number') {
+    // Round to 2 decimal places to match Figma's precision (0.01)
+    const rounded = Math.round(value * 100) / 100;
+    // Remove unnecessary trailing zeros
+    return rounded.toString();
+  }
+  return value.toString();
+}
+
 export function resolveVariableValue(
-  value: VariableValue
+  value: any
 ): AliasValue | ColorValue | string {
   return isColor(value)
     ? getColorValue(value as RGBA)
     : isVariableAlias(value)
     ? getAliasValue(value)
-    : value.toString();
+    : roundNumberToFigmaPrecision(value);
 }
 
 export const getResolvedValuesForAliasVariable = (
@@ -137,8 +147,8 @@ export const getResolvedValuesForAliasVariable = (
 
   function createInternalVariableObject(
     mode: string,
-    currentResolvedValue: VariableValue,
-    currentVariable: Variable,
+    currentResolvedValue: any,
+    currentVariable: any,
     isAlias = false
   ): InternalVariable {
     return {
@@ -234,8 +244,8 @@ export const getResolvedValuesForAliasVariable = (
 };
 
 export function enrichVariableModeValues(
-  variableValues: { [modeId: string]: VariableValue },
-  collection: VariableCollection
+  variableValues: { [modeId: string]: any },
+  collection: any
 ): VariableModeValues {
   let resolvedValues: VariableModeValues = {};
 
