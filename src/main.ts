@@ -78,13 +78,7 @@ function getResolvedVariableValue(value: VariableValue, isColor: boolean) {
         )},${a.toFixed(2)})`,
       } as ColorValue;
     } else {
-      // Round numbers to match Figma's precision (0.01) to avoid floating-point precision issues
-      if (typeof value === 'number') {
-        const rounded = Math.round(value * 100) / 100;
-        varValue = rounded.toString();
-      } else {
-        varValue = value.toString();
-      }
+      varValue = value.toString();
     }
   }
   return varValue;

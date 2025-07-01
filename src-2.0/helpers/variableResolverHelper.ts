@@ -10,8 +10,8 @@ import {
 } from "../types";
 
 function isVariableAlias(
-  value: any | undefined
-): value is VariableAlias {
+  value: any
+): value is { type: "VARIABLE_ALIAS"; id: string } {
   return (
     typeof value === "object" &&
     value !== null &&
@@ -20,7 +20,7 @@ function isVariableAlias(
   );
 }
 
-function getAliasValue(value: VariableAlias): AliasValue {
+function getAliasValue(value: { type: "VARIABLE_ALIAS"; id: string }): AliasValue {
   const variable = figma.variables.getVariableById(value.id);
   const collection = variable
     ? figma.variables.getVariableCollectionById(
@@ -128,15 +128,25 @@ function roundNumberToFigmaPrecision(value: any): string {
 export function resolveVariableValue(
   value: any
 ): AliasValue | ColorValue | string {
-  return isColor(value)
-    ? getColorValue(value as RGBA)
-    : isVariableAlias(value)
-    ? getAliasValue(value)
-    : roundNumberToFigmaPrecision(value);
+  // Handle all Figma variable types: COLOR, FLOAT, STRING, BOOLEAN, and VARIABLE_ALIAS
+  if (isColor(value)) {
+    return getColorValue(value as RGBA);
+  } else if (isVariableAlias(value)) {
+    return getAliasValue(value);
+  } else if (typeof value === 'number') {
+    // FLOAT type - apply precision rounding
+    return roundNumberToFigmaPrecision(value);
+  } else if (typeof value === 'boolean') {
+    // BOOLEAN type - convert to string
+    return value.toString();
+  } else {
+    // STRING type or any other type - convert to string
+    return value.toString();
+  }
 }
 
 export const getResolvedValuesForAliasVariable = (
-  variableValue: VariableAlias,
+  variableValue: { type: "VARIABLE_ALIAS"; id: string },
   activeMode: string
 ): InternalVariable[] => {
   const aliasConnectedVariables: InternalVariable[] = [];
@@ -200,7 +210,7 @@ export const getResolvedValuesForAliasVariable = (
         processNextVariable = false;
       } else {
         currentVariable = figma.variables.getVariableById(
-          (currentResolvedValue as VariableAlias).id
+          (currentResolvedValue as { type: "VARIABLE_ALIAS"; id: string }).id
         )!;
         processNextVariable = true;
       }
@@ -222,7 +232,7 @@ export const getResolvedValuesForAliasVariable = (
         if (isAlias) {
           processNextVariable = true;
           currentVariable = figma.variables.getVariableById(
-            (currentResolvedValue as VariableAlias).id
+            (currentResolvedValue as { type: "VARIABLE_ALIAS"; id: string }).id
           )!;
         }
 
