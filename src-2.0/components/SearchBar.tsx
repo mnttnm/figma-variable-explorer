@@ -22,25 +22,33 @@ const SearchBar = () => {
   const { activeCollection, collections } =
     useContext(VariablesContext)!;
 
+  // Smart truncation for long collection names
+  const getPlaceholderText = () => {
+    const collectionName = collections[activeCollection!].name;
+    const maxLength = 25;
+    if (collectionName.length > maxLength) {
+      return `Searching in ${collectionName.substring(0, maxLength)}...`;
+    }
+    return `Searching in ${collectionName}`;
+  };
+
   return (
     <div className={styles.searchContainer}>
       <input
         type="text"
         id="search"
-        placeholder={`Searching in ${
-          collections[activeCollection!].name
-        }`}
+        placeholder={getPlaceholderText()}
         value={currentSearchTerm}
         onChange={(e) =>
-          setCurrentSearchTerm((e.target as HTMLSelectElement).value)
+          setCurrentSearchTerm((e.target as HTMLInputElement).value)
         }
         className={styles.searchInput}
+        autoFocus
       />
       <IconButton
         showBorder
         onClick={() => setIsSearchActive(false)}
-        title="
-        Cancel Search"
+        title="Cancel Search"
       >
         <CloseIcon />
       </IconButton>
