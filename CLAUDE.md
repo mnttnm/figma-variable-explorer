@@ -71,3 +71,8 @@ Supports exporting variables in multiple formats:
 - Markdown documentation
 
 Export can be scoped to all collections or active collection only.
+
+### Additional things to keep in mind
+
+- If required, create planning and task tracking related docs in @planning-docs folder
+- For a functionality if a well-established public library available, use that instead of writing everything from scratch. Use Context7 to get latest documentation of that library
