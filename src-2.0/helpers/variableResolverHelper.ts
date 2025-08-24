@@ -442,25 +442,76 @@ export function getCSSResponseByMode(
   );
 
   let cssString = "";
+  const timestamp = new Date().toISOString().split('T')[0];
+  const allModes = Object.keys(modeVariables);
+  const allCollections = Array.from(new Set(
+    Object.values(modeVariables).flatMap(mode => Object.keys(mode))
+  ));
 
   let modeCSSObject: CSSData = {};
   Object.keys(modeVariables).forEach((mode, i) => {
-    cssString = `  /* Mode: ${mode} */\n`;
+    // Add enhanced header for first mode only
+    if (i === 0) {
+      cssString = `/* ===========================================
+   Figma Variables Export
+   Generated: ${timestamp}
+   Modes: ${allModes.join(', ')}
+   Collections: ${allCollections.join(', ')}
+   Color Mode: ${colorResolutionMode}
+   =========================================== */
+
+`;
+    } else {
+      cssString = "";
+    }
+    
+    cssString += `/* Mode: ${mode} */\n`;
 
     Object.keys(modeVariables[mode]).forEach((collection) => {
       cssString += `\n  /* Collection: ${collection} */\n`;
+      
+      // Group variables by type for better organization
+      const colorVars: string[] = [];
+      const otherVars: string[] = [];
 
       Object.keys(modeVariables[mode][collection]).forEach(
         (variable) => {
-          const variableData =
-            modeVariables[mode][collection][variable];
-          cssString += `  --${variable}: ${
+          const variableData = modeVariables[mode][collection][variable];
+          const cssProperty = `  --${variable}: ${
             variableData.isAlias
               ? `var(--${variableData.varValue})`
               : variableData.varValue
-          };\n`;
+          };`;
+          
+          // Check if it's a color variable
+          const isColor = typeof variableData.varValue === 'string' && 
+            (variableData.varValue.includes('#') || 
+             variableData.varValue.includes('rgb') || 
+             variableData.varValue.includes('hsl'));
+             
+          if (isColor) {
+            colorVars.push(cssProperty);
+          } else {
+            otherVars.push(cssProperty);
+          }
         }
       );
+      
+      // Add color variables first
+      if (colorVars.length > 0) {
+        cssString += `  
+  /* Colors */\n`;
+        colorVars.forEach(varLine => cssString += varLine + '\n');
+      }
+      
+      // Add other variables
+      if (otherVars.length > 0) {
+        if (colorVars.length > 0) {
+          cssString += `  
+  /* Other Variables */\n`;
+        }
+        otherVars.forEach(varLine => cssString += varLine + '\n');
+      }
     });
 
     modeCSSObject[mode] = encloseContentInRoot(
@@ -483,23 +534,74 @@ export function getCSSResponseFromData(
   let cssString = "";
   let collectionCSSObject: CSSData = {};
 
+  // Get all collection names for header
+  const collectionNames = Object.keys(simplifiedData);
+  const timestamp = new Date().toISOString().split('T')[0];
+
   Object.keys(simplifiedData).forEach((collection, i) => {
-    cssString = `  /* Collection: ${collection} */\n`;
+    // Add enhanced header for first collection only
+    if (i === 0) {
+      cssString = `/* ===========================================
+   Figma Variables Export
+   Generated: ${timestamp}
+   Collections: ${collectionNames.join(', ')}
+   Color Mode: ${colorResolutionMode}
+   =========================================== */
 
-    Object.keys(simplifiedData[collection]).forEach((mode) => {
-      cssString += `\n  /* Mode: ${mode} */\n`;
+`;
+    } else {
+      cssString = "";
+    }
+    
+    cssString += `/* Collection: ${collection} */\n`;
 
-      Object.keys(simplifiedData[collection][mode]).forEach(
-        (variable) => {
-          const variableData =
-            simplifiedData[collection][mode][variable];
-          cssString += `  --${variable}: ${
-            variableData.isAlias
-              ? `var(--${variableData.varValue})`
-              : variableData.varValue
-          };\n`;
+    // Group variables by type for better organization
+    const modeVariables = simplifiedData[collection];
+    const modes = Object.keys(modeVariables);
+    
+    modes.forEach((mode, modeIndex) => {
+      cssString += `\n/* Mode: ${mode} */\n`;
+      
+      // Separate color variables from other types
+      const colorVars: string[] = [];
+      const otherVars: string[] = [];
+      
+      Object.keys(modeVariables[mode]).forEach((variable) => {
+        const variableData = modeVariables[mode][variable];
+        const cssProperty = `  --${variable}: ${
+          variableData.isAlias
+            ? `var(--${variableData.varValue})`
+            : variableData.varValue
+        };`;
+        
+        // Check if it's a color variable (contains # or rgb/hsl)
+        const isColor = typeof variableData.varValue === 'string' && 
+          (variableData.varValue.includes('#') || 
+           variableData.varValue.includes('rgb') || 
+           variableData.varValue.includes('hsl'));
+           
+        if (isColor) {
+          colorVars.push(cssProperty);
+        } else {
+          otherVars.push(cssProperty);
         }
-      );
+      });
+      
+      // Add color variables first with section header
+      if (colorVars.length > 0) {
+        cssString += `  
+  /* Colors */\n`;
+        colorVars.forEach(varLine => cssString += varLine + '\n');
+      }
+      
+      // Add other variables
+      if (otherVars.length > 0) {
+        if (colorVars.length > 0) {
+          cssString += `  
+  /* Other Variables */\n`;
+        }
+        otherVars.forEach(varLine => cssString += varLine + '\n');
+      }
     });
 
     collectionCSSObject[collection] = encloseContentInRoot(
