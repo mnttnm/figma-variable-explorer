@@ -225,12 +225,10 @@ const TabularView = (collectionData: CollectionVariables) => {
                 }}
               >
                 <span>{header}</span>
-                {index < headers.length - 1 && (
-                  <ResizeHandle 
-                    onMouseDown={handleMouseDown}
-                    columnIndex={index}
-                  />
-                )}
+                <ResizeHandle 
+                  onMouseDown={handleMouseDown}
+                  columnIndex={index}
+                />
               </th>
             ))}
           </tr>

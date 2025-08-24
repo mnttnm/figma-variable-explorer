@@ -19,6 +19,7 @@ import styles from "../style.css";
 import { CopyIcon } from "./icons";
 import { DownwardArrowIcon } from "./icons/DownwardArrowIcon";
 import ConfigurationContext from "../contexts/ConfigurationContext";
+import { useTheme } from "../contexts/ThemeContext";
 import React from "preact/compat";
 
 const OFFSET = 4; // Offset in pixels
@@ -71,10 +72,12 @@ const AliasResolutionPopover = forwardRef<
     },
     ref
   ) => {
+    const { theme } = useTheme();
+    
     return createPortal(
       <section
         ref={ref}
-        className={styles.aliasResolutionContainer}
+        className={`${styles.aliasResolutionContainer} ${styles[`theme-${theme}`]}`}
         style={{
           position: "fixed",
           top: popoverPosition.top,
