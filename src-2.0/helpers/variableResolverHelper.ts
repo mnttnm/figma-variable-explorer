@@ -10,8 +10,8 @@ import {
 } from "../types";
 
 function isVariableAlias(
-  value: VariableValue | undefined
-): value is VariableAlias {
+  value: any
+): value is { type: "VARIABLE_ALIAS"; id: string } {
   return (
     typeof value === "object" &&
     value !== null &&
@@ -20,7 +20,7 @@ function isVariableAlias(
   );
 }
 
-function getAliasValue(value: VariableAlias): AliasValue {
+function getAliasValue(value: { type: "VARIABLE_ALIAS"; id: string }): AliasValue {
   const variable = figma.variables.getVariableById(value.id);
   const collection = variable
     ? figma.variables.getVariableCollectionById(
@@ -107,7 +107,7 @@ export function getColorValue(color: RGBA): ColorValue {
   };
 }
 
-function isColor(value: VariableValue): value is RGB | RGBA {
+function isColor(value: any): value is RGBA {
   return (
     typeof value === "object" &&
     value !== null &&
@@ -115,18 +115,38 @@ function isColor(value: VariableValue): value is RGB | RGBA {
   );
 }
 
+function roundNumberToFigmaPrecision(value: any): string {
+  if (typeof value === 'number') {
+    // Round to 2 decimal places to match Figma's precision (0.01)
+    const rounded = Math.round(value * 100) / 100;
+    // Remove unnecessary trailing zeros
+    return rounded.toString();
+  }
+  return value.toString();
+}
+
 export function resolveVariableValue(
-  value: VariableValue
+  value: any
 ): AliasValue | ColorValue | string {
-  return isColor(value)
-    ? getColorValue(value as RGBA)
-    : isVariableAlias(value)
-    ? getAliasValue(value)
-    : value.toString();
+  // Handle all Figma variable types: COLOR, FLOAT, STRING, BOOLEAN, and VARIABLE_ALIAS
+  if (isColor(value)) {
+    return getColorValue(value as RGBA);
+  } else if (isVariableAlias(value)) {
+    return getAliasValue(value);
+  } else if (typeof value === 'number') {
+    // FLOAT type - apply precision rounding
+    return roundNumberToFigmaPrecision(value);
+  } else if (typeof value === 'boolean') {
+    // BOOLEAN type - convert to string
+    return value.toString();
+  } else {
+    // STRING type or any other type - convert to string
+    return value.toString();
+  }
 }
 
 export const getResolvedValuesForAliasVariable = (
-  variableValue: VariableAlias,
+  variableValue: { type: "VARIABLE_ALIAS"; id: string },
   activeMode: string
 ): InternalVariable[] => {
   const aliasConnectedVariables: InternalVariable[] = [];
@@ -137,8 +157,8 @@ export const getResolvedValuesForAliasVariable = (
 
   function createInternalVariableObject(
     mode: string,
-    currentResolvedValue: VariableValue,
-    currentVariable: Variable,
+    currentResolvedValue: any,
+    currentVariable: any,
     isAlias = false
   ): InternalVariable {
     return {
@@ -190,7 +210,7 @@ export const getResolvedValuesForAliasVariable = (
         processNextVariable = false;
       } else {
         currentVariable = figma.variables.getVariableById(
-          (currentResolvedValue as VariableAlias).id
+          (currentResolvedValue as { type: "VARIABLE_ALIAS"; id: string }).id
         )!;
         processNextVariable = true;
       }
@@ -212,7 +232,7 @@ export const getResolvedValuesForAliasVariable = (
         if (isAlias) {
           processNextVariable = true;
           currentVariable = figma.variables.getVariableById(
-            (currentResolvedValue as VariableAlias).id
+            (currentResolvedValue as { type: "VARIABLE_ALIAS"; id: string }).id
           )!;
         }
 
@@ -234,8 +254,8 @@ export const getResolvedValuesForAliasVariable = (
 };
 
 export function enrichVariableModeValues(
-  variableValues: { [modeId: string]: VariableValue },
-  collection: VariableCollection
+  variableValues: { [modeId: string]: any },
+  collection: any
 ): VariableModeValues {
   let resolvedValues: VariableModeValues = {};
 
