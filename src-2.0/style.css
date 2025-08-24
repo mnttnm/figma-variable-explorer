@@ -830,8 +830,8 @@ dl {
 }
 
 .colorTileValue {
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
   border-radius: var(--sds-size-radius-100);
   border: var(--body-extra-small, 1px) solid
     var(--sds-color-border-default-default);
