@@ -7,6 +7,7 @@ import {
   VariableStatus,
 } from "../contexts/VariablesContext";
 import { ValueRenderer } from "../components/ValueRenderer";
+import { SkeletonTable } from "../components/Skeleton";
 import { Tooltip } from "react-tooltip";
 import {
   AliasValue,
@@ -28,11 +29,7 @@ export default function Variables() {
   const { variableViewMode } = useContext(ConfigurationContext)!;
 
   if (status === VariableStatus.LOADING) {
-    return (
-      <div>
-        <p>Loading...</p>
-      </div>
-    );
+    return <SkeletonTable />;
   }
 
   if (status === VariableStatus.ERROR) {
