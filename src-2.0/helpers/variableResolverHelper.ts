@@ -20,10 +20,10 @@ function isVariableAlias(
   );
 }
 
-function getAliasValue(value: { type: "VARIABLE_ALIAS"; id: string }): AliasValue {
-  const variable = figma.variables.getVariableById(value.id);
+async function getAliasValue(value: { type: "VARIABLE_ALIAS"; id: string }): Promise<AliasValue> {
+  const variable = await figma.variables.getVariableByIdAsync(value.id);
   const collection = variable
-    ? figma.variables.getVariableCollectionById(
+    ? await figma.variables.getVariableCollectionByIdAsync(
         variable.variableCollectionId
       )
     : null;
@@ -125,14 +125,14 @@ function roundNumberToFigmaPrecision(value: any): string {
   return value.toString();
 }
 
-export function resolveVariableValue(
+export async function resolveVariableValue(
   value: any
-): AliasValue | ColorValue | string {
+): Promise<AliasValue | ColorValue | string> {
   // Handle all Figma variable types: COLOR, FLOAT, STRING, BOOLEAN, and VARIABLE_ALIAS
   if (isColor(value)) {
     return getColorValue(value as RGBA);
   } else if (isVariableAlias(value)) {
-    return getAliasValue(value);
+    return await getAliasValue(value);
   } else if (typeof value === 'number') {
     // FLOAT type - apply precision rounding
     return roundNumberToFigmaPrecision(value);
@@ -145,32 +145,32 @@ export function resolveVariableValue(
   }
 }
 
-export const getResolvedValuesForAliasVariable = (
+export const getResolvedValuesForAliasVariable = async (
   variableValue: { type: "VARIABLE_ALIAS"; id: string },
   activeMode: string
-): InternalVariable[] => {
+): Promise<InternalVariable[]> => {
   const aliasConnectedVariables: InternalVariable[] = [];
 
   const { id: aliasID } = variableValue;
-  let currentVariable = figma.variables.getVariableById(aliasID);
+  let currentVariable = await figma.variables.getVariableByIdAsync(aliasID);
   let processNextVariable = true;
 
-  function createInternalVariableObject(
+  async function createInternalVariableObject(
     mode: string,
     currentResolvedValue: any,
     currentVariable: any,
     isAlias = false
-  ): InternalVariable {
+  ): Promise<InternalVariable> {
     return {
       type: currentVariable.resolvedType,
       values: {
         [mode]: {
           isAlias: isAlias,
-          value: resolveVariableValue(currentResolvedValue),
+          value: await resolveVariableValue(currentResolvedValue),
           collection:
-            figma.variables.getVariableCollectionById(
+            (await figma.variables.getVariableCollectionByIdAsync(
               currentVariable.variableCollectionId
-            )?.name ?? "Unknown",
+            ))?.name ?? "Unknown",
         },
       },
       name: currentVariable.name,
@@ -182,9 +182,11 @@ export const getResolvedValuesForAliasVariable = (
       valuesByMode: aliasModeValues,
       variableCollectionId: variableCollectionID,
     } = currentVariable;
-    const collection = figma.variables.getVariableCollectionById(
+    const collection = await figma.variables.getVariableCollectionByIdAsync(
       variableCollectionID
-    )!;
+    );
+
+    if (!collection) break;
 
     // we need to get the list of mode names as activeMode is not a modeID but a mode name
     const collectionModes = collection.modes.map((mode) => mode.name);
@@ -198,7 +200,7 @@ export const getResolvedValuesForAliasVariable = (
       let isAlias = isVariableAlias(currentResolvedValue);
 
       aliasConnectedVariables.push(
-        createInternalVariableObject(
+        await createInternalVariableObject(
           activeMode,
           currentResolvedValue,
           currentVariable,
@@ -209,9 +211,9 @@ export const getResolvedValuesForAliasVariable = (
       if (!isAlias) {
         processNextVariable = false;
       } else {
-        currentVariable = figma.variables.getVariableById(
+        currentVariable = await figma.variables.getVariableByIdAsync(
           (currentResolvedValue as { type: "VARIABLE_ALIAS"; id: string }).id
-        )!;
+        );
         processNextVariable = true;
       }
     } else {
@@ -231,15 +233,15 @@ export const getResolvedValuesForAliasVariable = (
         let isAlias = isVariableAlias(currentResolvedValue);
         if (isAlias) {
           processNextVariable = true;
-          currentVariable = figma.variables.getVariableById(
+          currentVariable = await figma.variables.getVariableByIdAsync(
             (currentResolvedValue as { type: "VARIABLE_ALIAS"; id: string }).id
-          )!;
+          );
         }
 
         // todo: there is a bug that we are pushing the same variable in multiple modes \
         // rather we should push these as the the valuesByMode for variables.
         aliasConnectedVariables.push(
-          createInternalVariableObject(
+          await createInternalVariableObject(
             currentModeName,
             currentResolvedValue,
             currentVariable,
@@ -253,10 +255,10 @@ export const getResolvedValuesForAliasVariable = (
   return aliasConnectedVariables;
 };
 
-export function enrichVariableModeValues(
+export async function enrichVariableModeValues(
   variableValues: { [modeId: string]: any },
   collection: any
-): VariableModeValues {
+): Promise<VariableModeValues> {
   let resolvedValues: VariableModeValues = {};
 
   for (const modeId in variableValues) {
@@ -267,9 +269,9 @@ export function enrichVariableModeValues(
 
     const varInfo: VariableValueInfo = {
       isAlias: isVariableAlias(varValue),
-      value: resolveVariableValue(varValue),
+      value: await resolveVariableValue(varValue),
       aliasResolvedValues: isVariableAlias(varValue)
-        ? getResolvedValuesForAliasVariable(varValue, modeName)
+        ? await getResolvedValuesForAliasVariable(varValue, modeName)
         : undefined,
       collection: collection.name,
     };

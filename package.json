@@ -29,17 +29,7 @@
     ],
         "id": "1310888112326715990",
         "name": "Figma Variable Explorer",
-        "menu": [
-          {
-            "name": "Figma Variable Explorer-New (Recommended)",
-            "main": "src-2.0/main.ts",
-            "ui": "src-2.0/ui.tsx"
-          },
-          {
-            "name": "Figma Variable Explorer (Legacy)",
-            "main": "src/main.ts",
-            "ui": "src/ui.tsx"
-          }
-        ]
+        "main": "src-2.0/main.ts",
+        "ui": "src-2.0/ui.tsx"
   }
 }

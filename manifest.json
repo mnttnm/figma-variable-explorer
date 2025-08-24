@@ -8,17 +8,13 @@
   "name": "Figma Variable Explorer",
   "main": "build/main.js",
   "ui": "build/ui.js",
-  "menu": [
-    {
-      "name": "Figma Variable Explorer-New (Recommended)",
-      "command": "src-2.0/main.ts--default"
-    },
-    {
-      "name": "Figma Variable Explorer (Legacy)",
-      "command": "src/main.ts--default"
-    }
-  ],
   "capabilities": [
     "inspect"
-  ]
+  ],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": [
+      "none"
+    ]
+  }
 }

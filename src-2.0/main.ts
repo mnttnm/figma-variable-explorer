@@ -37,13 +37,13 @@ export default function () {
 
   on<GetJsonDataHandler>(
     "GET_JSON_DATA_FOR_EXPORT",
-    function (
+    async function (
       colorResolutionMode,
       exportContentType,
       activeCollection
     ) {
       // we are just forwarding the activeCollection value to the ui layer
-      const jsonData = exportToJSON(colorResolutionMode);
+      const jsonData = await exportToJSON(colorResolutionMode);
       emit(
         "EXPORT_JSON_DATA_READY",
         jsonData,
@@ -55,14 +55,14 @@ export default function () {
 
   on<GetVariableHandler>(
     "GET_VARIABLES",
-    function (
+    async function (
       viewMode: VariableViewMode,
       colorResolutionMode: ColorResolutionMode
     ) {
       const collections =
-        figma.variables.getLocalVariableCollections();
+        await figma.variables.getLocalVariableCollectionsAsync();
       const collectionsData: CollectionsData = {};
-      collections.forEach((collection) => {
+      for (const collection of collections) {
         const {
           name: collectionName,
           modes,
@@ -72,9 +72,9 @@ export default function () {
           modes: modes.map(({ name: modeName }) => modeName),
           variables: {},
         };
-        variableIds.forEach((variableId) => {
+        for (const variableId of variableIds) {
           const figmaVar =
-            figma.variables.getVariableById(variableId);
+            await figma.variables.getVariableByIdAsync(variableId);
           if (figmaVar) {
             const {
               resolvedType,
@@ -83,7 +83,7 @@ export default function () {
             } = figmaVar;
             const varInfo: InternalVariable = {
               type: resolvedType,
-              values: enrichVariableModeValues(
+              values: await enrichVariableModeValues(
                 valuesByMode,
                 collection
               ),
@@ -91,13 +91,13 @@ export default function () {
             };
             collectionVariables.variables[variableId] = varInfo;
           }
-        });
+        }
         collectionsData[collectionName] = collectionVariables;
-      });
+      }
 
       emit("DONE", {
         "collectionsData": collectionsData,
-        "jsonData": exportToJSON(colorResolutionMode),
+        "jsonData": await exportToJSON(colorResolutionMode),
       });
     }
   );

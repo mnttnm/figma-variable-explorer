@@ -122,11 +122,11 @@ function recurseVariables(variable: Variable, list: any) {
   });
 } */
 
-export function exportToJSON(
+export async function exportToJSON(
   colorResolutionMode: ColorResolutionMode
 ) {
   const collections =
-    figma.variables.getLocalVariableCollections() as Collection[];
+    await figma.variables.getLocalVariableCollectionsAsync() as Collection[];
   const object: JSONData = {};
   const { idToKey } = uniqueKeyIdMaps(
     collections,
@@ -134,18 +134,18 @@ export function exportToJSON(
     KEY_PREFIX_COLLECTION
   );
 
-  collections.forEach((collection) => {
-    object[idToKey[collection.id]] = collectionAsJSON(
+  for (const collection of collections) {
+    object[idToKey[collection.id]] = await collectionAsJSON(
       idToKey,
       collection,
       colorResolutionMode
     );
-  });
+  }
 
   return object;
 }
 
-function collectionAsJSON(
+async function collectionAsJSON(
   collectionIdToKeyMap: { [key: string]: string },
   { name, modes, variableIds, id: figmaId }: Collection,
   colorResolutionMode: ColorResolutionMode
@@ -158,70 +158,68 @@ function collectionAsJSON(
       name: modes.find((mode) => mode.modeId === keyToId[key])?.name!,
     };
   });
-  (collection.$collection_metadata = {
+  collection.$collection_metadata = {
     name,
     figmaId,
     modes: modeKeys,
-  }),
-    variableIds.forEach((variableId) => {
-      const { name, resolvedType, valuesByMode, description } =
-        figma.variables.getVariableById(variableId) as Variable;
-      const value = valuesByMode[keyToId[modeKeys[0].key]];
-      const fontWeight =
-        resolvedType === "FLOAT" &&
-        Boolean(name.match(/\/?weight/i)) &&
-        "fontWeight";
-      const fontFamily =
-        resolvedType === "STRING" &&
-        Boolean(name.match(/\/?family/i)) &&
-        "fontFamily";
-      if (
-        (value !== undefined &&
-          ["COLOR", "FLOAT", "STRING"].includes(resolvedType)) ||
-        fontFamily
-      ) {
-        let obj: any = collection;
-        const groupArray = name.split("/");
-        groupArray.forEach((groupName, i) => {
-          const safeName = groupName
-            .split(/[^\da-zA-Z-]+/)
-            .join("_")
-            .toLowerCase();
-          const groupID =
-            i === groupArray.length - 1 ? safeName : `$${safeName}`;
-          obj[`${groupID}`] = obj[`${groupID}`] || {};
-          obj = obj[`${groupID}`];
-        });
-        obj.$type =
-          resolvedType === "COLOR"
-            ? "color"
-            : resolvedType === "FLOAT"
-            ? fontWeight || "number"
-            : fontFamily || "unknown";
-        obj.$value = valueToJSON(
-          value,
+  };
+
+  for (const variableId of variableIds) {
+    const { name, resolvedType, valuesByMode, description } =
+      await figma.variables.getVariableByIdAsync(variableId) as Variable;
+    const value = valuesByMode[keyToId[modeKeys[0].key]];
+    const fontWeight =
+      resolvedType === "FLOAT" &&
+      Boolean(name.match(/\/?weight/i)) &&
+      "fontWeight";
+    const fontFamily =
+      resolvedType === "STRING" &&
+      Boolean(name.match(/\/?family/i)) &&
+      "fontFamily";
+    if (
+      (value !== undefined &&
+        ["COLOR", "FLOAT", "STRING"].includes(resolvedType)) ||
+      fontFamily
+    ) {
+      let obj: any = collection;
+      const groupArray = name.split("/");
+      groupArray.forEach((groupName, i) => {
+        const safeName = groupName
+          .split(/[^\da-zA-Z-]+/)
+          .join("_")
+          .toLowerCase();
+        const groupID =
+          i === groupArray.length - 1 ? safeName : `$${safeName}`;
+        obj[`${groupID}`] = obj[`${groupID}`] || {};
+        obj = obj[`${groupID}`];
+      });
+      obj.$type =
+        resolvedType === "COLOR"
+          ? "color"
+          : resolvedType === "FLOAT"
+          ? fontWeight || "number"
+          : fontFamily || "unknown";
+      obj.$value = await valueToJSON(
+        value,
+        resolvedType,
+        collectionIdToKeyMap
+      );
+      obj.$description = description || "";
+      obj.$variable_metadata = {
+        name: name,
+        figmaId: variableId,
+        modes: {},
+      };
+      for (const { key: modeKey } of modeKeys) {
+        obj.$variable_metadata.modes[modeKey] = await valueToJSON(
+          valuesByMode[keyToId[modeKey]],
           resolvedType,
-          collectionIdToKeyMap
+          collectionIdToKeyMap,
+          colorResolutionMode
         );
-        obj.$description = description || "";
-        obj.$variable_metadata = {
-          name: name,
-          figmaId: variableId,
-          modes: modeKeys.reduce(
-            (into: any, { key: modeKey }: { key: string }) => {
-              into[modeKey] = valueToJSON(
-                valuesByMode[keyToId[modeKey]],
-                resolvedType,
-                collectionIdToKeyMap,
-                colorResolutionMode
-              );
-              return into;
-            },
-            {}
-          ),
-        };
       }
-    });
+    }
+  }
   return collection;
 }
 
@@ -250,14 +248,14 @@ function roundNumberToFigmaPrecision(value: any): any {
   return value;
 }
 
-function valueToJSON(
+async function valueToJSON(
   value: any,
   resolvedType: string,
   collectionIdToKeyMap: { [key: string]: string },
   colorResolutionMode: ColorResolutionMode = "hex"
 ) {
   if (value.type === "VARIABLE_ALIAS") {
-    const variable = figma.variables.getVariableById(
+    const variable = await figma.variables.getVariableByIdAsync(
       value.id
     ) as Variable;
     const collectionNamePrefix =
