@@ -976,12 +976,16 @@ dl {
   -webkit-user-select: auto;
   user-select: text;
   cursor: text;
-  border: 1px var(--figma-color-border) solid;
-  background: var(--figma-color-bg-secondary);
-  padding: 6px;
+  border: 1px solid var(--sds-color-border-default-default);
+  background: var(--sds-color-background-default-secondary);
+  color: var(--sds-color-text-default-default);
+  font-family: var(--sds-typography-code-font-family);
+  font-size: var(--sds-typography-code-size-small);
+  padding: var(--sds-size-space-300);
   overflow: auto;
   width: 100%;
   margin-inline: var(--sds-size-space-100);
+  border-radius: var(--sds-size-radius-100);
 }
 
 .cssViewContainer {
@@ -989,11 +993,15 @@ dl {
   -webkit-user-select: auto;
   user-select: text;
   cursor: text;
-  border: 1px var(--figma-color-border) solid;
-  background: var(--figma-color-bg-secondary);
-  padding: 6px;
+  border: 1px solid var(--sds-color-border-default-default);
+  background: var(--sds-color-background-default-secondary);
+  color: var(--sds-color-text-default-default);
+  font-family: var(--sds-typography-code-font-family);
+  font-size: var(--sds-typography-code-size-small);
+  padding: var(--sds-size-space-300);
   overflow: auto;
   margin-inline: var(--sds-size-space-100);
+  border-radius: var(--sds-size-radius-100);
 }
 
 .searchContainer {
@@ -1142,7 +1150,7 @@ dl {
   inset: 0; 
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--sds-color-background-utilities-overlay);
   z-index: 10;
   display: flex;
   justify-content: center; 
@@ -1155,6 +1163,12 @@ dl {
   flex-direction: column;
   gap: var(--sds-size-space-200);
   background-color: var(--sds-color-background-default-default);
+  border: 1px solid var(--sds-color-border-default-default);
+  border-radius: var(--sds-size-radius-100);
+  box-shadow: var(--sds-size-depth-0) var(--sds-size-depth-400)
+    var(--sds-size-depth-800) var(--sds-size-depth-negative-200)
+    var(--sds-color-black-400);
+  color: var(--sds-color-text-default-default);
   z-index: 20; /* Ensure it's above the overlay */
 }
 
