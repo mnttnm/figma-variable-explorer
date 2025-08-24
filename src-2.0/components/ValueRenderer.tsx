@@ -217,27 +217,69 @@ const AliasValueRenderer = ({
     const popoverRect = popoverRef.current.getBoundingClientRect();
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
+    
+    // Define safe margins from viewport edges
+    const SAFE_MARGIN = 16;
 
-    let top = triggerRect.top - popoverRect.height / 2;
-    let left = triggerRect.right + OFFSET;
+    // Try different positioning strategies in priority order
+    const strategies = [
+      // Right side (preferred)
+      {
+        top: triggerRect.top + (triggerRect.height - popoverRect.height) / 2,
+        left: triggerRect.right + OFFSET,
+      },
+      // Left side
+      {
+        top: triggerRect.top + (triggerRect.height - popoverRect.height) / 2,
+        left: triggerRect.left - popoverRect.width - OFFSET,
+      },
+      // Above
+      {
+        top: triggerRect.top - popoverRect.height - OFFSET,
+        left: triggerRect.left + (triggerRect.width - popoverRect.width) / 2,
+      },
+      // Below
+      {
+        top: triggerRect.bottom + OFFSET,
+        left: triggerRect.left + (triggerRect.width - popoverRect.width) / 2,
+      },
+    ];
 
-    // Check if popover goes beyond bottom edge
-    if (top + popoverRect.height > viewportHeight) {
-      top = triggerRect.top - popoverRect.height - OFFSET;
-      left = triggerRect.left;
+    // Find the first strategy that fits within viewport
+    for (const strategy of strategies) {
+      const { top, left } = strategy;
+      
+      const fitsHorizontally = 
+        left >= SAFE_MARGIN && 
+        left + popoverRect.width <= viewportWidth - SAFE_MARGIN;
+      
+      const fitsVertically = 
+        top >= SAFE_MARGIN && 
+        top + popoverRect.height <= viewportHeight - SAFE_MARGIN;
+
+      if (fitsHorizontally && fitsVertically) {
+        return { top, left };
+      }
     }
 
-    // Check if popover goes beyond right edge
-    if (left + popoverRect.width > viewportWidth) {
-      left = triggerRect.right - popoverRect.width;
-      top = triggerRect.top - popoverRect.height - OFFSET;
+    // Fallback: Position within viewport bounds with smart adjustments
+    let top = Math.max(SAFE_MARGIN, Math.min(
+      triggerRect.top + (triggerRect.height - popoverRect.height) / 2,
+      viewportHeight - popoverRect.height - SAFE_MARGIN
+    ));
+    
+    let left = Math.max(SAFE_MARGIN, Math.min(
+      triggerRect.right + OFFSET,
+      viewportWidth - popoverRect.width - SAFE_MARGIN
+    ));
+
+    // If still overlapping with trigger, try the other side
+    if (left < triggerRect.right && left + popoverRect.width > triggerRect.left) {
+      const leftSide = triggerRect.left - popoverRect.width - OFFSET;
+      if (leftSide >= SAFE_MARGIN) {
+        left = leftSide;
+      }
     }
-
-    // Ensure popover doesn't go beyond left edge
-    left = Math.max(OFFSET, left);
-
-    // Ensure popover doesn't go beyond top edge
-    top = Math.max(OFFSET, top);
 
     return { top, left };
   }, []);
@@ -257,14 +299,14 @@ const AliasValueRenderer = ({
     updatePopoverPosition();
   }, [updatePopoverPosition]);
 
-  // todo: This delay is causing weird effect when user quickly hover over multiple values
   const handleMouseLeave = useCallback(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
+    // Reduced delay to minimize flickering while still allowing popover interaction
     timeoutRef.current = setTimeout(() => {
       setShowPopover(false);
-    }, 200); // 200ms delay before hiding the popover, this allows user to hover on the popover and it will stay visible
+    }, 150);
   }, []);
 
   useEffect(() => {
