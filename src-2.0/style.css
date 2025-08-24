@@ -692,13 +692,35 @@ dl {
 }
 
 .collectionSelectorBox {
-  /* display: flex; */
   padding: var(--sds-size-space-100);
   align-items: center;
   border-radius: var(--sds-size-radius-100);
   border: var(--body-extra-small, 1px) solid
     var(--sds-color-border-default-default);
   background: var(--sds-color-background-default-secondary);
+  min-width: 120px;
+  max-width: 200px;
+  font-family: var(--sds-typography-body-font-family);
+  font-size: var(--sds-typography-body-size-small);
+  font-weight: var(--sds-typography-body-font-weight-regular);
+  color: var(--sds-color-text-default-default);
+  transition: all 0.2s ease-in-out;
+}
+
+.collectionSelectorBox:hover {
+  border-color: var(--sds-color-border-brand-default);
+  background: var(--sds-color-background-default-secondary-hover);
+}
+
+.collectionSelectorBox:focus {
+  outline: var(--sds-size-stroke-focus-ring) solid var(--sds-color-border-brand-default);
+  outline-offset: 2px;
+}
+
+.collectionSelectorBox option {
+  background: var(--sds-color-background-default-secondary);
+  color: var(--sds-color-text-default-default);
+  padding: var(--sds-size-space-100);
 }
 
 .actions-box {
