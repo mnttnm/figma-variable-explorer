@@ -68,6 +68,89 @@ const getVariablesFromJSONGroup = (jsonData: any) => {
   return variables;
 };
 
+export const getCSVFromData = (jsonData: any, fileName: string = "variables.csv") => {
+  let csvContent = "Collection,Variable Name,Type,Mode,Value,Description\n";
+
+  // Process each collection
+  for (const [collectionKey, collection] of Object.entries(jsonData)) {
+    if (!collection || typeof collection !== 'object' || !collectionKey.startsWith('@')) continue;
+
+    const metadata = collection.$collection_metadata;
+    if (!metadata) continue;
+
+    const collectionName = metadata.name;
+    const modes = metadata.modes || [];
+
+    // Function to process variables recursively
+    const processVariables = (obj: any, parentPath: string = '') => {
+      for (const [key, value] of Object.entries(obj)) {
+        if (key === '$collection_metadata') continue;
+        
+        if (value && typeof value === 'object') {
+          if (value.$variable_metadata) {
+            // This is a variable
+            const variableName = value.$variable_metadata.name || (parentPath ? `${parentPath}/${key}` : key);
+            const variableType = value.$type || "";
+            const description = value.$description || "";
+            const modeValues = value.$variable_metadata.modes || {};
+
+            // Process each mode
+            const modesList = Array.isArray(modes) 
+              ? modes.map(m => typeof m === 'string' ? { name: m, key: m } : m)
+              : [{ name: 'Default', key: 'default' }];
+
+            modesList.forEach((mode) => {
+              const modeName = mode.name;
+              const modeKey = mode.key;
+              let modeValue = "";
+
+              if (modeKey in modeValues) {
+                const value = modeValues[modeKey];
+                // Handle different value types
+                if (typeof value === 'object' && value !== null) {
+                  if ('r' in value && 'g' in value && 'b' in value) {
+                    // Handle color values
+                    const alpha = value.a !== undefined ? value.a : 1;
+                    const alphaStr = alpha.toFixed(2);
+                    modeValue = `rgba(${Math.round(value.r * 255)}, ${Math.round(value.g * 255)}, ${Math.round(value.b * 255)}, ${alphaStr})`;
+                  } else {
+                    // Handle other object values or references
+                    modeValue = value.toString();
+                  }
+                } else {
+                  // Handle primitive values and references
+                  modeValue = String(value);
+                }
+              } else if (value.$value !== undefined) {
+                // Handle single value variables
+                modeValue = String(value.$value);
+              }
+
+              // Escape and format CSV values
+              const escapedCollectionName = `"${collectionName.replace(/"/g, '""')}"`;
+              const escapedVariableName = `"${variableName.replace(/"/g, '""')}"`;
+              const escapedVariableType = `"${variableType.replace(/"/g, '""')}"`;
+              const escapedModeName = `"${modeName.replace(/"/g, '""')}"`;
+              const escapedValue = modeValue ? `"${modeValue.replace(/"/g, '""')}"` : "";
+              const escapedDescription = description ? `"${description.replace(/"/g, '""')}"` : "";
+
+              csvContent += `${escapedCollectionName},${escapedVariableName},${escapedVariableType},${escapedModeName},${escapedValue},${escapedDescription}\n`;
+            });
+          } else {
+            // This is a group, process its children
+            processVariables(value, parentPath ? `${parentPath}/${key}` : key);
+          }
+        }
+      }
+    };
+
+    // Start processing variables for this collection
+    processVariables(collection);
+  }
+
+  createFileFromContent(fileName, csvContent);
+};
+
 export const getMarkdownFromJSON = (jsonData: any, fileName: string = "variables.md") => {
   let markdownString = "";
   for (const [key, value] of Object.entries(jsonData)) {

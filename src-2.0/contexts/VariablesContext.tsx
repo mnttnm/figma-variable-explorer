@@ -19,7 +19,7 @@ import {
   ExportContentType,
 } from "../types";
 import ConfigurationContext from "./ConfigurationContext";
-import { getMarkdownFromJSON } from "../helpers/export-helper";
+import { getMarkdownFromJSON, getCSVFromData } from "../helpers/export-helper";
 import { createFileFromContent } from "../utils";
 import { getCSSResponseFromData } from "../helpers/variableResolverHelper";
 
@@ -186,6 +186,12 @@ export const VariablesContextProvider = ({
             ? cssData[collections[activeCollection].id]
             : Object.values(cssData ?? {}).join('\n');
           createFileFromContent(`${fileNamePrefix}.css`, cssStringToExport);
+          break;
+        case "csv":
+          const jsonForCSV = isOnlyForActiveSelection && activeCollection !== undefined && jsonData
+            ? { [Object.keys(jsonData)[activeCollection]]: Object.values(jsonData)[activeCollection] }
+            : jsonData || {}; // Fallback to an empty object if jsonData is undefined
+          getCSVFromData(jsonForCSV, `${fileNamePrefix}.csv`);
           break;
       }
     },

@@ -39,6 +39,14 @@ export const OptionsPopover = ({
       >
         Export data as CSS
       </li>
+      <li
+        onClick={() => {
+          openModal("csv");
+          setCurrentPopoverType("none");
+        }}
+      >
+        Export data as CSV
+      </li>
       <Divider />
       <li>
         <a href="https://forms.gle/FyMVqcuTrzJiX9zA9" target="_blank">
