@@ -1,6 +1,5 @@
-import { createContext, h } from "preact";
+import { createContext, h, ComponentChildren } from "preact";
 import { useCallback, useContext, useState } from "preact/hooks";
-import React from "preact/compat";
 import { Toast } from "../components/Toast";
 
 export interface ToastMessage {
@@ -19,18 +18,22 @@ export interface ToastContextState {
 export const ToastContext = createContext<ToastContextState | null>(null);
 
 interface ToastProviderProps {
-  children: React.ComponentChildren;
+  children: ComponentChildren;
 }
 
 export const ToastProvider = ({ children }: ToastProviderProps) => {
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+
+  const removeToast = useCallback((id: string) => {
+    setToasts((prev) => prev.filter(toast => toast.id !== id));
+  }, []);
 
   const addToast = useCallback((
     message: string, 
     type: ToastMessage['type'] = 'info',
     duration: number = 3000
   ) => {
-    const id = Date.now().toString() + Math.random().toString(36).substr(2, 9);
+    const id = Date.now().toString() + Math.random().toString(36).slice(2, 11);
     const toast: ToastMessage = { id, message, type, duration };
     
     setToasts((prev) => [...prev, toast]);
@@ -39,22 +42,18 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
     setTimeout(() => {
       removeToast(id);
     }, duration);
-  }, []);
-
-  const removeToast = useCallback((id: string) => {
-    setToasts((prev) => prev.filter(toast => toast.id !== id));
-  }, []);
+  }, [removeToast]);
 
   return (
     <ToastContext.Provider value={{ toasts, addToast, removeToast }}>
       {children}
       <div style={{
         position: 'fixed',
-        top: '16px',
+        bottom: '16px',
         right: '16px',
         zIndex: 10000,
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'column-reverse',
         gap: 'var(--sds-size-space-100)',
         pointerEvents: 'none'
       }}>

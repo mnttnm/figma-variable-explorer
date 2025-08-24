@@ -33,7 +33,13 @@ export const Toast = ({ toast, onRemove }: ToastProps) => {
         pointerEvents: 'auto'
       }}
     >
-      <div className={styles.toastContent}>
+      <div
+        className={styles.toastContent}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') handleClose();
+        }}
+        tabIndex={0}
+      >
         <span className={styles.toastMessage}>{toast.message}</span>
         <button
           className={styles.toastCloseButton}

@@ -207,7 +207,7 @@ const TabularView = (collectionData: CollectionVariables) => {
       <Tooltip
         id="alias-tooltip"
         className={[styles.tooltip, styles.aliasTooltip].join(" ")}
-        classNameArrow={[styles.tooltip, styles.tooltipArrow].join()}
+        classNameArrow={[styles.tooltip, styles.tooltipArrow].join(" ")}
       />
       <table ref={tableRef}>
         <thead className={styles.tableHead}>
@@ -242,7 +242,7 @@ const TabularView = (collectionData: CollectionVariables) => {
               </td>
               {values.map((varValue, valueIndex) => (
                 <td
-                  key={Math.random()}
+                  key={`${headers[valueIndex + 1]}::${varName}`}
                   className={styles.tableValueItemContainer}
                   style={{ 
                     width: `${columnWidths[headers[valueIndex + 1]] || 190}px` 

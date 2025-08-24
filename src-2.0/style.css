@@ -1183,53 +1183,55 @@ dl {
   z-index: 100;
   transition: all 0.2s ease-in-out;
   
-  /* Add subtle visual indicator */
-  &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 1px;
-    height: 60%;
-    background: var(--sds-color-border-default-tertiary);
-    transform: translate(-50%, -50%);
-    opacity: 0.3;
-    transition: opacity 0.2s ease-in-out;
-  }
-  
-  /* Add grip pattern dots */
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 2px;
-    height: 2px;
-    background: var(--sds-color-border-default-secondary);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
-    box-shadow: 
-      0 -4px 0 var(--sds-color-border-default-secondary),
-      0 4px 0 var(--sds-color-border-default-secondary);
-  }
+}
+
+/* Add subtle visual indicator */
+.resizeHandle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1px;
+  height: 60%;
+  background: var(--sds-color-border-default-tertiary);
+  transform: translate(-50%, -50%);
+  opacity: 0.3;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Add grip pattern dots */
+.resizeHandle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 2px;
+  background: var(--sds-color-border-default-secondary);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  box-shadow: 
+    0 -4px 0 var(--sds-color-border-default-secondary),
+    0 4px 0 var(--sds-color-border-default-secondary);
 }
 
 .resizeHandle:hover {
   background: var(--sds-color-background-brand-tertiary);
-  
-  &::after {
-    opacity: 0;
-  }
-  
-  &::before {
-    opacity: 0.6;
-  }
+}
+
+.resizeHandle:hover::after {
+  opacity: 0;
+}
+
+.resizeHandle:hover::before {
+  opacity: 0.6;
 }
 
 .tableHeaderItemContainer:hover .resizeHandle::after {
-  opacity: 0.6;
+  opacity: 0.8;
+  background: var(--sds-color-border-brand-default);
 }
 
 /* Toast Notifications */
