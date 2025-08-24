@@ -86,12 +86,34 @@ const AliasResolutionPopover = forwardRef<
     const { theme } = useTheme();
     const { addToast } = useToast();
 
-    const handleValueCopy = (value: any, isColor: boolean) => {
+    const handleValueCopy = (value: any, isColor: boolean, format?: 'hex' | 'rgba' | 'hsl' | 'css-var') => {
       let valueToCopy: string;
       if (isColor) {
-        valueToCopy = (value as ColorValue).hexValue.split(",")[0];
+        const colorValue = value as ColorValue;
+        switch (format) {
+          case 'rgba':
+            valueToCopy = colorValue.rgbaValue;
+            break;
+          case 'hsl':
+            valueToCopy = colorValue.hslaValue;
+            break;
+          case 'css-var':
+            // Generate CSS variable format (simplified variable name)
+            const cssVarName = 'color-var'; // Fallback name for colors without alias
+            valueToCopy = `var(--${cssVarName})`;
+            break;
+          case 'hex':
+          default:
+            valueToCopy = colorValue.hexValue.split(",")[0];
+            break;
+        }
       } else {
-        valueToCopy = value as string;
+        if (format === 'css-var' && typeof value === 'string') {
+          const cssVarName = value.replace(/\s+/g, '-').replace(/\//g, '-').toLowerCase();
+          valueToCopy = `var(--${cssVarName})`;
+        } else {
+          valueToCopy = value as string;
+        }
       }
       
       if (copy(valueToCopy)) {
@@ -365,6 +387,8 @@ const ColorValueRenderer = ({
 }) => {
   const { colorResolutionMode } = useContext(ConfigurationContext)!;
   const { addToast } = useToast();
+  const [showCopyOptions, setShowCopyOptions] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   let activeValue = value.rgbaValue;
   switch (colorResolutionMode) {
@@ -381,25 +405,122 @@ const ColorValueRenderer = ({
       break;
   }
 
-  const handleCopy = () => {
-    if (copy(activeValue)) {
-      addToast(`Copied "${activeValue}"`, 'success');
+  const handleCopy = (format?: 'hex' | 'rgba' | 'hsl') => {
+    let valueToCopy: string;
+    switch (format) {
+      case 'rgba':
+        valueToCopy = value.rgbaValue;
+        break;
+      case 'hsl':
+        valueToCopy = value.hslaValue;
+        break;
+      case 'hex':
+      default:
+        valueToCopy = value.hexValue;
+        break;
+    }
+    
+    if (copy(valueToCopy)) {
+      addToast(`Copied "${valueToCopy}"`, 'success');
     } else {
       addToast('Failed to copy', 'error');
     }
+    setShowCopyOptions(false);
   };
 
+  const handleRightClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setShowCopyOptions(!showCopyOptions);
+  };
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setShowCopyOptions(false);
+      }
+    };
+
+    if (showCopyOptions) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showCopyOptions]);
+
   return (
-    <div className={styles.colorValueContainer} title={title}>
+    <div className={styles.colorValueContainer} title={title} style={{ position: 'relative' }}>
       <div
         className={styles.colorTileValue}
         style={{
           backgroundColor: value.rgbaValue,
         }}
-        onClick={handleCopy}
-        title={"Click to Copy"}
+        onClick={() => handleCopy()}
+        onContextMenu={handleRightClick}
+        title="Click to Copy • Right-click for format options"
       ></div>
       <p className={styles.stringValue}>{activeValue}</p>
+      
+      {showCopyOptions && (
+        <div 
+          ref={menuRef}
+          style={{
+            position: 'absolute',
+            top: '100%',
+            left: '0',
+            backgroundColor: 'var(--figma-color-bg)',
+            border: '1px solid var(--figma-color-border)',
+            borderRadius: '4px',
+            padding: '8px',
+            zIndex: 1000,
+            minWidth: '120px',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+          }}
+        >
+          <div style={{ marginBottom: '4px', fontSize: '12px', fontWeight: 'bold' }}>Copy as:</div>
+          <div 
+            style={{ 
+              padding: '4px 8px', 
+              cursor: 'pointer', 
+              borderRadius: '2px',
+              fontSize: '12px'
+            }}
+            onClick={() => handleCopy('hex')}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--figma-color-bg-hover)'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+          >
+            HEX: {value.hexValue}
+          </div>
+          <div 
+            style={{ 
+              padding: '4px 8px', 
+              cursor: 'pointer', 
+              borderRadius: '2px',
+              fontSize: '12px'
+            }}
+            onClick={() => handleCopy('rgba')}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--figma-color-bg-hover)'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+          >
+            RGBA: {value.rgbaValue}
+          </div>
+          <div 
+            style={{ 
+              padding: '4px 8px', 
+              cursor: 'pointer', 
+              borderRadius: '2px',
+              fontSize: '12px'
+            }}
+            onClick={() => handleCopy('hsl')}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--figma-color-bg-hover)'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+          >
+            HSL: {value.hslaValue}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

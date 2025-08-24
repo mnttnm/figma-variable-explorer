@@ -68,61 +68,145 @@ const getVariablesFromJSONGroup = (jsonData: any) => {
   return variables;
 };
 
+const getColorPreview = (value: any): string => {
+  if (typeof value === 'string') {
+    // Check if it's a hex color
+    if (value.match(/^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$/)) {
+      return `<span style="display:inline-block;width:16px;height:16px;background-color:${value};border:1px solid #ccc;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>`;
+    }
+    // Check if it's rgb/rgba
+    if (value.match(/^rgba?\(/)) {
+      return `<span style="display:inline-block;width:16px;height:16px;background-color:${value};border:1px solid #ccc;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>`;
+    }
+    // Check if it's hsl/hsla
+    if (value.match(/^hsla?\(/)) {
+      return `<span style="display:inline-block;width:16px;height:16px;background-color:${value};border:1px solid #ccc;border-radius:2px;vertical-align:middle;margin-right:4px;"></span>`;
+    }
+  }
+  return '';
+};
+
+const getVariableUsage = (variableName: string, variableType: string): string => {
+  const cssVarName = variableName.replace(/\s+/g, '-').replace(/\//g, '-').toLowerCase();
+  
+  switch (variableType) {
+    case 'COLOR':
+      return `\`var(--${cssVarName})\``;
+    case 'FLOAT':
+    case 'number':
+      return `\`var(--${cssVarName})\``;
+    case 'STRING':
+      return `\`var(--${cssVarName})\``;
+    case 'BOOLEAN':
+      return `\`var(--${cssVarName})\``;
+    default:
+      return `\`var(--${cssVarName})\``;
+  }
+};
+
 export const getMarkdownFromJSON = (jsonData: any, fileName: string = "variables.md") => {
-  let markdownString = "";
+  const timestamp = new Date().toLocaleDateString();
+  const collectionNames = Object.values(jsonData).map((collection: any) => 
+    collection.$collection_metadata?.name || 'Unknown'
+  );
+  
+  let markdownString = `# Design System Variables
+*Generated from Figma on ${timestamp}*
+
+## 📋 Table of Contents
+${collectionNames.map((name: string) => `- [${name}](#${name.toLowerCase().replace(/\s+/g, '-')})`).join('\n')}
+
+---
+
+`;
+
   for (const [key, value] of Object.entries(jsonData)) {
     const collectionObj = value;
-    const { name: collectionName, modes } =
-      collectionObj.$collection_metadata;
+    const { name: collectionName, modes } = collectionObj.$collection_metadata;
 
-    markdownString =
-      markdownString + `### Collection: ${collectionName}`;
+    // Add collection header with emoji and anchor
+    markdownString += `## 🎨 ${collectionName} {#${collectionName.toLowerCase().replace(/\s+/g, '-')}}
+
+`;
+
+    // Enhanced table headers with usage column
     const tableHeaders = [
-      "Variable Name",
+      "Variable",
+      "Preview",
       ...modes.map((m) => m.name),
+      "Usage"
     ];
 
-    markdownString += `\n| ${tableHeaders.join(
-      " | "
-    )} |\n| ${tableHeaders.map(() => "---").join(" | ")} |\n`;
+    markdownString += `| ${tableHeaders.join(" | ")} |\n`;
+    markdownString += `|${tableHeaders.map(() => "---").join("|")}|\n`;
 
+    // Process variables
     for (const [key, value] of Object.entries(collectionObj)) {
       if (key !== "$collection_metadata") {
-        // check if the value has a property "$variable_metadata"
-        // if not, it's not a variable, go for the child property (Object.values(value)[0])
-        // do it until we find a variable
         if (!value.hasOwnProperty("$variable_metadata")) {
           if (typeof value === "object") {
-            const collectionVariables =
-              getVariablesFromJSONGroup(value);
+            const collectionVariables = getVariablesFromJSONGroup(value);
 
             for (const variable of collectionVariables) {
               const variableData = variable;
-              const variableMetadata =
-                variableData["$variable_metadata"];
-              const { name: variableName, modes: modeValues } =
-                variableMetadata;
+              const variableMetadata = variableData["$variable_metadata"];
+              const { name: variableName, modes: modeValues } = variableMetadata;
+              const variableType = variableData.$type;
 
-              // create variable markdown table
-              markdownString += `| ${variableName} | ${Object.values(
-                modeValues
-              ).join(" | ")} |\n`;
+              // Get first mode value for preview
+              const firstModeValue = Object.values(modeValues)[0];
+              const colorPreview = getColorPreview(firstModeValue);
+              const usage = getVariableUsage(variableName, variableType);
+              
+              // Enhanced table row with preview and usage
+              const modeValuesFormatted = Object.values(modeValues).map((val: any) => {
+                if (typeof val === 'string' && val.startsWith('{')) {
+                  // It's an alias - format it nicely
+                  return `*→ ${val.replace(/[{}@]/g, '')}*`;
+                }
+                return `\`${val}\``;
+              });
+
+              markdownString += `| **${variableName}** | ${colorPreview} | ${modeValuesFormatted.join(" | ")} | ${usage} |\n`;
             }
           }
         } else {
           const variableMetadata = value["$variable_metadata"];
-          const { name: variableName, modes: modeValues } =
-            variableMetadata;
-          // create variable markdown table
-          markdownString += `| ${variableName} | ${Object.values(
-            modeValues
-          ).join(" | ")} |\n`;
+          const { name: variableName, modes: modeValues } = variableMetadata;
+          const variableType = value.$type;
+
+          // Get first mode value for preview
+          const firstModeValue = Object.values(modeValues)[0];
+          const colorPreview = getColorPreview(firstModeValue);
+          const usage = getVariableUsage(variableName, variableType);
+
+          // Enhanced table row with preview and usage
+          const modeValuesFormatted = Object.values(modeValues).map((val: any) => {
+            if (typeof val === 'string' && val.startsWith('{')) {
+              // It's an alias - format it nicely
+              return `*→ ${val.replace(/[{}@]/g, '')}*`;
+            }
+            return `\`${val}\``;
+          });
+
+          markdownString += `| **${variableName}** | ${colorPreview} | ${modeValuesFormatted.join(" | ")} | ${usage} |\n`;
         }
       }
     }
 
-    markdownString += "\n";
+    markdownString += "\n### Aliases in this Collection\n";
+    markdownString += "Variables marked with *→* are aliases that reference other variables.\n\n";
+    markdownString += "---\n\n";
   }
+
+  // Add footer
+  markdownString += `## 🔗 Links
+- [View in Figma](figma://open)
+- [Design System Documentation](#)
+
+---
+*This documentation was automatically generated from Figma variables. Last updated: ${timestamp}*
+`;
 
   createFileFromContent(fileName, markdownString);
 };
