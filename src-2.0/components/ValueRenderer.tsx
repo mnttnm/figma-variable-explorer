@@ -20,6 +20,7 @@ import { CopyIcon } from "./icons";
 import { DownwardArrowIcon } from "./icons/DownwardArrowIcon";
 import ConfigurationContext from "../contexts/ConfigurationContext";
 import { useTheme } from "../contexts/ThemeContext";
+import { useToast } from "../contexts/ToastContext";
 import React from "preact/compat";
 
 const OFFSET = 4; // Offset in pixels
@@ -31,6 +32,16 @@ const ResolvedAliasHeader = ({
   aliasLabel: string;
   title?: string;
 }) => {
+  const { addToast } = useToast();
+
+  const handleCopy = () => {
+    if (copy(aliasLabel)) {
+      addToast(`Copied "${aliasLabel}"`, 'success');
+    } else {
+      addToast('Failed to copy', 'error');
+    }
+  };
+
   return (
     <div
       style={{
@@ -38,7 +49,7 @@ const ResolvedAliasHeader = ({
         flexDirection: "column",
         alignItems: "center",
       }}
-      onClick={() => copy(aliasLabel)}
+      onClick={handleCopy}
       title={title}
     >
       <div className={styles.resolvedAliasLabel}>
@@ -73,6 +84,22 @@ const AliasResolutionPopover = forwardRef<
     ref
   ) => {
     const { theme } = useTheme();
+    const { addToast } = useToast();
+
+    const handleValueCopy = (value: any, isColor: boolean) => {
+      let valueToCopy: string;
+      if (isColor) {
+        valueToCopy = (value as ColorValue).hexValue.split(",")[0];
+      } else {
+        valueToCopy = value as string;
+      }
+      
+      if (copy(valueToCopy)) {
+        addToast(`Copied "${valueToCopy}"`, 'success');
+      } else {
+        addToast('Failed to copy', 'error');
+      }
+    };
     
     return createPortal(
       <section
@@ -128,15 +155,7 @@ const AliasResolutionPopover = forwardRef<
                             justifyContent: "center",
                             gap: "var(--sds-size-space-150)",
                           }}
-                          onClick={() => {
-                            resolvedVariable.type === "COLOR"
-                              ? copy(
-                                  (
-                                    v.value as ColorValue
-                                  ).hexValue.split(",")[0]
-                                )
-                              : copy(v.value as string);
-                          }}
+                          onClick={() => handleValueCopy(v.value, resolvedVariable.type === "COLOR")}
                         >
                           {resolvedVariable.type === "COLOR" ? (
                             <ColorValueRenderer
@@ -303,6 +322,8 @@ const ColorValueRenderer = ({
   title?: string;
 }) => {
   const { colorResolutionMode } = useContext(ConfigurationContext)!;
+  const { addToast } = useToast();
+
   let activeValue = value.rgbaValue;
   switch (colorResolutionMode) {
     case "rgba":
@@ -318,6 +339,14 @@ const ColorValueRenderer = ({
       break;
   }
 
+  const handleCopy = () => {
+    if (copy(activeValue)) {
+      addToast(`Copied "${activeValue}"`, 'success');
+    } else {
+      addToast('Failed to copy', 'error');
+    }
+  };
+
   return (
     <div className={styles.colorValueContainer} title={title}>
       <div
@@ -325,7 +354,7 @@ const ColorValueRenderer = ({
         style={{
           backgroundColor: value.rgbaValue,
         }}
-        onClick={() => copy(activeValue)}
+        onClick={handleCopy}
         title={"Click to Copy"}
       ></div>
       <p className={styles.stringValue}>{activeValue}</p>
