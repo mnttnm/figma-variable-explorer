@@ -1,6 +1,6 @@
 import { h } from "preact";
 import styles from "../style.css";
-import { useContext, useMemo } from "preact/hooks";
+import { useContext, useMemo, useRef, useState, useCallback } from "preact/hooks";
 import {
   VariableContextData,
   VariablesContext,
@@ -70,8 +70,28 @@ export default function Variables() {
   }
 }
 
+const ResizeHandle = ({ 
+  onMouseDown, 
+  columnIndex 
+}: { 
+  onMouseDown: (e: any, index: number) => void;
+  columnIndex: number;
+}) => {
+  return (
+    <div
+      className={styles.resizeHandle}
+      onMouseDown={(e) => onMouseDown(e, columnIndex)}
+    />
+  );
+};
+
 const TabularView = (collectionData: CollectionVariables) => {
   if (!collectionData) return null;
+
+  const { columnWidths, setColumnWidths } = useContext(ConfigurationContext)!;
+  const [isResizing, setIsResizing] = useState(false);
+  const [resizingColumn, setResizingColumn] = useState<number | null>(null);
+  const tableRef = useRef<HTMLTableElement>(null);
 
   const { currentSearchTerm } = useContext(
     SearchContext
@@ -153,6 +173,38 @@ const TabularView = (collectionData: CollectionVariables) => {
     filteredDataForTables
   );
 
+  const handleMouseDown = useCallback((e: any, columnIndex: number) => {
+    e.preventDefault();
+    setIsResizing(true);
+    setResizingColumn(columnIndex);
+    document.body.style.cursor = 'col-resize';
+
+    const startX = e.clientX;
+    const header = headers[columnIndex];
+    const startWidth = columnWidths[header] || (columnIndex === 0 ? 220 : 190);
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const diff = e.clientX - startX;
+      const newWidth = Math.max(100, startWidth + diff); // Minimum width of 100px
+      
+      setColumnWidths({
+        ...columnWidths,
+        [header]: newWidth
+      });
+    };
+
+    const handleMouseUp = () => {
+      setIsResizing(false);
+      setResizingColumn(null);
+      document.body.style.cursor = '';
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  }, [columnWidths, setColumnWidths, headers]);
+
   return (
     <main className={styles.tableContainer}>
       <Tooltip
@@ -160,15 +212,25 @@ const TabularView = (collectionData: CollectionVariables) => {
         className={[styles.tooltip, styles.aliasTooltip].join(" ")}
         classNameArrow={[styles.tooltip, styles.tooltipArrow].join()}
       />
-      <table>
+      <table ref={tableRef}>
         <thead className={styles.tableHead}>
           <tr className={styles.tableHeaderContainer}>
-            {headers.map((header) => (
+            {headers.map((header, index) => (
               <th
                 key={header}
                 className={styles.tableHeaderItemContainer}
+                style={{ 
+                  width: `${columnWidths[header] || (index === 0 ? 220 : 190)}px`,
+                  position: 'relative'
+                }}
               >
                 <span>{header}</span>
+                {index < headers.length - 1 && (
+                  <ResizeHandle 
+                    onMouseDown={handleMouseDown}
+                    columnIndex={index}
+                  />
+                )}
               </th>
             ))}
           </tr>
@@ -179,13 +241,17 @@ const TabularView = (collectionData: CollectionVariables) => {
               <td
                 key={varName}
                 className={styles.tableValueItemContainer}
+                style={{ width: `${columnWidths["Name"] || 220}px` }}
               >
                 <span title={varName}>{varName}</span>
               </td>
-              {values.map((varValue) => (
+              {values.map((varValue, valueIndex) => (
                 <td
                   key={Math.random()}
                   className={styles.tableValueItemContainer}
+                  style={{ 
+                    width: `${columnWidths[headers[valueIndex + 1]] || 190}px` 
+                  }}
                 >
                   <ValueRenderer
                     varValueInfo={varValue[1]}

@@ -336,12 +336,14 @@ export const ValueRenderer = ({
   mode,
   title = "",
 }: ValueRendererProps) => {
+  const { showAliasLabels } = useContext(ConfigurationContext)!;
+  
   return (
     <Fragment>
       {varValueInfo.isAlias ? (
         <AliasValueRenderer
           value={varValueInfo.value as AliasValue}
-          showCollection={false}
+          showCollection={showAliasLabels}
           resolvedValues={varValueInfo.aliasResolvedValues ?? []}
           mode={mode}
           title={title}

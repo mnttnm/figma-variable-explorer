@@ -1118,3 +1118,18 @@ dl {
   z-index: 20; /* Ensure it's above the overlay */
 }
 
+.resizeHandle {
+  position: absolute;
+  top: 0;
+  right: -2px;
+  width: 4px;
+  height: 100%;
+  cursor: col-resize;
+  background: transparent;
+  z-index: 100;
+}
+
+.resizeHandle:hover {
+  background: var(--sds-color-border-brand-default);
+}
+

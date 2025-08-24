@@ -13,6 +13,10 @@ interface ConfigurationContextState {
   setVariableViewMode: (mode: VariableViewMode) => void;
   currentPopoverType: PopoverType;
   setCurrentPopoverType: (type: PopoverType) => void;
+  showAliasLabels: boolean;
+  setShowAliasLabels: (show: boolean) => void;
+  columnWidths: { [key: string]: number };
+  setColumnWidths: (widths: { [key: string]: number }) => void;
 }
 
 const ConfigurationContext = createContext<
@@ -33,6 +37,10 @@ export const ConfigurationContextProvider = ({
   const [variableViewMode, setVariableViewMode] =
     useState<VariableViewMode>("table");
 
+  const [showAliasLabels, setShowAliasLabels] = useState<boolean>(false);
+
+  const [columnWidths, setColumnWidths] = useState<{ [key: string]: number }>({});
+
   const showPopover = useCallback((type: PopoverType) => {
     setCurrentPopoverType(type);
   }, []);
@@ -46,6 +54,10 @@ export const ConfigurationContextProvider = ({
         setVariableViewMode,
         currentPopoverType: currentPopoverType,
         setCurrentPopoverType,
+        showAliasLabels,
+        setShowAliasLabels,
+        columnWidths,
+        setColumnWidths,
       }}
     >
       {children}

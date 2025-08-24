@@ -6,6 +6,7 @@ import {
   RadioButtons,
   RadioButtonsOption,
   Text,
+  Checkbox,
 } from "@create-figma-plugin/ui";
 import { ForwardedRef, forwardRef } from "preact/compat";
 import { ColorResolutionMode, VariableViewMode } from "../types";
@@ -47,6 +48,8 @@ export const ViewConfigurationPopover = () => {
     setColorResolutionMode,
     variableViewMode,
     setVariableViewMode,
+    showAliasLabels,
+    setShowAliasLabels,
   } = useContext(ConfigurationContext)!;
 
   const { changeDataStatus } = useContext(VariablesContext)!;
@@ -78,6 +81,12 @@ export const ViewConfigurationPopover = () => {
     setVariableViewMode(newViewMode as VariableViewMode);
   };
 
+  const handleAliasLabelsChange = (
+    event: JSX.TargetedEvent<HTMLInputElement, Event>
+  ) => {
+    setShowAliasLabels(event.currentTarget.checked);
+  };
+
   return (
     <form className={styles.configurationForm}>
       <fieldset name="viewMode">
@@ -96,6 +105,17 @@ export const ViewConfigurationPopover = () => {
           value={colorResolutionMode}
         />
       </fieldset>
+      {variableViewMode === "table" && (
+        <fieldset name="aliasOptions">
+          <legend>Table Options</legend>
+          <Checkbox
+            onChange={handleAliasLabelsChange}
+            value={showAliasLabels}
+          >
+            <Text>Show alias collection names</Text>
+          </Checkbox>
+        </fieldset>
+      )}
     </form>
   );
 };
