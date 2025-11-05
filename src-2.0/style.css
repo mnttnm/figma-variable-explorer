@@ -257,9 +257,9 @@
   /* mode-4: default */
 
   /* collection: typography primitives */
-  --family-sans: inter;
-  --family-serif: noto serif;
-  --family-mono: roboto mono;
+  --family-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --family-serif: "Noto Serif", Georgia, serif;
+  --family-mono: "Roboto Mono", "SF Mono", Monaco, "Cascadia Code", "Courier New", monospace;
   --scale-01: 12px;
   --scale-02: 14px;
   --scale-03: 16px;
@@ -862,6 +862,13 @@ dl {
   left: 0;
   background: var(--sds-color-background-default-default);
   z-index: 10;
+  /* Shadow to indicate content slides behind */
+  box-shadow: 2px 0 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* First column header needs both vertical AND horizontal stickiness */
+.tableHeaderItemContainer:nth-child(1) {
+  z-index: 120; /* Higher than tableHead (110) and regular sticky cells (10) */
 }
 
 /* For tableheaderItemContainer except the first column, keep the width as 190px */
@@ -1154,7 +1161,8 @@ dl {
 }
 
 .searchInput::placeholder {
-  color: var(--sds-color-text-default-tertiary);
+  color: var(--sds-color-text-default-secondary);
+  opacity: 0.6;
 }
 
 @keyframes fadeIn {
@@ -1352,6 +1360,29 @@ dl {
 
 .tableHeaderItemContainer:hover .resizeHandle::after {
   opacity: 0.8;
+  background: var(--sds-color-border-brand-default);
+}
+
+/* Light mode specific resize handle improvements */
+.theme-light .resizeHandle::after {
+  background: var(--sds-color-border-default-default);
+  opacity: 0.6;
+}
+
+.theme-light .resizeHandle::before {
+  background: var(--sds-color-border-brand-default);
+  box-shadow:
+    0 -4px 0 var(--sds-color-border-brand-default),
+    0 4px 0 var(--sds-color-border-brand-default);
+}
+
+.theme-light .resizeHandle:hover {
+  background: var(--sds-color-background-brand-tertiary);
+  opacity: 0.7;
+}
+
+.theme-light .tableHeaderItemContainer:hover .resizeHandle::after {
+  opacity: 1;
   background: var(--sds-color-border-brand-default);
 }
 

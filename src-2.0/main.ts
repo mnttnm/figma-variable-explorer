@@ -103,7 +103,7 @@ export default function () {
   );
 
   showUI({
-    width: 600,
+    width: 900,
     height: 800,
   });
 }

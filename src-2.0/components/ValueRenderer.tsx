@@ -145,8 +145,21 @@ const AliasResolutionPopover = forwardRef<
                           flexDirection: "column",
                           justifyContent: "flex-start",
                           gap: "0px",
+                          alignItems: "center",
                         }}
                       >
+                        {/* Show arrow before final resolved value */}
+                        <DownwardArrowIcon />
+                        {/* Show mode name for clarity, especially important for color values */}
+                        {Object.keys(resolvedVariable.values).length > 1 && (
+                          <p style={{
+                            fontSize: "var(--sds-typography-body-size-extra-small)",
+                            color: "var(--sds-color-text-default-secondary)",
+                            marginBottom: "var(--sds-size-space-050)",
+                          }}>
+                            {mode}
+                          </p>
+                        )}
                         <div
                           style={{
                             display: "flex",
@@ -162,14 +175,9 @@ const AliasResolutionPopover = forwardRef<
                               value={v.value as ColorValue}
                             />
                           ) : (
-                            <Fragment>
-                              {resolvedValues.length > 1 && (
-                                <p>{mode}</p>
-                              )}
-                              <p className={styles.aliasFinalValue}>
-                                {v.value}
-                              </p>
-                            </Fragment>
+                            <p className={styles.aliasFinalValue}>
+                              {v.value}
+                            </p>
                           )}
                           <CopyIcon />
                         </div>
