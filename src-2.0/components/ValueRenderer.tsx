@@ -144,22 +144,18 @@ const AliasResolutionPopover = forwardRef<
                           display: "flex",
                           flexDirection: "column",
                           justifyContent: "flex-start",
-                          gap: "0px",
+                          gap: "var(--sds-size-space-100)",
                           alignItems: "center",
                         }}
                       >
-                        {/* Show arrow before final resolved value */}
-                        <DownwardArrowIcon />
-                        {/* Show mode name for clarity, especially important for color values */}
-                        {Object.keys(resolvedVariable.values).length > 1 && (
-                          <p style={{
-                            fontSize: "var(--sds-typography-body-size-extra-small)",
-                            color: "var(--sds-color-text-default-secondary)",
-                            marginBottom: "var(--sds-size-space-050)",
-                          }}>
-                            {mode}
-                          </p>
-                        )}
+                        {/* Show mode name for clarity about which mode this value is from */}
+                        <p style={{
+                          fontSize: "var(--sds-typography-body-size-extra-small)",
+                          color: "var(--sds-color-text-default-secondary)",
+                          marginBottom: "var(--sds-size-space-050)",
+                        }}>
+                          {mode}
+                        </p>
                         <div
                           style={{
                             display: "flex",

@@ -176,6 +176,35 @@ const TabularView = (collectionData: CollectionVariables) => {
     filteredDataForTables
   );
 
+  // Calculate empty columns to fill remaining space
+  const PLUGIN_WIDTH = 900;
+  const calculateEmptyColumns = () => {
+    const totalColumnsWidth = headers.reduce((sum, header, index) => {
+      return sum + (columnWidths[header] || (index === 0 ? 280 : 240));
+    }, 0);
+
+    const remainingWidth = PLUGIN_WIDTH - totalColumnsWidth;
+    const emptyColumns: number[] = [];
+
+    if (remainingWidth > 100) {
+      // Add empty columns to fill the space
+      let remaining = remainingWidth;
+      while (remaining > 100) {
+        const colWidth = Math.min(240, remaining);
+        emptyColumns.push(colWidth);
+        remaining -= colWidth;
+      }
+      // Add any small remaining width as a final column
+      if (remaining > 0) {
+        emptyColumns.push(remaining);
+      }
+    }
+
+    return emptyColumns;
+  };
+
+  const emptyColumns = calculateEmptyColumns();
+
   const handleMouseDown = useCallback((e: any, columnIndex: number) => {
     e.preventDefault();
     setIsResizing(true);
@@ -184,7 +213,7 @@ const TabularView = (collectionData: CollectionVariables) => {
 
     const startX = e.clientX;
     const header = headers[columnIndex];
-    const startWidth = columnWidths[header] || (columnIndex === 0 ? 220 : 190);
+    const startWidth = columnWidths[header] || (columnIndex === 0 ? 280 : 240);
 
     const handleMouseMove = (e: MouseEvent) => {
       const diff = e.clientX - startX;
@@ -238,8 +267,8 @@ const TabularView = (collectionData: CollectionVariables) => {
                 key={header}
                 className={styles.tableHeaderItemContainer}
                 style={{
-                  width: `${columnWidths[header] || (index === 0 ? 220 : 190)}px`,
-                  position: 'relative'
+                  width: `${columnWidths[header] || (index === 0 ? 280 : 240)}px`,
+                  ...(index !== 0 && { position: 'relative' })
                 }}
               >
                 <span>{header}</span>
@@ -247,6 +276,16 @@ const TabularView = (collectionData: CollectionVariables) => {
                   onMouseDown={handleMouseDown}
                   columnIndex={index}
                 />
+              </th>
+            ))}
+            {/* Empty columns to fill remaining space */}
+            {emptyColumns.map((width, index) => (
+              <th
+                key={`empty-${index}`}
+                className={styles.tableHeaderItemContainer}
+                style={{ width: `${width}px` }}
+              >
+                <span></span>
               </th>
             ))}
           </tr>
@@ -257,7 +296,7 @@ const TabularView = (collectionData: CollectionVariables) => {
               <td
                 key={varName}
                 className={styles.tableValueItemContainer}
-                style={{ width: `${columnWidths["Name"] || 220}px` }}
+                style={{ width: `${columnWidths["Name"] || 280}px` }}
               >
                 <span title={varName}>{varName}</span>
               </td>
@@ -266,7 +305,7 @@ const TabularView = (collectionData: CollectionVariables) => {
                   key={`${headers[valueIndex + 1]}::${varName}`}
                   className={styles.tableValueItemContainer}
                   style={{
-                    width: `${columnWidths[headers[valueIndex + 1]] || 190}px`
+                    width: `${columnWidths[headers[valueIndex + 1]] || 240}px`
                   }}
                 >
                   <ValueRenderer
@@ -275,6 +314,16 @@ const TabularView = (collectionData: CollectionVariables) => {
                     type={type}
                     mode={varValue[0]}
                   />
+                </td>
+              ))}
+              {/* Empty cells to fill remaining space */}
+              {emptyColumns.map((width, index) => (
+                <td
+                  key={`empty-${index}`}
+                  className={styles.tableValueItemContainer}
+                  style={{ width: `${width}px` }}
+                >
+                  <span></span>
                 </td>
               ))}
             </tr>

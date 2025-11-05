@@ -871,14 +871,14 @@ dl {
   z-index: 120; /* Higher than tableHead (110) and regular sticky cells (10) */
 }
 
-/* For tableheaderItemContainer except the first column, keep the width as 190px */
+/* For tableheaderItemContainer except the first column, keep the width as 240px */
 .tableHeaderItemContainer:not(:first-child) {
-  width: 190px;
+  width: 240px;
   min-width: 150px;
 }
 
 .tableValueItemContainer:not(:first-child) {
-  width: 190px;
+  width: 240px;
   min-width: 150px;
 }
 
