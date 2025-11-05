@@ -1090,6 +1090,24 @@ dl {
   gap: var(--sds-size-space-300);
 }
 
+/* Hover states for radio buttons and checkboxes in view options */
+.configurationForm label {
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+  border-radius: var(--sds-size-radius-050);
+  padding: var(--sds-size-space-050);
+  margin: calc(var(--sds-size-space-050) * -1);
+}
+
+.configurationForm label:hover {
+  background-color: var(--sds-color-background-default-tertiary);
+}
+
+.configurationForm input[type="radio"]:hover,
+.configurationForm input[type="checkbox"]:hover {
+  cursor: pointer;
+}
+
 .configurationBoxContainer {
   position: relative;
 }

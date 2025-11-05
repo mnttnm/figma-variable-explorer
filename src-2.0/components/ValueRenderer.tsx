@@ -25,6 +25,12 @@ import React from "preact/compat";
 
 const OFFSET = 4; // Offset in pixels
 
+// Helper function to strip serial numbers from collection names
+// Removes patterns like "1. ", "2. ", etc. from the beginning of collection names
+const stripSerialNumber = (collectionName: string): string => {
+  return collectionName.replace(/^\d+\.\s*/, '');
+};
+
 const ResolvedAliasHeader = ({
   aliasLabel,
   title = "",
@@ -115,7 +121,7 @@ const AliasResolutionPopover = forwardRef<
       >
         <ResolvedAliasHeader
           aliasLabel={value.aliasLabel}
-          title={`Collection: ${value.collection}`}
+          title={`Collection: ${stripSerialNumber(value.collection)}`}
         />
         <div>
           {resolvedValues.map((resolvedVariable, varIndex) => (
@@ -136,7 +142,7 @@ const AliasResolutionPopover = forwardRef<
                         aliasLabel={
                           (v.value as AliasValue).aliasLabel
                         }
-                        title={`Collection: ${v.collection}`}
+                        title={`Collection: ${stripSerialNumber(v.collection)}`}
                       />
                     ) : (
                       <div
@@ -148,10 +154,7 @@ const AliasResolutionPopover = forwardRef<
                           alignItems: "center",
                         }}
                       >
-                        {/* Show arrow ONLY for first mode of final value when not first variable
-                            This creates ONE arrow between last alias and final values
-                            No arrow between sibling modes (different modes of same variable) */}
-                        {varIndex > 0 && modeIndex === 0 && <DownwardArrowIcon />}
+                        {/* No arrow needed here - previous alias already has arrow pointing to final values */}
                         {/* Show mode name for clarity about which mode this value is from */}
                         <p style={{
                           fontSize: "var(--sds-typography-body-size-extra-small)",
@@ -349,7 +352,7 @@ const AliasValueRenderer = ({
       title={title}
     >
       <p className={styles.aliasValue}>
-        {`${showCollection ? value.collection + ":" : ""}${
+        {`${showCollection ? stripSerialNumber(value.collection) + ":" : ""}${
           value.aliasLabel
         }`}
       </p>
