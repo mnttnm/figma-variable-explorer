@@ -20,6 +20,7 @@ import {
   SearchContextState,
 } from "../contexts/SearchContext";
 import ConfigurationContext from "../contexts/ConfigurationContext";
+import { WarningIcon, EmptyIcon, SearchIconLarge } from "../components/icons";
 import React from "preact/compat";
 
 export default function Variables() {
@@ -34,16 +35,26 @@ export default function Variables() {
 
   if (status === VariableStatus.ERROR) {
     return (
-      <div>
-        <p>{error}</p>
+      <div className={styles["error-state"]}>
+        <div className={styles["error-state-icon"]}>
+          <WarningIcon />
+        </div>
+        <h3 className={styles["error-state-title"]}>Error Loading Variables</h3>
+        <p className={styles["error-state-message"]}>{error}</p>
       </div>
     );
   }
 
   if (!data || !cssData || !jsonData || (data && Object.keys(data).length === 0)) {
     return (
-      <div>
-        <p>No variables found</p>
+      <div className={styles["empty-state"]}>
+        <div className={styles["empty-state-icon"]}>
+          <EmptyIcon />
+        </div>
+        <h3 className={styles["empty-state-title"]}>No Variables Found</h3>
+        <p className={styles["empty-state-message"]}>
+          This file doesn't contain any variables. Create some variables in Figma to get started.
+        </p>
       </div>
     );
   }
@@ -170,6 +181,35 @@ const TabularView = (collectionData: CollectionVariables) => {
     filteredDataForTables
   );
 
+  // Calculate empty columns to fill remaining space
+  const PLUGIN_WIDTH = 900;
+  const calculateEmptyColumns = () => {
+    const totalColumnsWidth = headers.reduce((sum, header, index) => {
+      return sum + (columnWidths[header] || (index === 0 ? 280 : 240));
+    }, 0);
+
+    const remainingWidth = PLUGIN_WIDTH - totalColumnsWidth;
+    const emptyColumns: number[] = [];
+
+    if (remainingWidth > 100) {
+      // Add empty columns to fill the space
+      let remaining = remainingWidth;
+      while (remaining > 100) {
+        const colWidth = Math.min(240, remaining);
+        emptyColumns.push(colWidth);
+        remaining -= colWidth;
+      }
+      // Add any small remaining width as a final column
+      if (remaining > 0) {
+        emptyColumns.push(remaining);
+      }
+    }
+
+    return emptyColumns;
+  };
+
+  const emptyColumns = calculateEmptyColumns();
+
   const handleMouseDown = useCallback((e: any, columnIndex: number) => {
     e.preventDefault();
     setIsResizing(true);
@@ -178,7 +218,7 @@ const TabularView = (collectionData: CollectionVariables) => {
 
     const startX = e.clientX;
     const header = headers[columnIndex];
-    const startWidth = columnWidths[header] || (columnIndex === 0 ? 220 : 190);
+    const startWidth = columnWidths[header] || (columnIndex === 0 ? 280 : 240);
 
     const handleMouseMove = (e: MouseEvent) => {
       const diff = e.clientX - startX;
@@ -202,6 +242,23 @@ const TabularView = (collectionData: CollectionVariables) => {
     document.addEventListener('mouseup', handleMouseUp);
   }, [columnWidths, setColumnWidths, headers]);
 
+  // Show empty state if search returns no results
+  if (rows.length === 0 && currentSearchTerm) {
+    return (
+      <main className={styles.tableContainer}>
+        <div className={styles["empty-state"]}>
+          <div className={styles["empty-state-icon"]}>
+            <SearchIconLarge />
+          </div>
+          <h3 className={styles["empty-state-title"]}>No Results Found</h3>
+          <p className={styles["empty-state-message"]}>
+            No variables match "{currentSearchTerm}". Try a different search term.
+          </p>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className={styles.tableContainer}>
       <Tooltip
@@ -216,16 +273,26 @@ const TabularView = (collectionData: CollectionVariables) => {
               <th
                 key={header}
                 className={styles.tableHeaderItemContainer}
-                style={{ 
-                  width: `${columnWidths[header] || (index === 0 ? 220 : 190)}px`,
-                  position: 'relative'
+                style={{
+                  width: `${columnWidths[header] || (index === 0 ? 280 : 240)}px`,
+                  ...(index !== 0 && { position: 'relative' })
                 }}
               >
                 <span>{header}</span>
-                <ResizeHandle 
+                <ResizeHandle
                   onMouseDown={handleMouseDown}
                   columnIndex={index}
                 />
+              </th>
+            ))}
+            {/* Empty columns to fill remaining space */}
+            {emptyColumns.map((width, index) => (
+              <th
+                key={`empty-${index}`}
+                className={styles.tableHeaderItemContainer}
+                style={{ width: `${width}px` }}
+              >
+                <span></span>
               </th>
             ))}
           </tr>
@@ -236,7 +303,7 @@ const TabularView = (collectionData: CollectionVariables) => {
               <td
                 key={varName}
                 className={styles.tableValueItemContainer}
-                style={{ width: `${columnWidths["Name"] || 220}px` }}
+                style={{ width: `${columnWidths["Name"] || 280}px` }}
               >
                 <span title={varName}>{varName}</span>
               </td>
@@ -244,8 +311,8 @@ const TabularView = (collectionData: CollectionVariables) => {
                 <td
                   key={`${headers[valueIndex + 1]}::${varName}`}
                   className={styles.tableValueItemContainer}
-                  style={{ 
-                    width: `${columnWidths[headers[valueIndex + 1]] || 190}px` 
+                  style={{
+                    width: `${columnWidths[headers[valueIndex + 1]] || 240}px`
                   }}
                 >
                   <ValueRenderer
@@ -254,6 +321,16 @@ const TabularView = (collectionData: CollectionVariables) => {
                     type={type}
                     mode={varValue[0]}
                   />
+                </td>
+              ))}
+              {/* Empty cells to fill remaining space */}
+              {emptyColumns.map((width, index) => (
+                <td
+                  key={`empty-${index}`}
+                  className={styles.tableValueItemContainer}
+                  style={{ width: `${width}px` }}
+                >
+                  <span></span>
                 </td>
               ))}
             </tr>

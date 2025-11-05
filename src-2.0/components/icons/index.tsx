@@ -9,6 +9,9 @@ import { UserIcon } from "./UserIcon";
 import { CopyIcon } from "./CopyIcon";
 import { CloseIcon } from "./CloseIcon";
 import { VerticalMore } from "./VerticalMore";
+import { WarningIcon } from "./WarningIcon";
+import { EmptyIcon } from "./EmptyIcon";
+import { SearchIconLarge } from "./SearchIconLarge";
 
 export {
   MenuIcon,
@@ -22,4 +25,7 @@ export {
   CopyIcon,
   CloseIcon,
   VerticalMore,
+  WarningIcon,
+  EmptyIcon,
+  SearchIconLarge,
 };

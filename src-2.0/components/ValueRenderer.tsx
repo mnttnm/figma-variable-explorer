@@ -25,6 +25,12 @@ import React from "preact/compat";
 
 const OFFSET = 4; // Offset in pixels
 
+// Helper function to strip serial numbers from collection names
+// Removes patterns like "1. ", "2. ", etc. from the beginning of collection names
+const stripSerialNumber = (collectionName: string): string => {
+  return collectionName.replace(/^\d+\.\s*/, '');
+};
+
 const ResolvedAliasHeader = ({
   aliasLabel,
   title = "",
@@ -115,12 +121,12 @@ const AliasResolutionPopover = forwardRef<
       >
         <ResolvedAliasHeader
           aliasLabel={value.aliasLabel}
-          title={`Collection: ${value.collection}`}
+          title={`Collection: ${stripSerialNumber(value.collection)}`}
         />
         <div>
-          {resolvedValues.map((resolvedVariable, index) => (
+          {resolvedValues.map((resolvedVariable, varIndex) => (
             <div
-              key={index}
+              key={varIndex}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -129,14 +135,14 @@ const AliasResolutionPopover = forwardRef<
               }}
             >
               {Object.entries(resolvedVariable.values).map(
-                ([mode, v], index) => (
-                  <div key={index}>
+                ([mode, v], modeIndex) => (
+                  <div key={modeIndex}>
                     {v.isAlias ? (
                       <ResolvedAliasHeader
                         aliasLabel={
                           (v.value as AliasValue).aliasLabel
                         }
-                        title={`Collection: ${v.collection}`}
+                        title={`Collection: ${stripSerialNumber(v.collection)}`}
                       />
                     ) : (
                       <div
@@ -144,9 +150,21 @@ const AliasResolutionPopover = forwardRef<
                           display: "flex",
                           flexDirection: "column",
                           justifyContent: "flex-start",
-                          gap: "0px",
+                          gap: "var(--sds-size-space-100)",
+                          alignItems: "center",
                         }}
                       >
+                        {/* No arrow needed here - previous alias already has arrow pointing to final values */}
+                        {/* Show mode name for clarity about which mode this value is from */}
+                        <p style={{
+                          fontSize: "var(--sds-typography-body-size-extra-small)",
+                          color: "var(--sds-color-text-default-secondary)",
+                          marginBottom: "var(--sds-size-space-050)",
+                        }}>
+                          {mode}
+                        </p>
+                        {/* For non-color values, show arrow icon stacked vertically above the value */}
+                        {resolvedVariable.type !== "COLOR" && <DownwardArrowIcon />}
                         <div
                           style={{
                             display: "flex",
@@ -162,14 +180,9 @@ const AliasResolutionPopover = forwardRef<
                               value={v.value as ColorValue}
                             />
                           ) : (
-                            <Fragment>
-                              {resolvedValues.length > 1 && (
-                                <p>{mode}</p>
-                              )}
-                              <p className={styles.aliasFinalValue}>
-                                {v.value}
-                              </p>
-                            </Fragment>
+                            <p className={styles.aliasFinalValue}>
+                              {v.value}
+                            </p>
                           )}
                           <CopyIcon />
                         </div>
@@ -339,7 +352,7 @@ const AliasValueRenderer = ({
       title={title}
     >
       <p className={styles.aliasValue}>
-        {`${showCollection ? value.collection + ":" : ""}${
+        {`${showCollection ? stripSerialNumber(value.collection) + ":" : ""}${
           value.aliasLabel
         }`}
       </p>
