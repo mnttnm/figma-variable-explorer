@@ -252,7 +252,30 @@ export const getResolvedValuesForAliasVariable = async (
     }
   }
 
-  return aliasConnectedVariables;
+  // Deduplicate aliasConnectedVariables based on variable name and collection
+  // This prevents showing the same variable multiple times when different mode paths converge
+  const seen = new Map<string, InternalVariable>();
+  const deduplicated: InternalVariable[] = [];
+
+  for (const variable of aliasConnectedVariables) {
+    const key = `${variable.name}::${Object.values(variable.values)[0]?.collection}`;
+    const existing = seen.get(key);
+
+    if (!existing) {
+      // First time seeing this variable, add it
+      seen.set(key, variable);
+      deduplicated.push(variable);
+    } else {
+      // We've seen this variable before, merge the modes
+      for (const [mode, value] of Object.entries(variable.values)) {
+        if (!existing.values[mode]) {
+          existing.values[mode] = value;
+        }
+      }
+    }
+  }
+
+  return deduplicated;
 };
 
 export async function enrichVariableModeValues(

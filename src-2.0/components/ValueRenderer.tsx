@@ -118,9 +118,9 @@ const AliasResolutionPopover = forwardRef<
           title={`Collection: ${value.collection}`}
         />
         <div>
-          {resolvedValues.map((resolvedVariable, index) => (
+          {resolvedValues.map((resolvedVariable, varIndex) => (
             <div
-              key={index}
+              key={varIndex}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -129,8 +129,8 @@ const AliasResolutionPopover = forwardRef<
               }}
             >
               {Object.entries(resolvedVariable.values).map(
-                ([mode, v], index) => (
-                  <div key={index}>
+                ([mode, v], modeIndex) => (
+                  <div key={modeIndex}>
                     {v.isAlias ? (
                       <ResolvedAliasHeader
                         aliasLabel={
@@ -148,6 +148,9 @@ const AliasResolutionPopover = forwardRef<
                           alignItems: "center",
                         }}
                       >
+                        {/* Show arrow before final value ONLY if it's not the first item
+                            (first item already has arrow from initial ResolvedAliasHeader) */}
+                        {varIndex > 0 && <DownwardArrowIcon />}
                         {/* Show mode name for clarity about which mode this value is from */}
                         <p style={{
                           fontSize: "var(--sds-typography-body-size-extra-small)",
@@ -171,9 +174,16 @@ const AliasResolutionPopover = forwardRef<
                               value={v.value as ColorValue}
                             />
                           ) : (
-                            <p className={styles.aliasFinalValue}>
-                              {v.value}
-                            </p>
+                            <div style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "var(--sds-size-space-100)",
+                            }}>
+                              <DownwardArrowIcon />
+                              <p className={styles.aliasFinalValue}>
+                                {v.value}
+                              </p>
+                            </div>
                           )}
                           <CopyIcon />
                         </div>
