@@ -17,11 +17,12 @@ import {
   JSONData,
   VariableViewMode,
   ExportContentType,
+  ExportFormat,
 } from "../types";
 import ConfigurationContext from "./ConfigurationContext";
 import { getMarkdownFromJSON, getCSVFromData } from "../helpers/export-helper";
 import { createFileFromContent } from "../utils";
-import { getCSSResponseFromData } from "../helpers/variableResolverHelper";
+import { getCSSResponseFromData, getSCSSResponseFromData } from "../helpers/variableResolverHelper";
 
 export enum VariableStatus {
   LOADING = "loading",
@@ -50,10 +51,12 @@ export interface VariableContextData {
   handleCopyContent: () => void;
   changeDataStatus: (status: VariableStatus) => void;
   cssData: CSSData | undefined;
+  scssData: CSSData | undefined;
   jsonData: JSONData | undefined;
   handleExport: (
     exportContentType: ExportContentType,
-    isOnlyForActiveSelection: boolean
+    isOnlyForActiveSelection: boolean,
+    format?: ExportFormat
   ) => void;
 }
 
@@ -62,6 +65,7 @@ export const kInitialVariableData: VariableContextData = {
   error: "",
   data: undefined,
   cssData: undefined,
+  scssData: undefined,
   jsonData: undefined,
   collections: [],
   activeCollection: undefined,
@@ -70,7 +74,8 @@ export const kInitialVariableData: VariableContextData = {
   changeDataStatus: (status: VariableStatus) => {},
   handleExport: (
     exportContentType: ExportContentType,
-    isOnlyForActiveSelection: boolean
+    isOnlyForActiveSelection: boolean,
+    format?: ExportFormat
   ) => { },
 };
 
@@ -160,10 +165,10 @@ export const VariablesContextProvider = ({
   }
 
   const handleExport = useCallback(
-    (exportContentType: ExportContentType, isOnlyForActiveSelection: boolean) => {
+    (exportContentType: ExportContentType, isOnlyForActiveSelection: boolean, format: ExportFormat = "css") => {
       if (variablesData.status !== VariableStatus.SUCCESS) return;
 
-      const { jsonData, cssData, collections } = variablesData;
+      const { jsonData, cssData, scssData, collections } = variablesData;
       const fileNamePrefix = isOnlyForActiveSelection && activeCollection !== undefined
         ? collections[activeCollection].name.toLowerCase().replace(/\s+/g, '-')
         : 'variables';
@@ -182,10 +187,17 @@ export const VariablesContextProvider = ({
           getMarkdownFromJSON(jsonForMarkdown, `${fileNamePrefix}.md`);
           break;
         case "css":
-          const cssStringToExport = isOnlyForActiveSelection && activeCollection !== undefined && cssData
-            ? cssData[collections[activeCollection].id]
-            : Object.values(cssData ?? {}).join('\n');
-          createFileFromContent(`${fileNamePrefix}.css`, cssStringToExport);
+          if (format === "scss") {
+            const scssStringToExport = isOnlyForActiveSelection && activeCollection !== undefined && scssData
+              ? scssData[collections[activeCollection].id]
+              : Object.values(scssData ?? {}).join('\n\n');
+            createFileFromContent(`${fileNamePrefix}.scss`, scssStringToExport);
+          } else {
+            const cssStringToExport = isOnlyForActiveSelection && activeCollection !== undefined && cssData
+              ? cssData[collections[activeCollection].id]
+              : Object.values(cssData ?? {}).join('\n');
+            createFileFromContent(`${fileNamePrefix}.css`, cssStringToExport);
+          }
           break;
         case "csv":
           const jsonForCSV = isOnlyForActiveSelection && activeCollection !== undefined && jsonData
@@ -212,6 +224,10 @@ export const VariablesContextProvider = ({
           status: VariableStatus.SUCCESS,
           data: result["collectionsData"],
           cssData: getCSSResponseFromData(
+            result["collectionsData"],
+            colorResolutionMode
+          ),
+          scssData: getSCSSResponseFromData(
             result["collectionsData"],
             colorResolutionMode
           ),

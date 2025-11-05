@@ -16,7 +16,7 @@ import {
 import { VariablesContext } from "../contexts/VariablesContext";
 import React from "preact/compat";
 import { useEscape } from "../hooks/hooks";
-import { ExportScope, ExportContentType } from "../types";
+import { ExportScope, ExportContentType, ExportFormat } from "../types";
 
 interface CustomModalProps {
   showModal: boolean;
@@ -33,6 +33,7 @@ export const CustomModal = forwardRef<
     ref: ForwardedRef<HTMLDivElement>
   ) => {
     const [exportScope, setExportScope] = useState<ExportScope>("all");
+    const [exportFormat, setExportFormat] = useState<ExportFormat>("css");
     const { handleExport } = useContext(VariablesContext)!;
 
     // Prevent body scroll when modal is open
@@ -78,6 +79,17 @@ export const CustomModal = forwardRef<
       },
     ];
 
+    const formatOptions: Array<RadioButtonsOption> = [
+      {
+        children: <Text>CSS (Custom Properties)</Text>,
+        value: "css",
+      },
+      {
+        children: <Text>SCSS (Variables)</Text>,
+        value: "scss",
+      },
+    ];
+
     useEscape(onClose);
 
     return (
@@ -97,6 +109,20 @@ export const CustomModal = forwardRef<
                 options={exportOptions}
                 value={exportScope}
               />
+              {exportContentType === "css" && (
+                <>
+                  <div style={{ marginTop: "16px", marginBottom: "8px" }}>
+                    <Text><strong>Format</strong></Text>
+                  </div>
+                  <RadioButtons
+                    onChange={(e) =>
+                      setExportFormat(e.currentTarget.value as ExportFormat)
+                    }
+                    options={formatOptions}
+                    value={exportFormat}
+                  />
+                </>
+              )}
               <footer className={styles.optionsPopoverFooter}>
                 <Button
                   onClick={(e) => {
@@ -111,7 +137,7 @@ export const CustomModal = forwardRef<
                 <Button
                   onClick={(e) => {
                     e.preventDefault();
-                    handleExport(exportContentType, exportScope === "current");
+                    handleExport(exportContentType, exportScope === "current", exportFormat);
                     onClose();
                   }}
                   style={{ cursor: "pointer" }}

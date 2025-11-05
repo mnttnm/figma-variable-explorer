@@ -541,3 +541,39 @@ export function getCSSResponseFromData(
 
   return collectionCSSObject;
 }
+
+export function getSCSSResponseFromData(
+  collectionsData: CollectionsData,
+  colorResolutionMode: ColorResolutionMode
+) {
+  const simplifiedData = getSimplifiedCollectionData(
+    collectionsData,
+    colorResolutionMode
+  );
+  let scssString = "";
+  let collectionSCSSObject: CSSData = {};
+
+  Object.keys(simplifiedData).forEach((collection, i) => {
+    scssString = `// Collection: ${collection}\n`;
+
+    Object.keys(simplifiedData[collection]).forEach((mode) => {
+      scssString += `\n// Mode: ${mode}\n`;
+
+      Object.keys(simplifiedData[collection][mode]).forEach(
+        (variable) => {
+          const variableData =
+            simplifiedData[collection][mode][variable];
+          scssString += `$${variable}: ${
+            variableData.isAlias
+              ? `$${variableData.varValue}`
+              : variableData.varValue
+          };\n`;
+        }
+      );
+    });
+
+    collectionSCSSObject[collection] = scssString;
+  });
+
+  return collectionSCSSObject;
+}

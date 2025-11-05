@@ -83,4 +83,5 @@ export type CSSData = Record<string, string>;
 export type JSONData = Record<string, any>;
 export type ExportScope = "all" | "current";
 export type ExportContentType = "markdown" | "json" | "css" | "csv";
+export type ExportFormat = "css" | "scss";
 export type VariableResolvedDataType = "COLOR" | "STRING" | "NUMBER" | "BOOLEAN";
