@@ -11,6 +11,7 @@ import {
   ForwardedRef,
   useState,
   useContext,
+  useEffect,
 } from "preact/compat";
 import { VariablesContext } from "../contexts/VariablesContext";
 import React from "preact/compat";
@@ -34,10 +35,36 @@ export const CustomModal = forwardRef<
     const [exportScope, setExportScope] = useState<ExportScope>("all");
     const { handleExport } = useContext(VariablesContext)!;
 
+    // Prevent body scroll when modal is open
+    useEffect(() => {
+      if (showModal) {
+        // Save current scroll position
+        const scrollY = window.scrollY;
+
+        // Prevent scroll
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.width = '100%';
+
+        return () => {
+          // Restore scroll
+          document.body.style.overflow = '';
+          document.body.style.position = '';
+          document.body.style.top = '';
+          document.body.style.width = '';
+          window.scrollTo(0, scrollY);
+        };
+      }
+    }, [showModal]);
+
     function handleOverlayClick(
       event: JSX.TargetedMouseEvent<HTMLDivElement>
     ) {
-      onClose();
+      // Only close if clicking the overlay itself, not the modal content
+      if (event.target === event.currentTarget) {
+        onClose();
+      }
     }
 
     const exportOptions: Array<RadioButtonsOption> = [
@@ -55,7 +82,11 @@ export const CustomModal = forwardRef<
 
     return (
       showModal && (
-        <div ref={ref} className={styles.modalContainer}>
+        <div
+          ref={ref}
+          className={styles.modalContainer}
+          onClick={handleOverlayClick}
+        >
           <section className={styles.confirmationPopover}>
             <h3>Export Variables</h3>
             <form>

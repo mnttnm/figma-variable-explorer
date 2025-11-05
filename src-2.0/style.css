@@ -629,14 +629,21 @@ dl {
   height: 48px;
   padding: var(--sds-size-space-150) var(--sds-size-space-200);
   gap: var(--sds-size-space-200);
-  border-radius: var(--sds-size-radius-150);
+  border-radius: var(--sds-size-radius-100);
   cursor: pointer;
+  transition: all 0.2s ease-out;
 }
 
 .navItemContainer:hover {
   background-color: var(
     --sds-color-background-default-secondary-hover
   );
+  transform: translateX(2px);
+}
+
+.navItemContainer:focus-visible {
+  outline: 2px solid var(--sds-color-border-brand-default);
+  outline-offset: 2px;
 }
 
 .navItemLabel {
@@ -678,6 +685,24 @@ dl {
   color: var(--sds-color-icon-default-default);
   background-color: transparent;
   cursor: pointer;
+  border: none;
+  transition: all 0.15s ease-in-out;
+}
+
+.icon-button:hover {
+  background-color: var(--sds-color-background-default-secondary-hover);
+  border-radius: var(--sds-size-radius-100);
+}
+
+.icon-button:active {
+  background-color: var(--sds-color-background-default-tertiary);
+  transform: scale(0.96);
+}
+
+.icon-button:focus-visible {
+  outline: 2px solid var(--sds-color-border-brand-default);
+  outline-offset: 2px;
+  border-radius: var(--sds-size-radius-100);
 }
 
 .icon-button-box {
@@ -689,6 +714,17 @@ dl {
   border: var(--body-extra-small, 1px) solid
     var(--sds-color-border-default-default);
   background: var(--sds-color-background-default-secondary);
+  transition: all 0.15s ease-in-out;
+}
+
+.icon-button-box:hover {
+  border-color: var(--sds-color-border-brand-default);
+  background: var(--sds-color-background-brand-tertiary);
+}
+
+.icon-button-box:focus-visible {
+  outline: 2px solid var(--sds-color-border-brand-default);
+  outline-offset: 2px;
 }
 
 .collectionSelectorBox {
@@ -747,11 +783,24 @@ dl {
     var(--sds-color-border-default-default);
 }
 
+.tableRowContainer {
+  transition: background-color 0.15s ease-in-out;
+}
+
+.tableRowContainer:hover {
+  background-color: var(--sds-color-background-default-secondary);
+}
+
+.tableRowContainer:hover .tableValueItemContainer:first-child {
+  background-color: var(--sds-color-background-default-secondary);
+}
+
 .tableHead {
   position: sticky;
   top: 0;
   z-index: 110;
   background: var(--sds-color-background-default-default);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
 .tableHeaderContainer {
@@ -1175,14 +1224,13 @@ dl {
 .resizeHandle {
   position: absolute;
   top: 0;
-  right: -2px;
-  width: 4px;
+  right: -4px;
+  width: 8px;
   height: 100%;
   cursor: col-resize;
   background: transparent;
   z-index: 100;
   transition: all 0.2s ease-in-out;
-  
 }
 
 /* Add subtle visual indicator */
@@ -1191,12 +1239,13 @@ dl {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 1px;
+  width: 2px;
   height: 60%;
   background: var(--sds-color-border-default-tertiary);
   transform: translate(-50%, -50%);
-  opacity: 0.3;
+  opacity: 0.4;
   transition: opacity 0.2s ease-in-out;
+  border-radius: 1px;
 }
 
 /* Add grip pattern dots */
@@ -1207,18 +1256,19 @@ dl {
   left: 50%;
   width: 2px;
   height: 2px;
-  background: var(--sds-color-border-default-secondary);
+  background: var(--sds-color-border-brand-default);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
-  box-shadow: 
-    0 -4px 0 var(--sds-color-border-default-secondary),
-    0 4px 0 var(--sds-color-border-default-secondary);
+  box-shadow:
+    0 -4px 0 var(--sds-color-border-brand-default),
+    0 4px 0 var(--sds-color-border-brand-default);
 }
 
 .resizeHandle:hover {
   background: var(--sds-color-background-brand-tertiary);
+  opacity: 0.5;
 }
 
 .resizeHandle:hover::after {
@@ -1226,6 +1276,11 @@ dl {
 }
 
 .resizeHandle:hover::before {
+  opacity: 0.8;
+}
+
+.resizeHandle:active {
+  background: var(--sds-color-background-brand-default);
   opacity: 0.6;
 }
 
@@ -1335,5 +1390,78 @@ dl {
   100% {
     background-position: 200% 0;
   }
+}
+
+/* Empty States */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sds-size-space-2400);
+  text-align: center;
+  min-height: 300px;
+}
+
+.empty-state-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: var(--sds-size-space-400);
+  opacity: 0.3;
+  color: var(--sds-color-icon-default-secondary);
+}
+
+.empty-state-title {
+  font-size: var(--sds-typography-heading-size-base);
+  font-weight: var(--sds-typography-heading-font-weight);
+  color: var(--sds-color-text-default-default);
+  margin-bottom: var(--sds-size-space-200);
+}
+
+.empty-state-message {
+  color: var(--sds-color-text-default-secondary);
+  font-size: var(--sds-typography-body-size-medium);
+  max-width: 400px;
+  line-height: 1.5;
+  margin-bottom: var(--sds-size-space-400);
+}
+
+.empty-state-action {
+  margin-top: var(--sds-size-space-200);
+}
+
+/* Error States */
+.error-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sds-size-space-1200);
+  text-align: center;
+  color: var(--sds-color-text-danger-default);
+  min-height: 300px;
+}
+
+.error-state-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: var(--sds-size-space-300);
+  opacity: 0.5;
+  color: var(--sds-color-icon-danger-default);
+}
+
+.error-state-title {
+  font-size: var(--sds-typography-heading-size-base);
+  font-weight: var(--sds-typography-heading-font-weight);
+  color: var(--sds-color-text-danger-default);
+  margin-bottom: var(--sds-size-space-200);
+}
+
+.error-state-message {
+  color: var(--sds-color-text-default-secondary);
+  font-size: var(--sds-typography-body-size-small);
+  margin-bottom: var(--sds-size-space-400);
+  max-width: 400px;
+  line-height: 1.5;
 }
 

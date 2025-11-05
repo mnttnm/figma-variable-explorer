@@ -34,16 +34,22 @@ export default function Variables() {
 
   if (status === VariableStatus.ERROR) {
     return (
-      <div>
-        <p>{error}</p>
+      <div className={styles["error-state"]}>
+        <div className={styles["error-state-icon"]}>⚠️</div>
+        <h3 className={styles["error-state-title"]}>Error Loading Variables</h3>
+        <p className={styles["error-state-message"]}>{error}</p>
       </div>
     );
   }
 
   if (!data || !cssData || !jsonData || (data && Object.keys(data).length === 0)) {
     return (
-      <div>
-        <p>No variables found</p>
+      <div className={styles["empty-state"]}>
+        <div className={styles["empty-state-icon"]}>📭</div>
+        <h3 className={styles["empty-state-title"]}>No Variables Found</h3>
+        <p className={styles["empty-state-message"]}>
+          This file doesn't contain any variables. Create some variables in Figma to get started.
+        </p>
       </div>
     );
   }
@@ -202,6 +208,21 @@ const TabularView = (collectionData: CollectionVariables) => {
     document.addEventListener('mouseup', handleMouseUp);
   }, [columnWidths, setColumnWidths, headers]);
 
+  // Show empty state if search returns no results
+  if (rows.length === 0 && currentSearchTerm) {
+    return (
+      <main className={styles.tableContainer}>
+        <div className={styles["empty-state"]}>
+          <div className={styles["empty-state-icon"]}>🔍</div>
+          <h3 className={styles["empty-state-title"]}>No Results Found</h3>
+          <p className={styles["empty-state-message"]}>
+            No variables match "{currentSearchTerm}". Try a different search term.
+          </p>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className={styles.tableContainer}>
       <Tooltip
@@ -216,13 +237,13 @@ const TabularView = (collectionData: CollectionVariables) => {
               <th
                 key={header}
                 className={styles.tableHeaderItemContainer}
-                style={{ 
+                style={{
                   width: `${columnWidths[header] || (index === 0 ? 220 : 190)}px`,
                   position: 'relative'
                 }}
               >
                 <span>{header}</span>
-                <ResizeHandle 
+                <ResizeHandle
                   onMouseDown={handleMouseDown}
                   columnIndex={index}
                 />
@@ -244,8 +265,8 @@ const TabularView = (collectionData: CollectionVariables) => {
                 <td
                   key={`${headers[valueIndex + 1]}::${varName}`}
                   className={styles.tableValueItemContainer}
-                  style={{ 
-                    width: `${columnWidths[headers[valueIndex + 1]] || 190}px` 
+                  style={{
+                    width: `${columnWidths[headers[valueIndex + 1]] || 190}px`
                   }}
                 >
                   <ValueRenderer
