@@ -159,6 +159,8 @@ const AliasResolutionPopover = forwardRef<
                         }}>
                           {mode}
                         </p>
+                        {/* For non-color values, show arrow icon stacked vertically above the value */}
+                        {resolvedVariable.type !== "COLOR" && <DownwardArrowIcon />}
                         <div
                           style={{
                             display: "flex",
@@ -174,16 +176,9 @@ const AliasResolutionPopover = forwardRef<
                               value={v.value as ColorValue}
                             />
                           ) : (
-                            <div style={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "var(--sds-size-space-100)",
-                            }}>
-                              <DownwardArrowIcon />
-                              <p className={styles.aliasFinalValue}>
-                                {v.value}
-                              </p>
-                            </div>
+                            <p className={styles.aliasFinalValue}>
+                              {v.value}
+                            </p>
                           )}
                           <CopyIcon />
                         </div>

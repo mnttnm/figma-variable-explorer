@@ -267,10 +267,16 @@ export const getResolvedValuesForAliasVariable = async (
       deduplicated.push(variable);
     } else {
       // We've seen this variable before, merge the modes
+      // Prefer non-alias values over alias values when merging
       for (const [mode, value] of Object.entries(variable.values)) {
         if (!existing.values[mode]) {
+          // Mode doesn't exist, add it
+          existing.values[mode] = value;
+        } else if (existing.values[mode].isAlias && !value.isAlias) {
+          // Existing is alias but new value is final - replace with final value
           existing.values[mode] = value;
         }
+        // If existing is already final (not alias), keep it
       }
     }
   }
