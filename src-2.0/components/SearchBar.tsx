@@ -25,11 +25,15 @@ const SearchBar = () => {
   // Smart truncation for long collection names
   const getPlaceholderText = () => {
     const collectionName = collections[activeCollection!].name;
-    const maxLength = 25;
+    const maxLength = 20;
     if (collectionName.length > maxLength) {
-      return `Searching in ${collectionName.substring(0, maxLength)}...`;
+      return `Search ${collectionName.substring(0, maxLength)}... (Cmd/Ctrl+F)`;
     }
-    return `Searching in ${collectionName}`;
+    return `Search ${collectionName} (Cmd/Ctrl+F)`;
+  };
+
+  const handleClear = () => {
+    setCurrentSearchTerm("");
   };
 
   return (
@@ -45,10 +49,19 @@ const SearchBar = () => {
         className={styles.searchInput}
         autoFocus
       />
+      {currentSearchTerm && (
+        <IconButton
+          showBorder={false}
+          onClick={handleClear}
+          title="Clear search"
+        >
+          <CloseIcon />
+        </IconButton>
+      )}
       <IconButton
         showBorder
         onClick={() => setIsSearchActive(false)}
-        title="Cancel Search"
+        title="Exit Search"
       >
         <CloseIcon />
       </IconButton>

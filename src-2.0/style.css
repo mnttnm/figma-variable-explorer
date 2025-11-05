@@ -646,6 +646,17 @@ dl {
   outline-offset: 2px;
 }
 
+.navItemActive {
+  background-color: var(--sds-color-background-brand-tertiary);
+  border-left: 3px solid var(--sds-color-border-brand-default);
+  padding-left: calc(var(--sds-size-space-200) - 3px);
+}
+
+.navItemActive .navItemLabel {
+  color: var(--sds-color-text-brand-default);
+  font-weight: var(--sds-typography-body-font-weight-strong);
+}
+
 .navItemLabel {
   color: var(--sds-color-text-default-default);
   /* Body Small */
@@ -873,10 +884,15 @@ dl {
 .aliasValue {
   margin: 0;
   color: var(--sds-color-text-default-default);
-  background-color: var(--sds-color-background-brand-secondary);
+  background: linear-gradient(
+    135deg,
+    var(--sds-color-background-brand-tertiary) 0%,
+    var(--sds-color-background-brand-secondary) 100%
+  );
   padding: var(--sds-size-space-050) var(--sds-size-space-100);
   border-radius: var(--sds-size-radius-100);
-  border: 1px solid var(--sds-color-border-default-default);
+  border: 1px solid var(--sds-color-border-brand-tertiary);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
   opacity: 1;
   font-size: var(--sds-typography-body-size-extra-small);
   font-family: var(--sds-typography-body-font-family);
@@ -887,11 +903,20 @@ dl {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .aliasValue:hover {
   cursor: pointer;
-  background-color: var(--sds-color-background-brand-secondary-hover);
+  background: var(--sds-color-background-brand-secondary);
+  border-color: var(--sds-color-border-brand-default);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.aliasValue:active {
+  transform: translateY(0);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .colorValueContainer {
@@ -907,6 +932,21 @@ dl {
   border: var(--body-extra-small, 1px) solid
     var(--sds-color-border-default-default);
   cursor: pointer;
+  position: relative;
+  /* Checkerboard pattern for transparency */
+  background-image:
+    linear-gradient(45deg, var(--sds-color-background-default-tertiary) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--sds-color-background-default-tertiary) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--sds-color-background-default-tertiary) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--sds-color-background-default-tertiary) 75%);
+  background-size: 8px 8px;
+  background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+  background-color: var(--sds-color-background-default-default);
+  transition: transform 0.15s ease-out;
+}
+
+.colorTileValue:hover {
+  transform: scale(1.15);
 }
 
 .stringValue {
@@ -946,10 +986,22 @@ dl {
   gap: var(--sds-size-space-100);
   border-radius: var(--sds-size-radius-100);
   background: var(--sds-color-background-default-secondary);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    0 0 0 1px var(--sds-color-border-default-secondary);
+  animation: popoverSlideIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-  box-shadow: var(--sds-size-depth-0) var(--sds-size-depth-400)
-    var(--sds-size-depth-800) var(--sds-size-depth-negative-200)
-    var(--sds-color-black-400);
+@keyframes popoverSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .resolvedAliasLabel {
@@ -977,18 +1029,32 @@ dl {
   font-weight: var(--sds-typography-body-font-weight-strong);
 }
 
+.icon {
+  transition: transform 0.2s ease-out;
+}
+
 .icon path {
   stroke: var(--sds-color-icon-brand-on-brand-secondary);
   width: 15px;
   height: 15px;
+  transition: stroke 0.15s ease-out;
 }
 
 .icon:hover path {
   stroke: var(--sds-color-icon-default-secondary);
 }
 
+.icon:active {
+  animation: copyPulse 0.3s ease-out;
+}
+
 .icon:active path {
   stroke: var(--sds-color-icon-default-tertiary);
+}
+
+@keyframes copyPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
 }
 
 .popoverContainer {
@@ -1347,12 +1413,12 @@ dl {
   border: none;
   color: var(--sds-color-text-default-secondary);
   cursor: pointer;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   line-height: 1;
   padding: 0;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1363,6 +1429,11 @@ dl {
 .toastCloseButton:hover {
   background: var(--sds-color-background-default-tertiary);
   color: var(--sds-color-text-default-default);
+  transform: scale(1.1);
+}
+
+.toastCloseButton:active {
+  transform: scale(0.95);
 }
 
 /* Skeleton Loading Components */

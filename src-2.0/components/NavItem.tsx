@@ -15,7 +15,10 @@ function NavItem({
 }) {
   return (
     <li
-      className={[styles.navItemContainer].join(" ")}
+      className={[
+        styles.navItemContainer,
+        isActive ? styles.navItemActive : ""
+      ].join(" ")}
       onClick={() => onClick()}
     >
       {icon}
