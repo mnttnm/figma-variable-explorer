@@ -20,6 +20,7 @@ import {
   SearchContextState,
 } from "../contexts/SearchContext";
 import ConfigurationContext from "../contexts/ConfigurationContext";
+import { WarningIcon, EmptyIcon, SearchIconLarge } from "../components/icons";
 import React from "preact/compat";
 
 export default function Variables() {
@@ -35,7 +36,9 @@ export default function Variables() {
   if (status === VariableStatus.ERROR) {
     return (
       <div className={styles["error-state"]}>
-        <div className={styles["error-state-icon"]}>⚠️</div>
+        <div className={styles["error-state-icon"]}>
+          <WarningIcon />
+        </div>
         <h3 className={styles["error-state-title"]}>Error Loading Variables</h3>
         <p className={styles["error-state-message"]}>{error}</p>
       </div>
@@ -45,7 +48,9 @@ export default function Variables() {
   if (!data || !cssData || !jsonData || (data && Object.keys(data).length === 0)) {
     return (
       <div className={styles["empty-state"]}>
-        <div className={styles["empty-state-icon"]}>📭</div>
+        <div className={styles["empty-state-icon"]}>
+          <EmptyIcon />
+        </div>
         <h3 className={styles["empty-state-title"]}>No Variables Found</h3>
         <p className={styles["empty-state-message"]}>
           This file doesn't contain any variables. Create some variables in Figma to get started.
@@ -242,7 +247,9 @@ const TabularView = (collectionData: CollectionVariables) => {
     return (
       <main className={styles.tableContainer}>
         <div className={styles["empty-state"]}>
-          <div className={styles["empty-state-icon"]}>🔍</div>
+          <div className={styles["empty-state-icon"]}>
+            <SearchIconLarge />
+          </div>
           <h3 className={styles["empty-state-title"]}>No Results Found</h3>
           <p className={styles["empty-state-message"]}>
             No variables match "{currentSearchTerm}". Try a different search term.
