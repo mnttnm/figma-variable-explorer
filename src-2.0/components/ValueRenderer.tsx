@@ -148,9 +148,10 @@ const AliasResolutionPopover = forwardRef<
                           alignItems: "center",
                         }}
                       >
-                        {/* Show arrow before final value ONLY if it's not the first item
-                            (first item already has arrow from initial ResolvedAliasHeader) */}
-                        {varIndex > 0 && <DownwardArrowIcon />}
+                        {/* Show arrow ONLY for first mode of final value when not first variable
+                            This creates ONE arrow between last alias and final values
+                            No arrow between sibling modes (different modes of same variable) */}
+                        {varIndex > 0 && modeIndex === 0 && <DownwardArrowIcon />}
                         {/* Show mode name for clarity about which mode this value is from */}
                         <p style={{
                           fontSize: "var(--sds-typography-body-size-extra-small)",
