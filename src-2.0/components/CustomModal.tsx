@@ -4,7 +4,7 @@ import {
   RadioButtonsOption,
   Text,
 } from "@create-figma-plugin/ui";
-import { JSX, h } from "preact";
+import { JSX, h, Fragment } from "preact";
 import styles from "../style.css";
 import {
   forwardRef,
@@ -110,7 +110,7 @@ export const CustomModal = forwardRef<
                 value={exportScope}
               />
               {exportContentType === "css" && (
-                <>
+                <Fragment>
                   <div style={{ marginTop: "16px", marginBottom: "8px" }}>
                     <Text><strong>Format</strong></Text>
                   </div>
@@ -121,7 +121,7 @@ export const CustomModal = forwardRef<
                     options={formatOptions}
                     value={exportFormat}
                   />
-                </>
+                </Fragment>
               )}
               <footer className={styles.optionsPopoverFooter}>
                 <Button
