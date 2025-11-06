@@ -14,6 +14,9 @@ import {
   GetVariableHandler,
   InternalVariable,
   ResizeWindowHandler,
+  TrackLaunchHandler,
+  MarkSupportPromptSeenHandler,
+  DismissSupportPromptHandler,
   VariableViewMode,
 } from "./types";
 import {
@@ -33,6 +36,44 @@ export default function () {
 
   once<CloseHandler>("CLOSE", function () {
     figma.closePlugin();
+  });
+
+  // Track plugin launches for support prompt
+  on<TrackLaunchHandler>("TRACK_LAUNCH", async function () {
+    try {
+      const launchCount = (await figma.clientStorage.getAsync("launchCount")) || 0;
+      const hasSeenPrompt = (await figma.clientStorage.getAsync("hasSeenSupportPrompt")) || false;
+      const lastDismissLaunchCount = (await figma.clientStorage.getAsync("lastDismissLaunchCount")) || null;
+
+      const newCount = launchCount + 1;
+      await figma.clientStorage.setAsync("launchCount", newCount);
+
+      emit("LAUNCH_DATA", {
+        launchCount: newCount,
+        hasSeenPrompt,
+        lastDismissLaunchCount
+      });
+    } catch (error) {
+      console.error("Error tracking launch:", error);
+    }
+  });
+
+  // Mark support prompt as seen
+  on<MarkSupportPromptSeenHandler>("MARK_SUPPORT_PROMPT_SEEN", async function () {
+    try {
+      await figma.clientStorage.setAsync("hasSeenSupportPrompt", true);
+    } catch (error) {
+      console.error("Error marking support prompt as seen:", error);
+    }
+  });
+
+  // Dismiss support prompt (for "Remind Later" and auto-dismiss)
+  on<DismissSupportPromptHandler>("DISMISS_SUPPORT_PROMPT", async function (currentLaunchCount) {
+    try {
+      await figma.clientStorage.setAsync("lastDismissLaunchCount", currentLaunchCount);
+    } catch (error) {
+      console.error("Error dismissing support prompt:", error);
+    }
   });
 
   on<GetJsonDataHandler>(

@@ -27,6 +27,32 @@ export interface GetJsonDataHandler extends EventHandler {
   ) => void;
 }
 
+export interface LaunchData {
+  launchCount: number;
+  hasSeenPrompt: boolean;
+  lastDismissLaunchCount: number | null;
+}
+
+export interface LaunchDataHandler extends EventHandler {
+  name: "LAUNCH_DATA";
+  handler: (data: LaunchData) => void;
+}
+
+export interface TrackLaunchHandler extends EventHandler {
+  name: "TRACK_LAUNCH";
+  handler: () => void;
+}
+
+export interface MarkSupportPromptSeenHandler extends EventHandler {
+  name: "MARK_SUPPORT_PROMPT_SEEN";
+  handler: () => void;
+}
+
+export interface DismissSupportPromptHandler extends EventHandler {
+  name: "DISMISS_SUPPORT_PROMPT";
+  handler: (currentLaunchCount: number) => void;
+}
+
 export type VariableViewMode = "table" | "css" | "json";
 export type ColorResolutionMode = "hex" | "rgba" | "hsla";
 
