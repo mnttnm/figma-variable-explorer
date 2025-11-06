@@ -13,7 +13,7 @@ import { h } from "preact";
 
 const ThemedApp = () => {
   const { theme } = useTheme();
-  const { shouldShowPrompt, markAsSeen, resetCount } = useLaunchTracking(3);
+  const { shouldShowPrompt, markAsSeen, dismissPrompt } = useLaunchTracking(3);
 
   const handleStar = () => {
     window.open("https://github.com/mnttnm/figma-variable-explorer", "_blank");
@@ -26,7 +26,7 @@ const ThemedApp = () => {
   };
 
   const handleRemindLater = () => {
-    resetCount();
+    dismissPrompt();
   };
 
   const handleClose = () => {

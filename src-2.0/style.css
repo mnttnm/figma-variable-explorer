@@ -1598,6 +1598,7 @@ dl {
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   backdrop-filter: blur(12px);
+  pointer-events: auto;
 }
 
 .supportToastVisible {
@@ -1721,23 +1722,23 @@ dl {
 }
 
 .supportToastButtonSponsor {
-  background: var(--sds-color-pink-700);
+  background: var(--sds-color-gray-800);
   color: var(--sds-color-white-1000);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .theme-light .supportToastButtonSponsor {
-  background: var(--sds-color-pink-600);
+  background: var(--sds-color-gray-900);
 }
 
 .supportToastButtonSponsor:hover {
-  background: var(--sds-color-pink-600);
+  background: var(--sds-color-gray-700);
   transform: translateY(-1px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 .theme-light .supportToastButtonSponsor:hover {
-  background: var(--sds-color-pink-500);
+  background: var(--sds-color-gray-800);
 }
 
 .supportToastButtonSponsor:active {

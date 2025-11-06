@@ -8,13 +8,17 @@ interface SupportToastProps {
   onStar: () => void;
   onSponsor: () => void;
   onRemindLater: () => void;
+  autoDismissMs?: number;
+  disableAutoDismiss?: boolean;
 }
 
 export const SupportToast = ({
   onClose,
   onStar,
   onSponsor,
-  onRemindLater
+  onRemindLater,
+  autoDismissMs = 20000,
+  disableAutoDismiss = false
 }: SupportToastProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const autoDismissTimer = useRef<NodeJS.Timeout | null>(null);
@@ -25,15 +29,24 @@ export const SupportToast = ({
     return () => clearTimeout(timer);
   }, []);
 
-  // Auto-dismiss after 12 seconds
+  // Auto-dismiss after configured duration, respecting accessibility preferences
   useEffect(() => {
+    if (disableAutoDismiss) return;
+
+    // Check for prefers-reduced-motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // If user prefers reduced motion, extend the timeout or skip auto-dismiss
+    const timeout = prefersReducedMotion ? autoDismissMs * 2 : autoDismissMs;
+
     autoDismissTimer.current = setTimeout(() => {
       handleClose();
-    }, 12000);
+    }, timeout);
+
     return () => {
       if (autoDismissTimer.current) clearTimeout(autoDismissTimer.current);
     };
-  }, []);
+  }, [autoDismissMs, disableAutoDismiss]);
 
   const handleClose = () => {
     if (autoDismissTimer.current) {
@@ -59,9 +72,8 @@ export const SupportToast = ({
       className={`${styles.supportToast} ${
         isVisible ? styles.supportToastVisible : ''
       }`}
-      style={{
-        pointerEvents: 'auto'
-      }}
+      role="status"
+      aria-live="polite"
     >
       <button
         className={styles.supportToastCloseButton}
@@ -74,11 +86,11 @@ export const SupportToast = ({
       <div className={styles.supportToastContent}>
         <div className={styles.supportToastHeader}>
           <span className={styles.supportToastIcon}>👋</span>
-          <span className={styles.supportToastTitle}>Enjoying variables?</span>
+          <span className={styles.supportToastTitle}>Enjoying the plugin?</span>
         </div>
 
         <div className={styles.supportToastBody}>
-          Support with a ⭐ or 💝 to keep it free!
+          Support us with a star or sponsorship to keep this free.
         </div>
 
         <div className={styles.supportToastActions}>
@@ -86,13 +98,13 @@ export const SupportToast = ({
             className={`${styles.supportToastButton} ${styles.supportToastButtonStar}`}
             onClick={() => handleAction(onStar)}
           >
-            ⭐ GitHub
+            ⭐ Star
           </button>
           <button
             className={`${styles.supportToastButton} ${styles.supportToastButtonSponsor}`}
             onClick={() => handleAction(onSponsor)}
           >
-            💝 Sponsor
+            Sponsor
           </button>
         </div>
 
@@ -101,7 +113,7 @@ export const SupportToast = ({
             className={styles.supportToastLaterLink}
             onClick={() => handleAction(onRemindLater)}
           >
-            Later
+            Remind Later
           </button>
           <span className={styles.supportToastSocialsSeparator}>•</span>
           <a

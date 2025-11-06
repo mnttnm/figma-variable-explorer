@@ -1,5 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
 import { emit, on } from "@create-figma-plugin/utilities";
+import { LaunchData } from "../types";
 
 export const useEscape = (onEscape: () => void) => {
   useEffect(() => {
@@ -17,17 +18,12 @@ export const useEscape = (onEscape: () => void) => {
   }, [onEscape]);
 };
 
-interface LaunchData {
-  launchCount: number;
-  hasSeenPrompt: boolean;
-}
-
 export const useLaunchTracking = (
   targetLaunchCount: number = 3
 ): {
   shouldShowPrompt: boolean;
   markAsSeen: () => void;
-  resetCount: () => void;
+  dismissPrompt: () => void;
 } => {
   const [shouldShowPrompt, setShouldShowPrompt] = useState(false);
 
@@ -59,8 +55,8 @@ export const useLaunchTracking = (
     setShouldShowPrompt(false);
   };
 
-  const resetCount = () => {
-    // Reset is handled by not marking as seen
+  const dismissPrompt = () => {
+    // Only hides the prompt from view, does not reset launch count or mark as seen
     // This allows the prompt to appear again after another 3 launches
     setShouldShowPrompt(false);
   };
@@ -68,6 +64,6 @@ export const useLaunchTracking = (
   return {
     shouldShowPrompt,
     markAsSeen,
-    resetCount,
+    dismissPrompt,
   };
 };

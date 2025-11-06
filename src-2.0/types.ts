@@ -37,6 +37,16 @@ export interface MarkSupportPromptSeenHandler extends EventHandler {
   handler: () => void;
 }
 
+export interface LaunchData {
+  launchCount: number;
+  hasSeenPrompt: boolean;
+}
+
+export interface LaunchDataHandler extends EventHandler {
+  name: "LAUNCH_DATA";
+  handler: (data: LaunchData) => void;
+}
+
 export type VariableViewMode = "table" | "css" | "json";
 export type ColorResolutionMode = "hex" | "rgba" | "hsla";
 
