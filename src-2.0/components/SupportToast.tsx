@@ -19,28 +19,28 @@ export const SupportToast = ({
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Trigger animation on mount with a slight delay
-    const timer = setTimeout(() => setIsVisible(true), 100);
+    // Trigger animation on mount with a slight delay for smoother entrance
+    const timer = setTimeout(() => setIsVisible(true), 150);
     return () => clearTimeout(timer);
   }, []);
 
-  // Auto-dismiss after 15 seconds
+  // Auto-dismiss after 12 seconds
   useEffect(() => {
     const autoDismiss = setTimeout(() => {
       handleClose();
-    }, 15000);
+    }, 12000);
     return () => clearTimeout(autoDismiss);
   }, []);
 
   const handleClose = () => {
     setIsVisible(false);
-    setTimeout(onClose, 300);
+    setTimeout(onClose, 400);
   };
 
   const handleAction = (action: () => void) => {
     action();
     setIsVisible(false);
-    setTimeout(onClose, 300);
+    setTimeout(onClose, 400);
   };
 
   return (
@@ -61,38 +61,38 @@ export const SupportToast = ({
       </button>
 
       <div className={styles.supportToastContent}>
-        <div className={styles.supportToastMessage}>
-          <div className={styles.supportToastTitle}>
-            👋 You've been exploring variables with us for a bit!
-          </div>
-          <div className={styles.supportToastSubtitle}>
-            If it's saving you time, a star or sponsorship would mean the world and help keep this free.
-          </div>
+        <div className={styles.supportToastHeader}>
+          <span className={styles.supportToastIcon}>👋</span>
+          <span className={styles.supportToastTitle}>Enjoying variables?</span>
+        </div>
+
+        <div className={styles.supportToastBody}>
+          Support with a ⭐ or 💝 to keep it free!
         </div>
 
         <div className={styles.supportToastActions}>
           <button
-            className={`${styles.supportToastButton} ${styles.supportToastButtonPrimary}`}
+            className={`${styles.supportToastButton} ${styles.supportToastButtonStar}`}
             onClick={() => handleAction(onStar)}
           >
-            ⭐ Star on GitHub
+            ⭐ GitHub
           </button>
           <button
-            className={`${styles.supportToastButton} ${styles.supportToastButtonPrimary}`}
+            className={`${styles.supportToastButton} ${styles.supportToastButtonSponsor}`}
             onClick={() => handleAction(onSponsor)}
           >
             💝 Sponsor
           </button>
-          <button
-            className={`${styles.supportToastButton} ${styles.supportToastButtonSecondary}`}
-            onClick={() => handleAction(onRemindLater)}
-          >
-            Remind me later
-          </button>
         </div>
 
-        <div className={styles.supportToastSocials}>
-          <span className={styles.supportToastSocialsLabel}>Say hi:</span>
+        <div className={styles.supportToastFooter}>
+          <button
+            className={styles.supportToastLaterLink}
+            onClick={() => handleAction(onRemindLater)}
+          >
+            Later
+          </button>
+          <span className={styles.supportToastSocialsSeparator}>•</span>
           <a
             href="https://www.linkedin.com/in/tatermohit/"
             target="_blank"
