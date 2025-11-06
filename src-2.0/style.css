@@ -1739,3 +1739,35 @@ dl {
   background: var(--sds-color-background-default-secondary);
 }
 
+.supportToastSocials {
+  display: flex;
+  align-items: center;
+  gap: var(--sds-size-space-100);
+  font-size: var(--sds-typography-body-size-xsmall);
+  padding-top: var(--sds-size-space-100);
+  border-top: 1px solid var(--sds-color-border-default-default);
+  opacity: 0.6;
+}
+
+.supportToastSocialsLabel {
+  color: var(--sds-color-text-default-tertiary);
+  font-weight: var(--sds-typography-body-font-weight-regular);
+}
+
+.supportToastSocialLink {
+  color: var(--sds-color-text-default-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+  font-weight: var(--sds-typography-body-font-weight-regular);
+}
+
+.supportToastSocialLink:hover {
+  color: var(--sds-color-text-brand-default);
+  text-decoration: underline;
+}
+
+.supportToastSocialsSeparator {
+  color: var(--sds-color-text-default-tertiary);
+  opacity: 0.5;
+}
+

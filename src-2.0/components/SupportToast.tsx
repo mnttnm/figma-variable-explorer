@@ -90,6 +90,29 @@ export const SupportToast = ({
             Remind me later
           </button>
         </div>
+
+        <div className={styles.supportToastSocials}>
+          <span className={styles.supportToastSocialsLabel}>Say hi:</span>
+          <a
+            href="https://www.linkedin.com/in/tatermohit/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.supportToastSocialLink}
+            onClick={(e) => e.stopPropagation()}
+          >
+            LinkedIn
+          </a>
+          <span className={styles.supportToastSocialsSeparator}>•</span>
+          <a
+            href="https://twitter.com/tatermohit"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.supportToastSocialLink}
+            onClick={(e) => e.stopPropagation()}
+          >
+            Twitter
+          </a>
+        </div>
       </div>
     </div>
   );
