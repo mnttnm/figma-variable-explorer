@@ -1,5 +1,5 @@
 import { h } from "preact";
-import { useEffect, useState } from "preact/hooks";
+import { useEffect, useState, useRef } from "preact/hooks";
 import React from "preact/compat";
 import styles from "../style.css";
 
@@ -17,6 +17,7 @@ export const SupportToast = ({
   onRemindLater
 }: SupportToastProps) => {
   const [isVisible, setIsVisible] = useState(false);
+  const autoDismissTimer = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     // Trigger animation on mount with a slight delay for smoother entrance
@@ -26,18 +27,28 @@ export const SupportToast = ({
 
   // Auto-dismiss after 12 seconds
   useEffect(() => {
-    const autoDismiss = setTimeout(() => {
+    autoDismissTimer.current = setTimeout(() => {
       handleClose();
     }, 12000);
-    return () => clearTimeout(autoDismiss);
+    return () => {
+      if (autoDismissTimer.current) clearTimeout(autoDismissTimer.current);
+    };
   }, []);
 
   const handleClose = () => {
+    if (autoDismissTimer.current) {
+      clearTimeout(autoDismissTimer.current);
+      autoDismissTimer.current = null;
+    }
     setIsVisible(false);
     setTimeout(onClose, 400);
   };
 
   const handleAction = (action: () => void) => {
+    if (autoDismissTimer.current) {
+      clearTimeout(autoDismissTimer.current);
+      autoDismissTimer.current = null;
+    }
     action();
     setIsVisible(false);
     setTimeout(onClose, 400);
