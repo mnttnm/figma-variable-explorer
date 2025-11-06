@@ -9,7 +9,6 @@ import {
 import styles from "../style.css";
 import IconButton from "./IconButton";
 import {
-  SearchIcon,
   SliderMenuIcon,
   CopyIcon,
   VerticalMore,
@@ -17,10 +16,6 @@ import {
 import CollectionsSelector from "./CollectionsSelector";
 import ConfigurationContext from "../contexts/ConfigurationContext";
 import { VariablesContext } from "../contexts/VariablesContext";
-import {
-  SearchContext,
-  SearchContextState,
-} from "../contexts/SearchContext";
 import SearchBar from "./SearchBar";
 import { useEscape } from "../hooks/hooks";
 import { Popover, ViewConfigurationPopover } from "./Popover";
@@ -37,9 +32,6 @@ export default function Header() {
   } = useContext(ConfigurationContext)!;
 
   const { handleCopyContent } = useContext(VariablesContext)!;
-
-  const { isSearchActive, setIsSearchActive } =
-    useContext<SearchContextState>(SearchContext);
 
   const [exportContentType, setExportContentType] = useState<ExportContentType>("markdown");
 
@@ -86,34 +78,29 @@ export default function Header() {
 
   return (
     <header class={styles.header}>
-      {isSearchActive ? (
-        <SearchBar />
-      ) : (
-        <Fragment>
-          <CollectionsSelector />
+      <Fragment>
+        <CollectionsSelector />
+        {variableViewMode === "table" && (
+          <div style={{ flex: 1, marginLeft: '12px', marginRight: '12px' }}>
+            <SearchBar />
+          </div>
+        )}
+        {variableViewMode !== "table" && (
           <div style={{ flex: 1 }}></div>
-          <div class={styles["actions-box"]}>
-            {variableViewMode !== "table" && (
-              <IconButton
-                showBorder
-                onClick={handleCopyContent}
-                title={`Copy ${variableViewMode
-                  .toString()
-                  .toUpperCase()}`}
-              >
-                <CopyIcon />
-              </IconButton>
-            )}
-            {variableViewMode === "table" && (
-              <IconButton
-                showBorder
-                onClick={() => setIsSearchActive(true)}
-                title="Search"
-              >
-                <SearchIcon />
-              </IconButton>
-            )}
-            <div className={styles.configurationBoxContainer}>
+        )}
+        <div class={styles["actions-box"]}>
+          {variableViewMode !== "table" && (
+            <IconButton
+              showBorder
+              onClick={handleCopyContent}
+              title={`Copy ${variableViewMode
+                .toString()
+                .toUpperCase()}`}
+            >
+              <CopyIcon />
+            </IconButton>
+          )}
+          <div className={styles.configurationBoxContainer}>
               <IconButton
                 showBorder
                 onClick={() => {
@@ -181,7 +168,6 @@ export default function Header() {
             </div>
           </div>
         </Fragment>
-      )}
     </header>
   );
 }

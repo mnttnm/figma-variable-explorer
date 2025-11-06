@@ -6,7 +6,6 @@ import {
 import styles from "../style.css";
 import IconButton from "./IconButton";
 import { CloseIcon } from "./icons";
-import { useEscape } from "../hooks/hooks";
 import { VariablesContext } from "../contexts/VariablesContext";
 import React from "preact/compat";
 import { h } from "preact";
@@ -15,16 +14,19 @@ const SearchBar = () => {
   const {
     currentSearchTerm,
     setCurrentSearchTerm,
-    setIsSearchActive,
   } = useContext(SearchContext) as SearchContextState;
 
-  useEscape(() => setIsSearchActive(false));
   const { activeCollection, collections } =
     useContext(VariablesContext)!;
 
   // Smart truncation for long collection names
   const getPlaceholderText = () => {
-    const collectionName = collections[activeCollection!].name;
+    // Safety check for collections not yet loaded or activeCollection not set
+    if (!collections || activeCollection === undefined || activeCollection === null || !collections[activeCollection]) {
+      return "Search variables (Cmd/Ctrl+F)";
+    }
+
+    const collectionName = collections[activeCollection].name;
     const maxLength = 20;
     if (collectionName.length > maxLength) {
       return `Search ${collectionName.substring(0, maxLength)}... (Cmd/Ctrl+F)`;
@@ -47,7 +49,6 @@ const SearchBar = () => {
           setCurrentSearchTerm((e.target as HTMLInputElement).value)
         }
         className={styles.searchInput}
-        autoFocus
       />
       {currentSearchTerm && (
         <IconButton
@@ -58,13 +59,6 @@ const SearchBar = () => {
           <CloseIcon />
         </IconButton>
       )}
-      <IconButton
-        showBorder
-        onClick={() => setIsSearchActive(false)}
-        title="Exit Search"
-      >
-        <CloseIcon />
-      </IconButton>
     </div>
   );
 };
