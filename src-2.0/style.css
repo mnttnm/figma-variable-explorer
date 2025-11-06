@@ -1512,6 +1512,83 @@ dl {
   }
 }
 
+/* Loading Spinner */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  padding: var(--sds-size-space-2400);
+}
+
+.spinner {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  margin-bottom: var(--sds-size-space-400);
+}
+
+.spinnerRing {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 3px solid transparent;
+  border-top-color: var(--sds-color-border-brand-default);
+  border-radius: 50%;
+  animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+.spinnerRing:nth-child(1) {
+  animation-delay: -0.45s;
+  opacity: 0.8;
+}
+
+.spinnerRing:nth-child(2) {
+  animation-delay: -0.3s;
+  opacity: 0.6;
+}
+
+.spinnerRing:nth-child(3) {
+  animation-delay: -0.15s;
+  opacity: 0.4;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loadingText {
+  color: var(--sds-color-text-default-secondary);
+  font-size: var(--sds-typography-body-size-medium);
+  font-weight: 400;
+  margin: 0;
+}
+
+/* Fade-in Animation */
+.fadeIn {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Empty States */
 .empty-state {
   display: flex;
@@ -1746,6 +1823,26 @@ dl {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
+.supportToastButtonTertiary {
+  background: transparent;
+  color: var(--sds-color-text-default-secondary);
+  border: 1px solid var(--sds-color-border-default-default);
+  box-shadow: none;
+}
+
+.supportToastButtonTertiary:hover {
+  background: var(--sds-color-background-default-secondary);
+  color: var(--sds-color-text-default-default);
+  border-color: var(--sds-color-border-default-secondary);
+  transform: none;
+  box-shadow: none;
+}
+
+.supportToastButtonTertiary:active {
+  background: var(--sds-color-background-default-tertiary);
+  transform: scale(0.98);
+}
+
 .supportToastFooter {
   display: flex;
   align-items: center;
@@ -1754,6 +1851,12 @@ dl {
   padding-left: 24px;
   padding-top: 4px;
   opacity: 0.7;
+}
+
+.supportToastGreeting {
+  color: var(--sds-color-text-default-secondary);
+  font-family: var(--sds-typography-body-font-family);
+  font-weight: 400;
 }
 
 .supportToastLaterLink {

@@ -7,7 +7,7 @@ import {
   VariableStatus,
 } from "../contexts/VariablesContext";
 import { ValueRenderer } from "../components/ValueRenderer";
-import { SkeletonTable } from "../components/Skeleton";
+import { LoadingSpinner } from "../components/LoadingSpinner";
 import { Tooltip } from "react-tooltip";
 import {
   AliasValue,
@@ -30,12 +30,12 @@ export default function Variables() {
   const { variableViewMode } = useContext(ConfigurationContext)!;
 
   if (status === VariableStatus.LOADING) {
-    return <SkeletonTable />;
+    return <LoadingSpinner />;
   }
 
   if (status === VariableStatus.ERROR) {
     return (
-      <div className={styles["error-state"]}>
+      <div className={`${styles["error-state"]} ${styles.fadeIn}`}>
         <div className={styles["error-state-icon"]}>
           <WarningIcon />
         </div>
@@ -47,7 +47,7 @@ export default function Variables() {
 
   if (!data || !cssData || !jsonData || (data && Object.keys(data).length === 0)) {
     return (
-      <div className={styles["empty-state"]}>
+      <div className={`${styles["empty-state"]} ${styles.fadeIn}`}>
         <div className={styles["empty-state-icon"]}>
           <EmptyIcon />
         </div>
@@ -245,7 +245,7 @@ const TabularView = (collectionData: CollectionVariables) => {
   // Show empty state if search returns no results
   if (rows.length === 0 && currentSearchTerm) {
     return (
-      <main className={styles.tableContainer}>
+      <main className={`${styles.tableContainer} ${styles.fadeIn}`}>
         <div className={styles["empty-state"]}>
           <div className={styles["empty-state-icon"]}>
             <SearchIconLarge />
@@ -260,7 +260,7 @@ const TabularView = (collectionData: CollectionVariables) => {
   }
 
   return (
-    <main className={styles.tableContainer}>
+    <main className={`${styles.tableContainer} ${styles.fadeIn}`}>
       <Tooltip
         id="alias-tooltip"
         className={[styles.tooltip, styles.aliasTooltip].join(" ")}
@@ -342,12 +342,12 @@ const TabularView = (collectionData: CollectionVariables) => {
 };
 
 const CSSView = (data: any) => {
-  return <pre className={styles.cssViewContainer}>{data}</pre>;
+  return <pre className={`${styles.cssViewContainer} ${styles.fadeIn}`}>{data}</pre>;
 };
 
 const JSONView = (collectionData: JSONData) => {
   return (
-    <pre className={styles.jsonViewContainer}>
+    <pre className={`${styles.jsonViewContainer} ${styles.fadeIn}`}>
       {JSON.stringify(collectionData, null, 2)}
     </pre>
   );
