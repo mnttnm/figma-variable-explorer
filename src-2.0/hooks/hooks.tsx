@@ -19,22 +19,30 @@ export const useEscape = (onEscape: () => void) => {
 };
 
 export const useLaunchTracking = (
-  targetLaunchCount: number = 3
+  targetLaunchCount: number = 3,
+  dismissCooldown: number = 5
 ): {
   shouldShowPrompt: boolean;
   markAsSeen: () => void;
   dismissPrompt: () => void;
 } => {
   const [shouldShowPrompt, setShouldShowPrompt] = useState(false);
+  const [currentLaunchCount, setCurrentLaunchCount] = useState(0);
 
   useEffect(() => {
     // Listen for launch data from main thread
     const unsubscribe = on("LAUNCH_DATA", (data: LaunchData) => {
-      const { launchCount, hasSeenPrompt } = data;
+      const { launchCount, hasSeenPrompt, lastDismissLaunchCount } = data;
+      setCurrentLaunchCount(launchCount);
 
-      // Show prompt if user has launched plugin the target number of times
-      // and hasn't seen the prompt yet
-      if (launchCount === targetLaunchCount && !hasSeenPrompt) {
+      // Show prompt if:
+      // 1. User has launched plugin the target number of times or more
+      // 2. User hasn't permanently dismissed it (hasSeenPrompt = false)
+      // 3. Either never dismissed OR cooldown period has passed (5 launches since last dismiss)
+      const cooldownPassed = lastDismissLaunchCount === null ||
+                            (launchCount - lastDismissLaunchCount) >= dismissCooldown;
+
+      if (launchCount >= targetLaunchCount && !hasSeenPrompt && cooldownPassed) {
         // Delay showing the prompt by 3 seconds
         setTimeout(() => {
           setShouldShowPrompt(true);
@@ -48,7 +56,7 @@ export const useLaunchTracking = (
     return () => {
       unsubscribe();
     };
-  }, [targetLaunchCount]);
+  }, [targetLaunchCount, dismissCooldown]);
 
   const markAsSeen = () => {
     emit("MARK_SUPPORT_PROMPT_SEEN");
@@ -56,8 +64,9 @@ export const useLaunchTracking = (
   };
 
   const dismissPrompt = () => {
-    // Only hides the prompt from view, does not reset launch count or mark as seen
-    // This allows the prompt to appear again after another 3 launches
+    // Records the current launch count and hides the prompt
+    // Prompt will reappear after 5 more launches
+    emit("DISMISS_SUPPORT_PROMPT", currentLaunchCount);
     setShouldShowPrompt(false);
   };
 

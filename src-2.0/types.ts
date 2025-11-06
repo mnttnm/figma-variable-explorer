@@ -30,6 +30,7 @@ export interface GetJsonDataHandler extends EventHandler {
 export interface LaunchData {
   launchCount: number;
   hasSeenPrompt: boolean;
+  lastDismissLaunchCount: number | null;
 }
 
 export interface LaunchDataHandler extends EventHandler {
@@ -47,14 +48,9 @@ export interface MarkSupportPromptSeenHandler extends EventHandler {
   handler: () => void;
 }
 
-export interface LaunchData {
-  launchCount: number;
-  hasSeenPrompt: boolean;
-}
-
-export interface LaunchDataHandler extends EventHandler {
-  name: "LAUNCH_DATA";
-  handler: (data: LaunchData) => void;
+export interface DismissSupportPromptHandler extends EventHandler {
+  name: "DISMISS_SUPPORT_PROMPT";
+  handler: (currentLaunchCount: number) => void;
 }
 
 export type VariableViewMode = "table" | "css" | "json";

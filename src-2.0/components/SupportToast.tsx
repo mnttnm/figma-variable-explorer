@@ -40,7 +40,7 @@ export const SupportToast = ({
     const timeout = prefersReducedMotion ? autoDismissMs * 2 : autoDismissMs;
 
     autoDismissTimer.current = setTimeout(() => {
-      handleClose();
+      handleRemindLater();
     }, timeout);
 
     return () => {
@@ -65,6 +65,16 @@ export const SupportToast = ({
     action();
     setIsVisible(false);
     setTimeout(onClose, 400);
+  };
+
+  const handleRemindLater = () => {
+    if (autoDismissTimer.current) {
+      clearTimeout(autoDismissTimer.current);
+      autoDismissTimer.current = null;
+    }
+    setIsVisible(false);
+    // Don't call onClose - just call onRemindLater to dismiss without marking as seen
+    setTimeout(onRemindLater, 400);
   };
 
   return (
@@ -106,15 +116,16 @@ export const SupportToast = ({
           >
             Sponsor
           </button>
-        </div>
-
-        <div className={styles.supportToastFooter}>
           <button
-            className={styles.supportToastLaterLink}
-            onClick={() => handleAction(onRemindLater)}
+            className={`${styles.supportToastButton} ${styles.supportToastButtonTertiary}`}
+            onClick={handleRemindLater}
           >
             Remind Later
           </button>
+        </div>
+
+        <div className={styles.supportToastFooter}>
+          <span className={styles.supportToastGreeting}>Hello</span>
           <span className={styles.supportToastSocialsSeparator}>•</span>
           <a
             href="https://www.linkedin.com/in/tatermohit/"
