@@ -1585,3 +1585,157 @@ dl {
   line-height: 1.5;
 }
 
+/* Support Toast */
+.supportToast {
+  background: var(--sds-color-background-default-secondary);
+  border: 1px solid var(--sds-color-border-brand-default);
+  border-radius: var(--sds-size-radius-200);
+  box-shadow: var(--sds-size-depth-0) var(--sds-size-depth-600)
+    var(--sds-size-depth-1200) var(--sds-size-depth-negative-200)
+    var(--sds-color-black-500);
+  min-width: 320px;
+  max-width: 420px;
+  opacity: 0;
+  transform: translateX(120%);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.supportToast::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--sds-color-brand-500) 0%,
+    var(--sds-color-pink-500) 50%,
+    var(--sds-color-brand-500) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+.supportToastVisible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.supportToastContent {
+  padding: var(--sds-size-space-400);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sds-size-space-300);
+}
+
+.supportToastCloseButton {
+  position: absolute;
+  top: var(--sds-size-space-200);
+  right: var(--sds-size-space-200);
+  background: none;
+  border: none;
+  color: var(--sds-color-text-default-secondary);
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--sds-size-radius-100);
+  transition: all 0.2s ease-in-out;
+  z-index: 1;
+}
+
+.supportToastCloseButton:hover {
+  background: var(--sds-color-background-default-tertiary);
+  color: var(--sds-color-text-default-default);
+  transform: scale(1.1);
+}
+
+.supportToastCloseButton:active {
+  transform: scale(0.95);
+}
+
+.supportToastMessage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sds-size-space-150);
+  padding-right: var(--sds-size-space-600);
+}
+
+.supportToastTitle {
+  font-family: var(--sds-typography-body-font-family);
+  font-size: var(--sds-typography-body-size-medium);
+  font-weight: var(--sds-typography-heading-font-weight);
+  color: var(--sds-color-text-default-default);
+  line-height: 1.4;
+}
+
+.supportToastSubtitle {
+  font-family: var(--sds-typography-body-font-family);
+  font-size: var(--sds-typography-body-size-small);
+  font-weight: var(--sds-typography-body-font-weight-regular);
+  color: var(--sds-color-text-default-secondary);
+  line-height: 1.5;
+}
+
+.supportToastActions {
+  display: flex;
+  gap: var(--sds-size-space-200);
+  flex-wrap: wrap;
+}
+
+.supportToastButton {
+  font-family: var(--sds-typography-body-font-family);
+  font-size: var(--sds-typography-body-size-small);
+  font-weight: var(--sds-typography-body-font-weight-medium);
+  padding: var(--sds-size-space-150) var(--sds-size-space-300);
+  border-radius: var(--sds-size-radius-100);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap;
+  flex: 0 1 auto;
+}
+
+.supportToastButtonPrimary {
+  background: var(--sds-color-background-brand-default);
+  color: var(--sds-color-text-on-brand-default);
+  border-color: var(--sds-color-border-brand-default);
+}
+
+.supportToastButtonPrimary:hover {
+  background: var(--sds-color-background-brand-hover);
+  border-color: var(--sds-color-border-brand-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px var(--sds-color-black-300);
+}
+
+.supportToastButtonPrimary:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.supportToastButtonSecondary {
+  background: transparent;
+  color: var(--sds-color-text-default-secondary);
+  border-color: var(--sds-color-border-default-default);
+}
+
+.supportToastButtonSecondary:hover {
+  background: var(--sds-color-background-default-tertiary);
+  color: var(--sds-color-text-default-default);
+  border-color: var(--sds-color-border-default-hover);
+}
+
+.supportToastButtonSecondary:active {
+  background: var(--sds-color-background-default-secondary);
+}
+

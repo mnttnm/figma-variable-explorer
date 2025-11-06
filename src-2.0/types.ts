@@ -27,6 +27,16 @@ export interface GetJsonDataHandler extends EventHandler {
   ) => void;
 }
 
+export interface TrackLaunchHandler extends EventHandler {
+  name: "TRACK_LAUNCH";
+  handler: () => void;
+}
+
+export interface MarkSupportPromptSeenHandler extends EventHandler {
+  name: "MARK_SUPPORT_PROMPT_SEEN";
+  handler: () => void;
+}
+
 export type VariableViewMode = "table" | "css" | "json";
 export type ColorResolutionMode = "hex" | "rgba" | "hsla";
 
