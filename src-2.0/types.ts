@@ -27,6 +27,16 @@ export interface GetJsonDataHandler extends EventHandler {
   ) => void;
 }
 
+export interface LaunchData {
+  launchCount: number;
+  hasSeenPrompt: boolean;
+}
+
+export interface LaunchDataHandler extends EventHandler {
+  name: "LAUNCH_DATA";
+  handler: (data: LaunchData) => void;
+}
+
 export interface TrackLaunchHandler extends EventHandler {
   name: "TRACK_LAUNCH";
   handler: () => void;

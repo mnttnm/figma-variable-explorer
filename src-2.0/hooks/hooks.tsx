@@ -1,5 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
 import { emit, on } from "@create-figma-plugin/utilities";
+import type { LaunchData } from "../types";
 
 export const useEscape = (onEscape: () => void) => {
   useEffect(() => {
@@ -16,11 +17,6 @@ export const useEscape = (onEscape: () => void) => {
     };
   }, [onEscape]);
 };
-
-interface LaunchData {
-  launchCount: number;
-  hasSeenPrompt: boolean;
-}
 
 export const useLaunchTracking = (
   targetLaunchCount: number = 3
