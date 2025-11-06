@@ -1,6 +1,6 @@
 import { useEffect, useState } from "preact/hooks";
 import { emit, on } from "@create-figma-plugin/utilities";
-import { LaunchData } from "../types";
+import type { LaunchData } from "../types";
 
 export const useEscape = (onEscape: () => void) => {
   useEffect(() => {
