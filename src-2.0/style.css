@@ -1,275 +1,303 @@
-:root {
-  /* mode-1: value */
-  /* collection: color primitives */
-  --sds-color-brand-100: rgba(245, 245, 245, 1);
-  --sds-color-brand-200: rgba(230, 230, 230, 1);
-  --sds-color-brand-300: rgba(217, 217, 217, 1);
-  --sds-color-brand-400: rgba(179, 179, 179, 1);
-  --sds-color-brand-500: rgba(117, 117, 117, 1);
-  --sds-color-brand-600: rgba(68, 68, 68, 1);
-  --sds-color-brand-700: rgba(56, 56, 56, 1);
-  --sds-color-brand-800: rgba(44, 44, 44, 1);
-  --sds-color-brand-900: rgba(30, 30, 30, 1);
-  --sds-color-brand-1000: rgba(17, 17, 17, 1);
-  --sds-color-black-100: rgba(12, 12, 13, 0.05);
-  --sds-color-black-200: rgba(12, 12, 13, 0.1);
-  --sds-color-black-300: rgba(12, 12, 13, 0.2);
-  --sds-color-black-400: rgba(12, 12, 13, 0.4);
-  --sds-color-black-500: rgba(12, 12, 13, 0.7);
-  --sds-color-black-600: rgba(12, 12, 13, 0.8);
-  --sds-color-black-700: rgba(12, 12, 13, 0.85);
-  --sds-color-black-800: rgba(12, 12, 13, 0.9);
-  --sds-color-black-900: rgba(12, 12, 13, 0.95);
-  --sds-color-black-1000: rgba(12, 12, 13, 1);
-  --sds-color-white-100: rgba(255, 255, 255, 0.05);
-  --sds-color-green-100: rgba(235, 255, 238, 1);
-  --sds-color-green-200: rgba(207, 247, 211, 1);
-  --sds-color-green-300: rgba(175, 244, 198, 1);
-  --sds-color-green-400: rgba(133, 224, 163, 1);
-  --sds-color-green-500: rgba(20, 174, 92, 1);
-  --sds-color-green-600: rgba(0, 153, 81, 1);
-  --sds-color-green-700: rgba(0, 128, 67, 1);
-  --sds-color-green-800: rgba(2, 84, 45, 1);
-  --sds-color-green-900: rgba(2, 64, 35, 1);
-  --sds-color-green-1000: rgba(6, 45, 27, 1);
-  --sds-color-gray-100: rgba(245, 245, 245, 1);
-  --sds-color-gray-200: rgba(230, 230, 230, 1);
-  --sds-color-gray-300: rgba(217, 217, 217, 1);
-  --sds-color-gray-400: rgba(179, 179, 179, 1);
-  --sds-color-gray-500: rgba(117, 117, 117, 1);
-  --sds-color-gray-600: rgba(68, 68, 68, 1);
-  --sds-color-gray-700: rgba(56, 56, 56, 1);
-  --sds-color-gray-800: rgba(44, 44, 44, 1);
-  --sds-color-gray-900: rgba(30, 30, 30, 1);
-  --sds-color-gray-1000: rgba(17, 17, 17, 1);
-  --sds-color-white-200: rgba(255, 255, 255, 0.1);
-  --sds-color-white-300: rgba(255, 255, 255, 0.2);
-  --sds-color-white-400: rgba(255, 255, 255, 0.4);
-  --sds-color-white-500: rgba(255, 255, 255, 0.7);
-  --sds-color-white-600: rgba(255, 255, 255, 0.8);
-  --sds-color-white-700: rgba(255, 255, 255, 0.85);
-  --sds-color-white-800: rgba(255, 255, 255, 0.9);
-  --sds-color-white-900: rgba(255, 255, 255, 0.95);
-  --sds-color-white-1000: rgba(255, 255, 255, 1);
-  --sds-color-pink-100: rgba(252, 241, 253, 1);
-  --sds-color-pink-200: rgba(250, 225, 250, 1);
-  --sds-color-pink-300: rgba(245, 192, 239, 1);
-  --sds-color-pink-400: rgba(241, 158, 220, 1);
-  --sds-color-pink-500: rgba(234, 63, 184, 1);
-  --sds-color-pink-600: rgba(215, 50, 168, 1);
-  --sds-color-pink-700: rgba(186, 42, 146, 1);
-  --sds-color-pink-800: rgba(138, 34, 111, 1);
-  --sds-color-pink-900: rgba(87, 24, 74, 1);
-  --sds-color-pink-1000: rgba(63, 21, 54, 1);
-  --sds-color-red-100: rgba(254, 233, 231, 1);
-  --sds-color-red-200: rgba(253, 211, 208, 1);
-  --sds-color-red-300: rgba(252, 179, 173, 1);
-  --sds-color-red-400: rgba(244, 119, 106, 1);
-  --sds-color-red-500: rgba(236, 34, 31, 1);
-  --sds-color-red-600: rgba(192, 15, 12, 1);
-  --sds-color-red-700: rgba(144, 11, 9, 1);
-  --sds-color-red-800: rgba(105, 8, 7, 1);
-  --sds-color-red-900: rgba(77, 11, 10, 1);
-  --sds-color-red-1000: rgba(48, 6, 3, 1);
-  --sds-color-slate-100: rgba(243, 243, 243, 1);
-  --sds-color-slate-200: rgba(227, 227, 227, 1);
-  --sds-color-slate-300: rgba(205, 205, 205, 1);
-  --sds-color-slate-400: rgba(178, 178, 178, 1);
-  --sds-color-slate-500: rgba(148, 148, 148, 1);
-  --sds-color-slate-600: rgba(118, 118, 118, 1);
-  --sds-color-slate-700: rgba(90, 90, 90, 1);
-  --sds-color-slate-800: rgba(67, 67, 67, 1);
-  --sds-color-slate-900: rgba(48, 48, 48, 1);
-  --sds-color-slate-1000: rgba(36, 36, 36, 1);
-  --sds-color-yellow-100: rgba(255, 251, 235, 1);
-  --sds-color-yellow-200: rgba(255, 241, 194, 1);
-  --sds-color-yellow-300: rgba(255, 232, 163, 1);
-  --sds-color-yellow-400: rgba(232, 185, 49, 1);
-  --sds-color-yellow-500: rgba(229, 160, 0, 1);
-  --sds-color-yellow-600: rgba(191, 106, 2, 1);
-  --sds-color-yellow-700: rgba(151, 81, 2, 1);
-  --sds-color-yellow-800: rgba(104, 45, 3, 1);
-  --sds-color-yellow-900: rgba(82, 37, 4, 1);
-  --sds-color-yellow-1000: rgba(64, 27, 1, 1);
+/* ==========================================================================
+   Figma Variable Explorer - Clean & Modern UI
+   A beautiful, minimal design system for exploring Figma variables
+   ========================================================================== */
 
-  /* collection: color */
-  --sds-color-background-default-default: var(--sds-color-gray-900);
+:root {
+  /* ==========================================================================
+     Color Primitives - Refined Palette
+     ========================================================================== */
+
+  /* Neutral Grays - Softer, more refined */
+  --sds-color-brand-100: rgba(250, 250, 250, 1);
+  --sds-color-brand-200: rgba(240, 240, 240, 1);
+  --sds-color-brand-300: rgba(225, 225, 225, 1);
+  --sds-color-brand-400: rgba(190, 190, 190, 1);
+  --sds-color-brand-500: rgba(140, 140, 140, 1);
+  --sds-color-brand-600: rgba(90, 90, 90, 1);
+  --sds-color-brand-700: rgba(64, 64, 64, 1);
+  --sds-color-brand-800: rgba(45, 45, 45, 1);
+  --sds-color-brand-900: rgba(32, 32, 32, 1);
+  --sds-color-brand-1000: rgba(18, 18, 18, 1);
+
+  /* Black with alpha */
+  --sds-color-black-100: rgba(0, 0, 0, 0.04);
+  --sds-color-black-200: rgba(0, 0, 0, 0.08);
+  --sds-color-black-300: rgba(0, 0, 0, 0.16);
+  --sds-color-black-400: rgba(0, 0, 0, 0.32);
+  --sds-color-black-500: rgba(0, 0, 0, 0.56);
+  --sds-color-black-600: rgba(0, 0, 0, 0.72);
+  --sds-color-black-700: rgba(0, 0, 0, 0.80);
+  --sds-color-black-800: rgba(0, 0, 0, 0.88);
+  --sds-color-black-900: rgba(0, 0, 0, 0.92);
+  --sds-color-black-1000: rgba(0, 0, 0, 1);
+
+  /* White with alpha */
+  --sds-color-white-100: rgba(255, 255, 255, 0.04);
+  --sds-color-white-200: rgba(255, 255, 255, 0.08);
+  --sds-color-white-300: rgba(255, 255, 255, 0.16);
+  --sds-color-white-400: rgba(255, 255, 255, 0.32);
+  --sds-color-white-500: rgba(255, 255, 255, 0.56);
+  --sds-color-white-600: rgba(255, 255, 255, 0.72);
+  --sds-color-white-700: rgba(255, 255, 255, 0.80);
+  --sds-color-white-800: rgba(255, 255, 255, 0.88);
+  --sds-color-white-900: rgba(255, 255, 255, 0.92);
+  --sds-color-white-1000: rgba(255, 255, 255, 1);
+
+  /* Accent Colors - Modern, vibrant */
+  --sds-color-accent-100: rgba(236, 240, 255, 1);
+  --sds-color-accent-200: rgba(214, 223, 255, 1);
+  --sds-color-accent-300: rgba(179, 198, 255, 1);
+  --sds-color-accent-400: rgba(140, 166, 255, 1);
+  --sds-color-accent-500: rgba(99, 132, 255, 1);
+  --sds-color-accent-600: rgba(71, 105, 230, 1);
+  --sds-color-accent-700: rgba(55, 85, 200, 1);
+  --sds-color-accent-800: rgba(42, 68, 166, 1);
+  --sds-color-accent-900: rgba(32, 52, 128, 1);
+  --sds-color-accent-1000: rgba(24, 40, 96, 1);
+
+  /* Green - Success */
+  --sds-color-green-100: rgba(236, 253, 243, 1);
+  --sds-color-green-200: rgba(209, 250, 223, 1);
+  --sds-color-green-300: rgba(166, 241, 192, 1);
+  --sds-color-green-400: rgba(110, 224, 155, 1);
+  --sds-color-green-500: rgba(34, 197, 94, 1);
+  --sds-color-green-600: rgba(22, 163, 74, 1);
+  --sds-color-green-700: rgba(21, 128, 61, 1);
+  --sds-color-green-800: rgba(22, 101, 52, 1);
+  --sds-color-green-900: rgba(20, 83, 45, 1);
+  --sds-color-green-1000: rgba(5, 46, 22, 1);
+
+  /* Gray - Neutral */
+  --sds-color-gray-100: rgba(249, 250, 251, 1);
+  --sds-color-gray-200: rgba(243, 244, 246, 1);
+  --sds-color-gray-300: rgba(229, 231, 235, 1);
+  --sds-color-gray-400: rgba(209, 213, 219, 1);
+  --sds-color-gray-500: rgba(156, 163, 175, 1);
+  --sds-color-gray-600: rgba(107, 114, 128, 1);
+  --sds-color-gray-700: rgba(75, 85, 99, 1);
+  --sds-color-gray-800: rgba(55, 65, 81, 1);
+  --sds-color-gray-900: rgba(31, 41, 55, 1);
+  --sds-color-gray-1000: rgba(17, 24, 39, 1);
+
+  /* Red - Error/Danger */
+  --sds-color-red-100: rgba(254, 242, 242, 1);
+  --sds-color-red-200: rgba(254, 226, 226, 1);
+  --sds-color-red-300: rgba(254, 202, 202, 1);
+  --sds-color-red-400: rgba(252, 165, 165, 1);
+  --sds-color-red-500: rgba(239, 68, 68, 1);
+  --sds-color-red-600: rgba(220, 38, 38, 1);
+  --sds-color-red-700: rgba(185, 28, 28, 1);
+  --sds-color-red-800: rgba(153, 27, 27, 1);
+  --sds-color-red-900: rgba(127, 29, 29, 1);
+  --sds-color-red-1000: rgba(69, 10, 10, 1);
+
+  /* Slate - Cool neutral */
+  --sds-color-slate-100: rgba(248, 250, 252, 1);
+  --sds-color-slate-200: rgba(241, 245, 249, 1);
+  --sds-color-slate-300: rgba(226, 232, 240, 1);
+  --sds-color-slate-400: rgba(203, 213, 225, 1);
+  --sds-color-slate-500: rgba(148, 163, 184, 1);
+  --sds-color-slate-600: rgba(100, 116, 139, 1);
+  --sds-color-slate-700: rgba(71, 85, 105, 1);
+  --sds-color-slate-800: rgba(51, 65, 85, 1);
+  --sds-color-slate-900: rgba(30, 41, 59, 1);
+  --sds-color-slate-1000: rgba(15, 23, 42, 1);
+
+  /* Yellow - Warning */
+  --sds-color-yellow-100: rgba(254, 252, 232, 1);
+  --sds-color-yellow-200: rgba(254, 249, 195, 1);
+  --sds-color-yellow-300: rgba(253, 240, 135, 1);
+  --sds-color-yellow-400: rgba(250, 224, 66, 1);
+  --sds-color-yellow-500: rgba(234, 179, 8, 1);
+  --sds-color-yellow-600: rgba(202, 138, 4, 1);
+  --sds-color-yellow-700: rgba(161, 98, 7, 1);
+  --sds-color-yellow-800: rgba(133, 77, 14, 1);
+  --sds-color-yellow-900: rgba(113, 63, 18, 1);
+  --sds-color-yellow-1000: rgba(66, 32, 6, 1);
+
+  /* Pink - Info/Accent */
+  --sds-color-pink-100: rgba(253, 242, 248, 1);
+  --sds-color-pink-200: rgba(252, 231, 243, 1);
+  --sds-color-pink-300: rgba(249, 207, 229, 1);
+  --sds-color-pink-400: rgba(244, 172, 207, 1);
+  --sds-color-pink-500: rgba(236, 105, 175, 1);
+  --sds-color-pink-600: rgba(219, 56, 143, 1);
+  --sds-color-pink-700: rgba(190, 30, 113, 1);
+  --sds-color-pink-800: rgba(157, 23, 91, 1);
+  --sds-color-pink-900: rgba(131, 24, 79, 1);
+  --sds-color-pink-1000: rgba(80, 7, 46, 1);
+
+  /* ==========================================================================
+     Semantic Colors - Dark Theme (Default)
+     ========================================================================== */
+
+  /* Background */
+  --sds-color-background-default-default: rgba(24, 24, 27, 1);
   --sds-color-background-neutral-default: var(--slate-400);
   --sds-color-background-neutral-hover: var(--slate-500);
   --sds-color-background-neutral-secondary: var(--slate-900);
   --sds-color-background-neutral-secondary-hover: var(--slate-1000);
   --sds-color-background-neutral-tertiary: var(--slate-900);
   --sds-color-background-neutral-tertiary-hover: var(--slate-1000);
-  --sds-color-background-default-default-hover: var(--gray-700);
-  --sds-color-background-default-secondary: var(--sds-color-gray-800);
-  --sds-color-background-default-secondary-hover: var(
-    --sds-color-gray-900
-  );
-  --sds-color-background-default-tertiary: var(--gray-600);
-  --sds-color-background-default-tertiary-hover: var(--gray-700);
-  --sds-color-background-brand-default: var(--sds-color-brand-100);
-  --sds-color-background-brand-hover: var(--sds-color-brand-300);
-  --sds-color-background-brand-secondary: var(--sds-color-brand-600);
-  --sds-color-background-brand-secondary-hover: var(
-    --sds-color-brand-500
-  );
-  --sds-color-background-brand-tertiary: var(--sds-color-brand-600);
-  --sds-color-background-brand-tertiary-hover: var(
-    --sds-color-brand-800
-  );
-  --sds-color-background-positive-default: var(--green-700);
-  --sds-color-background-positive-hover: var(--green-800);
-  --sds-color-background-positive-secondary: var(--green-800);
-  --sds-color-background-positive-secondary-hover: var(--green-900);
-  --sds-color-background-positive-tertiary: var(--green-900);
-  --sds-color-background-positive-tertiary-hover: var(--green-1000);
-  --sds-color-background-warning-default: var(--yellow-400);
-  --sds-color-background-warning-hover: var(--yellow-500);
-  --sds-color-background-warning-secondary: var(--yellow-800);
-  --sds-color-background-warning-secondary-hover: var(--yellow-900);
-  --sds-color-background-warning-tertiary: var(--yellow-900);
-  --sds-color-background-warning-tertiary-hover: var(--yellow-1000);
-  --sds-color-background-danger-default: var(--red-600);
-  --sds-color-background-danger-hover: var(--red-700);
-  --sds-color-background-danger-secondary: var(--red-800);
-  --sds-color-background-danger-secondary-hover: var(--red-900);
-  --sds-color-background-danger-tertiary: var(--red-900);
-  --sds-color-background-danger-tertiary-hover: var(--red-1000);
-  --sds-color-background-disabled-default: var(--sds-color-brand-700);
-  --sds-color-background-utilities-scrim: rgba(0, 0, 0, 0.8);
-  --sds-color-background-utilities-blanket: rgba(0, 0, 0, 0.7);
+  --sds-color-background-default-default-hover: rgba(39, 39, 42, 1);
+  --sds-color-background-default-secondary: rgba(32, 32, 35, 1);
+  --sds-color-background-default-secondary-hover: rgba(45, 45, 50, 1);
+  --sds-color-background-default-tertiary: rgba(50, 50, 56, 1);
+  --sds-color-background-default-tertiary-hover: rgba(63, 63, 70, 1);
+  --sds-color-background-brand-default: var(--sds-color-accent-600);
+  --sds-color-background-brand-hover: var(--sds-color-accent-700);
+  --sds-color-background-brand-secondary: rgba(55, 55, 80, 1);
+  --sds-color-background-brand-secondary-hover: rgba(65, 65, 95, 1);
+  --sds-color-background-brand-tertiary: rgba(45, 45, 65, 1);
+  --sds-color-background-brand-tertiary-hover: rgba(55, 55, 80, 1);
+  --sds-color-background-positive-default: var(--sds-color-green-600);
+  --sds-color-background-positive-hover: var(--sds-color-green-700);
+  --sds-color-background-positive-secondary: var(--sds-color-green-800);
+  --sds-color-background-positive-secondary-hover: var(--sds-color-green-900);
+  --sds-color-background-positive-tertiary: var(--sds-color-green-900);
+  --sds-color-background-positive-tertiary-hover: var(--sds-color-green-1000);
+  --sds-color-background-warning-default: var(--sds-color-yellow-500);
+  --sds-color-background-warning-hover: var(--sds-color-yellow-600);
+  --sds-color-background-warning-secondary: var(--sds-color-yellow-800);
+  --sds-color-background-warning-secondary-hover: var(--sds-color-yellow-900);
+  --sds-color-background-warning-tertiary: var(--sds-color-yellow-900);
+  --sds-color-background-warning-tertiary-hover: var(--sds-color-yellow-1000);
+  --sds-color-background-danger-default: var(--sds-color-red-600);
+  --sds-color-background-danger-hover: var(--sds-color-red-700);
+  --sds-color-background-danger-secondary: var(--sds-color-red-800);
+  --sds-color-background-danger-secondary-hover: var(--sds-color-red-900);
+  --sds-color-background-danger-tertiary: var(--sds-color-red-900);
+  --sds-color-background-danger-tertiary-hover: var(--sds-color-red-1000);
+  --sds-color-background-disabled-default: rgba(63, 63, 70, 1);
+  --sds-color-background-utilities-scrim: rgba(0, 0, 0, 0.75);
+  --sds-color-background-utilities-blanket: rgba(0, 0, 0, 0.6);
   --sds-color-background-utilities-overlay: rgba(0, 0, 0, 0.5);
-  --sds-color-background-utilities-measurement: var(--pink-800);
-  --sds-color-background-some-random-color-with-big-color-name: rgba(
-    255,
-    255,
-    255,
-    1
-  );
-  --sds-color-text-default-default: var(--sds-color-white-1000);
-  --sds-color-text-default-secondary: var(--sds-color-white-500);
-  --sds-color-text-default-tertiary: var(--sds-color-white-400);
+  --sds-color-background-utilities-measurement: var(--sds-color-pink-800);
+  --sds-color-background-some-random-color-with-big-color-name: rgba(255, 255, 255, 1);
+
+  /* Text */
+  --sds-color-text-default-default: rgba(250, 250, 250, 1);
+  --sds-color-text-default-secondary: rgba(161, 161, 170, 1);
+  --sds-color-text-default-tertiary: rgba(113, 113, 122, 1);
   --sds-color-text-neutral-default: var(--sds-color-slate-200);
   --sds-color-text-neutral-secondary: var(--sds-color-slate-300);
   --sds-color-text-neutral-tertiary: var(--sds-color-slate-400);
   --sds-color-text-neutral-on-neutral: var(--sds-color-slate-1000);
-  --sds-color-text-neutral-on-neutral-secondary: var(
-    --sds-color-slate-100
-  );
-  --sds-color-text-neutral-on-neutral-tertiary: var(
-    --sds-color-slate-100
-  );
-  --sds-color-text-brand-default: var(--sds-color-brand-100);
-  --sds-color-text-brand-secondary: var(--sds-color-brand-300);
-  --sds-color-text-brand-tertiary: var(--sds-color-brand-400);
-  --sds-color-text-brand-on-brand: var(--sds-color-brand-900);
-  --sds-color-text-brand-on-brand-secondary: var(
-    --sds-color-brand-100
-  );
-  --sds-color-text-brand-on-brand-tertiary: var(
-    --sds-color-brand-100
-  );
-  --sds-color-text-positive-default: var(--green-200);
-  --sds-color-text-positive-secondary: var(--green-400);
-  --sds-color-text-positive-tertiary: var(--green-600);
-  --sds-color-text-positive-on-positive: var(--green-100);
-  --sds-color-text-positive-on-positive-secondary: var(--green-100);
-  --sds-color-text-positive-on-positive-tertiary: var(--green-100);
-  --sds-color-text-warning-default: var(--yellow-200);
-  --sds-color-text-warning-secondary: var(--yellow-400);
-  --sds-color-text-warning-tertiary: var(--yellow-600);
-  --sds-color-text-warning-on-warning: var(--yellow-1000);
-  --sds-color-text-warning-on-warning-secondary: var(--yellow-100);
-  --sds-color-text-warning-on-warning-tertiary: var(--yellow-100);
-  --sds-color-text-danger-default: var(--red-200);
-  --sds-color-text-danger-secondary: var(--red-400);
-  --sds-color-text-danger-tertiary: var(--red-500);
-  --sds-color-text-danger-on-danger: var(--red-100);
-  --sds-color-text-danger-on-danger-secondary: var(--red-100);
-  --sds-color-text-danger-on-danger-tertiary: var(--red-100);
-  --sds-color-text-disabled-default: var(--sds-color-brand-500);
-  --sds-color-text-utilities-text-on-overlay: var(--white-1000);
-  --sds-color-text-utilities-text-on-measurement: var(--pink-200);
-  --sds-color-text-disabled-on-disabled: var(--sds-color-brand-400);
-  --sds-color-border-default-default: var(--sds-color-gray-600);
-  --sds-color-border-default-secondary: var(--sds-color-gray-500);
-  --sds-color-border-default-tertiary: var(--sds-color-gray-400);
-  --sds-color-border-neutral-default: var(--slate-100);
-  --sds-color-border-neutral-secondary: var(--slate-500);
-  --sds-color-border-neutral-tertiary: var(--slate-600);
-  --sds-color-border-brand-default: var(--sds-color-brand-100);
-  --sds-color-border-brand-secondary: var(--sds-color-brand-300);
-  --sds-color-border-brand-tertiary: var(--sds-color-brand-400);
-  --sds-color-border-positive-default: var(--green-200);
-  --sds-color-border-positive-secondary: var(--green-400);
-  --sds-color-border-positive-tertiary: var(--green-600);
-  --sds-color-border-warning-default: var(--yellow-200);
-  --sds-color-border-warning-secondary: var(--yellow-400);
-  --sds-color-border-warning-tertiary: var(--yellow-600);
-  --sds-color-border-danger-default: var(--red-200);
-  --sds-color-border-danger-secondary: var(--red-400);
-  --sds-color-border-danger-tertiary: var(--red-500);
-  --sds-color-border-disabled-default: var(--sds-color-brand-600);
-  --sds-color-border-utilities-measurement: var(--pink-600);
-  --sds-color-border-utilities-swatch: rgba(255, 255, 255, 0.24);
-  --sds-color-icon-default-default: var(--sds-color-white-1000);
-  --sds-color-icon-neutral-default: var(--slate-200);
-  --sds-color-icon-neutral-secondary: var(--slate-300);
-  --sds-color-icon-neutral-tertiary: var(--slate-400);
-  --sds-color-icon-neutral-on-neutral: var(--slate-1000);
-  --sds-color-icon-neutral-on-neutral-secondary: var(--slate-100);
-  --sds-color-icon-neutral-on-neutral-tertiary: var(--slate-100);
-  --sds-color-icon-default-secondary: var(--white-500);
-  --sds-color-icon-default-tertiary: var(--white-400);
-  --sds-color-icon-brand-default: var(--sds-color-brand-100);
-  --sds-color-icon-brand-secondary: var(--sds-color-brand-300);
-  --sds-color-icon-brand-tertiary: var(--sds-color-brand-400);
-  --sds-color-icon-brand-on-brand: var(--sds-color-brand-900);
-  --sds-color-icon-brand-on-brand-secondary: var(
-    --sds-color-brand-100
-  );
-  --sds-color-icon-brand-on-brand-tertiary: var(
-    --sds-color-brand-100
-  );
-  --sds-color-icon-positive-default: var(--green-200);
-  --sds-color-icon-positive-secondary: var(--green-400);
-  --sds-color-icon-positive-tertiary: var(--green-600);
-  --sds-color-icon-positive-on-positive: var(--green-100);
-  --sds-color-icon-positive-on-positive-secondary: var(--green-100);
-  --sds-color-icon-positive-on-positive-tertiary: var(--green-100);
-  --sds-color-icon-warning-default: var(--yellow-200);
-  --sds-color-icon-warning-secondary: var(--yellow-400);
-  --sds-color-icon-warning-tertiary: var(--yellow-600);
-  --sds-color-icon-warning-on-warning: var(--yellow-1000);
-  --sds-color-icon-warning-on-warning-secondary: var(--yellow-100);
-  --sds-color-icon-warning-on-warning-tertiary: var(--yellow-100);
-  --sds-color-icon-danger-default: var(--red-200);
-  --sds-color-icon-danger-secondary: var(--red-400);
-  --sds-color-icon-danger-tertiary: var(--red-500);
-  --sds-color-icon-danger-on-danger: var(--red-100);
-  --sds-color-icon-danger-on-danger-secondary: var(--red-100);
-  --sds-color-icon-danger-on-danger-tertiary: var(--red-100);
-  --sds-color-icon-disabled-default: var(--sds-color-brand-500);
-  --sds-color-icon-utilities-icon: var(--pink-400);
-  --sds-color-icon-utilities-icon-on-measurement: var(--pink-200);
-  --sds-color-icon-disabled-on-disabled: var(--sds-color-brand-400);
+  --sds-color-text-neutral-on-neutral-secondary: var(--sds-color-slate-100);
+  --sds-color-text-neutral-on-neutral-tertiary: var(--sds-color-slate-100);
+  --sds-color-text-brand-default: var(--sds-color-accent-400);
+  --sds-color-text-brand-secondary: var(--sds-color-accent-300);
+  --sds-color-text-brand-tertiary: var(--sds-color-accent-200);
+  --sds-color-text-brand-on-brand: rgba(255, 255, 255, 1);
+  --sds-color-text-brand-on-brand-secondary: var(--sds-color-accent-100);
+  --sds-color-text-brand-on-brand-tertiary: var(--sds-color-accent-200);
+  --sds-color-text-positive-default: var(--sds-color-green-400);
+  --sds-color-text-positive-secondary: var(--sds-color-green-300);
+  --sds-color-text-positive-tertiary: var(--sds-color-green-200);
+  --sds-color-text-positive-on-positive: var(--sds-color-green-100);
+  --sds-color-text-positive-on-positive-secondary: var(--sds-color-green-100);
+  --sds-color-text-positive-on-positive-tertiary: var(--sds-color-green-100);
+  --sds-color-text-warning-default: var(--sds-color-yellow-400);
+  --sds-color-text-warning-secondary: var(--sds-color-yellow-300);
+  --sds-color-text-warning-tertiary: var(--sds-color-yellow-200);
+  --sds-color-text-warning-on-warning: var(--sds-color-yellow-1000);
+  --sds-color-text-warning-on-warning-secondary: var(--sds-color-yellow-100);
+  --sds-color-text-warning-on-warning-tertiary: var(--sds-color-yellow-100);
+  --sds-color-text-danger-default: var(--sds-color-red-400);
+  --sds-color-text-danger-secondary: var(--sds-color-red-300);
+  --sds-color-text-danger-tertiary: var(--sds-color-red-200);
+  --sds-color-text-danger-on-danger: var(--sds-color-red-100);
+  --sds-color-text-danger-on-danger-secondary: var(--sds-color-red-100);
+  --sds-color-text-danger-on-danger-tertiary: var(--sds-color-red-100);
+  --sds-color-text-disabled-default: rgba(82, 82, 91, 1);
+  --sds-color-text-utilities-text-on-overlay: var(--sds-color-white-1000);
+  --sds-color-text-utilities-text-on-measurement: var(--sds-color-pink-200);
+  --sds-color-text-disabled-on-disabled: rgba(113, 113, 122, 1);
 
-  /* mode-4: default */
+  /* Border */
+  --sds-color-border-default-default: rgba(39, 39, 42, 1);
+  --sds-color-border-default-secondary: rgba(50, 50, 56, 1);
+  --sds-color-border-default-tertiary: rgba(63, 63, 70, 1);
+  --sds-color-border-neutral-default: var(--sds-color-slate-300);
+  --sds-color-border-neutral-secondary: var(--sds-color-slate-400);
+  --sds-color-border-neutral-tertiary: var(--sds-color-slate-500);
+  --sds-color-border-brand-default: var(--sds-color-accent-500);
+  --sds-color-border-brand-secondary: var(--sds-color-accent-400);
+  --sds-color-border-brand-tertiary: var(--sds-color-accent-300);
+  --sds-color-border-positive-default: var(--sds-color-green-500);
+  --sds-color-border-positive-secondary: var(--sds-color-green-400);
+  --sds-color-border-positive-tertiary: var(--sds-color-green-300);
+  --sds-color-border-warning-default: var(--sds-color-yellow-500);
+  --sds-color-border-warning-secondary: var(--sds-color-yellow-400);
+  --sds-color-border-warning-tertiary: var(--sds-color-yellow-300);
+  --sds-color-border-danger-default: var(--sds-color-red-500);
+  --sds-color-border-danger-secondary: var(--sds-color-red-400);
+  --sds-color-border-danger-tertiary: var(--sds-color-red-300);
+  --sds-color-border-disabled-default: rgba(63, 63, 70, 1);
+  --sds-color-border-utilities-measurement: var(--sds-color-pink-600);
+  --sds-color-border-utilities-swatch: rgba(255, 255, 255, 0.16);
 
-  /* collection: typography primitives */
-  --family-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* Icon */
+  --sds-color-icon-default-default: rgba(250, 250, 250, 1);
+  --sds-color-icon-neutral-default: var(--sds-color-slate-200);
+  --sds-color-icon-neutral-secondary: var(--sds-color-slate-300);
+  --sds-color-icon-neutral-tertiary: var(--sds-color-slate-400);
+  --sds-color-icon-neutral-on-neutral: var(--sds-color-slate-1000);
+  --sds-color-icon-neutral-on-neutral-secondary: var(--sds-color-slate-100);
+  --sds-color-icon-neutral-on-neutral-tertiary: var(--sds-color-slate-100);
+  --sds-color-icon-default-secondary: rgba(161, 161, 170, 1);
+  --sds-color-icon-default-tertiary: rgba(113, 113, 122, 1);
+  --sds-color-icon-brand-default: var(--sds-color-accent-400);
+  --sds-color-icon-brand-secondary: var(--sds-color-accent-300);
+  --sds-color-icon-brand-tertiary: var(--sds-color-accent-200);
+  --sds-color-icon-brand-on-brand: rgba(255, 255, 255, 1);
+  --sds-color-icon-brand-on-brand-secondary: var(--sds-color-accent-100);
+  --sds-color-icon-brand-on-brand-tertiary: var(--sds-color-accent-200);
+  --sds-color-icon-positive-default: var(--sds-color-green-400);
+  --sds-color-icon-positive-secondary: var(--sds-color-green-300);
+  --sds-color-icon-positive-tertiary: var(--sds-color-green-200);
+  --sds-color-icon-positive-on-positive: var(--sds-color-green-100);
+  --sds-color-icon-positive-on-positive-secondary: var(--sds-color-green-100);
+  --sds-color-icon-positive-on-positive-tertiary: var(--sds-color-green-100);
+  --sds-color-icon-warning-default: var(--sds-color-yellow-400);
+  --sds-color-icon-warning-secondary: var(--sds-color-yellow-300);
+  --sds-color-icon-warning-tertiary: var(--sds-color-yellow-200);
+  --sds-color-icon-warning-on-warning: var(--sds-color-yellow-1000);
+  --sds-color-icon-warning-on-warning-secondary: var(--sds-color-yellow-100);
+  --sds-color-icon-warning-on-warning-tertiary: var(--sds-color-yellow-100);
+  --sds-color-icon-danger-default: var(--sds-color-red-400);
+  --sds-color-icon-danger-secondary: var(--sds-color-red-300);
+  --sds-color-icon-danger-tertiary: var(--sds-color-red-200);
+  --sds-color-icon-danger-on-danger: var(--sds-color-red-100);
+  --sds-color-icon-danger-on-danger-secondary: var(--sds-color-red-100);
+  --sds-color-icon-danger-on-danger-tertiary: var(--sds-color-red-100);
+  --sds-color-icon-disabled-default: rgba(82, 82, 91, 1);
+  --sds-color-icon-utilities-icon: var(--sds-color-pink-400);
+  --sds-color-icon-utilities-icon-on-measurement: var(--sds-color-pink-200);
+  --sds-color-icon-disabled-on-disabled: rgba(113, 113, 122, 1);
+
+  /* ==========================================================================
+     Typography
+     ========================================================================== */
+
+  --family-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   --family-serif: "Noto Serif", Georgia, serif;
-  --family-mono: "Roboto Mono", "SF Mono", Monaco, "Cascadia Code", "Courier New", monospace;
-  --scale-01: 12px;
-  --scale-02: 14px;
-  --scale-03: 16px;
-  --scale-04: 20px;
-  --scale-05: 24px;
-  --scale-06: 32px;
-  --scale-07: 40px;
-  --scale-08: 48px;
-  --scale-09: 64px;
-  --scale-10: 72px;
+  --family-mono: "JetBrains Mono", "SF Mono", "Fira Code", "Cascadia Code", monospace;
+
+  /* Font sizes */
+  --scale-01: 11px;
+  --scale-02: 12px;
+  --scale-03: 13px;
+  --scale-04: 14px;
+  --scale-05: 16px;
+  --scale-06: 18px;
+  --scale-07: 24px;
+  --scale-08: 32px;
+  --scale-09: 48px;
+  --scale-10: 64px;
+
+  /* Font weights */
   --weight-thin: 100;
   --weight-thin-italic: thin italic;
   --weight-extra-light: 200;
@@ -289,7 +317,10 @@
   --weight-black: 900;
   --weight-black-italic: black italic;
 
-  /* collection: size */
+  /* ==========================================================================
+     Spacing
+     ========================================================================== */
+
   --sds-size-space-0: 0px;
   --sds-size-space-050: 2px;
   --sds-size-space-100: 4px;
@@ -308,11 +339,15 @@
   --sds-size-space-negative-300: -12px;
   --sds-size-space-negative-400: -16px;
   --sds-size-space-negative-600: -24px;
-  --sds-size-radius-100: 4px;
+
+  /* Border radius */
+  --sds-size-radius-100: 6px;
   --sds-size-radius-200: 8px;
-  --sds-size-radius-400: 16px;
+  --sds-size-radius-400: 12px;
   --sds-size-blur-100: 4px;
   --sds-size-radius-full: 9999px;
+
+  /* Depth */
   --sds-size-depth-0: 0px;
   --sds-size-depth-025: 1px;
   --sds-size-depth-100: 4px;
@@ -326,39 +361,20 @@
   --sds-size-depth-negative-400: -16px;
   --sds-size-depth-negative-800: -32px;
   --sds-size-depth-negative-1200: -48px;
+
+  /* Strokes */
   --sds-size-stroke-border: 1px;
   --sds-size-stroke-focus-ring: 2px;
+
+  /* Icons */
   --sds-size-icon-small: 24px;
   --sds-size-icon-medium: 32px;
   --sds-size-icon-large: 40px;
 
-  /* mode-5: desktop */
+  /* ==========================================================================
+     Typography Tokens
+     ========================================================================== */
 
-  /* collection: responsive */
-  --device: desktop;
-  --device-width: 1200;
-  --root-font-size: var(--scale-03);
-  --scale: 1;
-
-  /* mode-6: mobile */
-
-  /* collection: responsive */
-  --device: mobile;
-  --device-width: 375;
-  --root-font-size: var(--scale-03);
-  --scale: 1.25;
-
-  /* mode-7: tablet */
-
-  /* collection: responsive */
-  --device: tablet;
-  --device-width: 768;
-  --root-font-size: var(--scale-03);
-  --scale: 1;
-
-  /* mode-8: mode 1 */
-
-  /* collection: typography */
   --sds-typography-title-hero-font-family: var(--family-sans);
   --sds-typography-title-hero-size: var(--scale-10);
   --sds-typography-title-hero-font-weight: var(--weight-bold);
@@ -389,189 +405,175 @@
   --sds-typography-body-size-large: var(--scale-04);
   --sds-typography-body-font-weight-regular: var(--weight-regular);
   --sds-typography-body-font-weight-strong: var(--weight-semibold);
-  --sds-typography-body-font-style-italic: var(
-    --weight-regular-italic
-  );
+  --sds-typography-body-font-style-italic: var(--weight-regular-italic);
   --sds-typography-code-font-family: var(--family-mono);
-  --sds-typography-code-size-small: var(
-    --sds-typography-body-size-small
-  );
-  --sds-typography-code-size-base: var(
-    --sds-typography-body-size-medium
-  );
-  --sds-typography-code-size-large: var(
-    --sds-typography-body-size-large
-  );
-  --sds-typography-code-font-weight: var(
-    --sds-typography-body-font-weight-regular
-  );
+  --sds-typography-code-size-small: var(--sds-typography-body-size-small);
+  --sds-typography-code-size-base: var(--sds-typography-body-size-medium);
+  --sds-typography-code-size-large: var(--sds-typography-body-size-large);
+  --sds-typography-code-font-weight: var(--sds-typography-body-font-weight-regular);
 }
 
-ul,
-li,
-dl {
+/* ==========================================================================
+   Reset & Base
+   ========================================================================== */
+
+ul, li, dl {
   margin: 0;
   padding: 0;
 }
 
-.theme-light {
-  /* mode-3: sds light */
-  --sds-color-background-default-default: var(--sds-color-white-1000);
-  --sds-color-background-neutral-default: var(--sds-color-slate-800);
-  --sds-color-background-neutral-secondary: var(
-    --sds-color-slate-300
-  );
-  --sds-color-background-neutral-secondary-hover: var(--slate-400);
-  --sds-color-background-neutral-tertiary: var(--slate-200);
-  --sds-color-background-neutral-tertiary-hover: var(--slate-300);
-  --sds-color-background-default-default-hover: var(--gray-100);
-  --sds-color-background-default-secondary: var(--sds-color-gray-100);
-  --sds-color-background-default-secondary-hover: var(--gray-200);
-  --sds-color-background-default-tertiary: var(--gray-300);
-  --sds-color-background-default-tertiary-hover: var(--gray-400);
-  --sds-color-background-brand-default: var(--sds-color-brand-800);
-  --sds-color-background-brand-hover: var(--sds-color-brand-900);
-  --sds-color-background-brand-secondary: var(--sds-color-brand-200);
-  --sds-color-background-brand-secondary-hover: var(
-    --sds-color-brand-300
-  );
-  --sds-color-background-brand-tertiary: var(--sds-color-brand-100);
-  --sds-color-background-brand-tertiary-hover: var(
-    --sds-color-brand-200
-  );
-  --sds-color-background-positive-default: var(--green-500);
-  --sds-color-background-positive-hover: var(--green-600);
-  --sds-color-background-positive-secondary: var(--green-200);
-  --sds-color-background-positive-secondary-hover: var(--green-300);
-  --sds-color-background-positive-tertiary: var(--green-100);
-  --sds-color-background-positive-tertiary-hover: var(--green-200);
-  --sds-color-background-warning-default: var(--yellow-400);
-  --sds-color-background-warning-hover: var(--yellow-500);
-  --sds-color-background-warning-secondary: var(--yellow-200);
-  --sds-color-background-warning-secondary-hover: var(--yellow-300);
-  --sds-color-background-warning-tertiary: var(--yellow-100);
-  --sds-color-background-warning-tertiary-hover: var(--yellow-200);
-  --sds-color-background-danger-default: var(--red-500);
-  --sds-color-background-danger-hover: var(--red-600);
-  --sds-color-background-danger-secondary: var(--red-200);
-  --sds-color-background-danger-secondary-hover: var(--red-300);
-  --sds-color-background-danger-tertiary: var(--red-100);
-  --sds-color-background-danger-tertiary-hover: var(--red-200);
-  --sds-color-background-disabled-default: var(--sds-color-brand-300);
-  --sds-color-background-utilities-scrim: rgba(255, 255, 255, 0.8);
-  --sds-color-background-utilities-blanket: rgba(0, 0, 0, 0.7);
-  --sds-color-background-utilities-overlay: rgba(0, 0, 0, 0.5);
-  --sds-color-background-utilities-measurement: var(--pink-200);
-  --sds-color-background-some-random-color-with-big-color-name: rgba(
-    255,
-    255,
-    255,
-    1
-  );
-  --sds-color-text-default-default: var(--gray-900);
-  --sds-color-text-default-secondary: var(--gray-500);
-  --sds-color-text-default-tertiary: var(--gray-400);
-  --sds-color-text-neutral-default: var(--slate-900);
-  --sds-color-text-neutral-secondary: var(--slate-700);
-  --sds-color-text-neutral-tertiary: var(--slate-600);
-  --sds-color-text-neutral-on-neutral: var(--slate-100);
-  --sds-color-text-neutral-on-neutral-secondary: var(--slate-900);
-  --sds-color-text-neutral-on-neutral-tertiary: var(--slate-800);
-  --sds-color-text-brand-default: var(--sds-color-brand-800);
-  --sds-color-text-brand-secondary: var(--sds-color-brand-600);
-  --sds-color-text-brand-tertiary: var(--sds-color-brand-500);
-  --sds-color-text-brand-on-brand: var(--sds-color-brand-100);
-  --sds-color-text-brand-on-brand-secondary: var(
-    --sds-color-brand-900
-  );
-  --sds-color-text-brand-on-brand-tertiary: var(
-    --sds-color-brand-800
-  );
-  --sds-color-text-positive-default: var(--green-800);
-  --sds-color-text-positive-secondary: var(--green-600);
-  --sds-color-text-positive-tertiary: var(--green-500);
-  --sds-color-text-positive-on-positive: var(--green-100);
-  --sds-color-text-positive-on-positive-secondary: var(--green-800);
-  --sds-color-text-positive-on-positive-tertiary: var(--green-800);
-  --sds-color-text-warning-default: var(--yellow-900);
-  --sds-color-text-warning-secondary: var(--yellow-700);
-  --sds-color-text-warning-tertiary: var(--yellow-600);
-  --sds-color-text-warning-on-warning: var(--yellow-1000);
-  --sds-color-text-warning-on-warning-secondary: var(--yellow-800);
-  --sds-color-text-warning-on-warning-tertiary: var(--yellow-900);
-  --sds-color-text-danger-default: var(--red-700);
-  --sds-color-text-danger-secondary: var(--red-600);
-  --sds-color-text-danger-tertiary: var(--red-500);
-  --sds-color-text-danger-on-danger: var(--red-100);
-  --sds-color-text-danger-on-danger-secondary: var(--red-700);
-  --sds-color-text-danger-on-danger-tertiary: var(--red-700);
-  --sds-color-text-disabled-default: var(--sds-color-brand-400);
-  --sds-color-text-utilities-text-on-overlay: var(--black-1000);
-  --sds-color-text-utilities-text-on-measurement: var(--pink-800);
-  --sds-color-text-disabled-on-disabled: var(--sds-color-brand-400);
-  --sds-color-border-default-default: var(--sds-color-gray-300);
-  --sds-color-border-default-secondary: var(--sds-color-gray-300);
-  --sds-color-border-default-tertiary: var(--gray-700);
-  --sds-color-border-neutral-default: var(--slate-900);
-  --sds-color-border-neutral-secondary: var(--slate-600);
-  --sds-color-border-neutral-tertiary: var(--slate-400);
-  --sds-color-border-brand-default: var(--sds-color-brand-800);
-  --sds-color-border-brand-secondary: var(--sds-color-brand-600);
-  --sds-color-border-brand-tertiary: var(--sds-color-brand-500);
-  --sds-color-border-positive-default: var(--green-800);
-  --sds-color-border-positive-secondary: var(--green-600);
-  --sds-color-border-positive-tertiary: var(--green-500);
-  --sds-color-border-warning-default: var(--yellow-900);
-  --sds-color-border-warning-secondary: var(--yellow-700);
-  --sds-color-border-warning-tertiary: var(--yellow-600);
-  --sds-color-border-danger-default: var(--red-700);
-  --sds-color-border-danger-secondary: var(--red-600);
-  --sds-color-border-danger-tertiary: var(--red-500);
-  --sds-color-border-disabled-default: var(--sds-color-brand-400);
-  --sds-color-border-utilities-measurement: var(--pink-400);
-  --sds-color-border-utilities-swatch: rgba(0, 0, 0, 0.24);
-  --sds-color-icon-default-default: var(--sds-color-gray-900);
-  --sds-color-icon-neutral-default: var(--slate-900);
-  --sds-color-icon-neutral-secondary: var(--slate-700);
-  --sds-color-icon-neutral-tertiary: var(--slate-600);
-  --sds-color-icon-neutral-on-neutral: var(--slate-100);
-  --sds-color-icon-neutral-on-neutral-secondary: var(--slate-900);
-  --sds-color-icon-neutral-on-neutral-tertiary: var(--slate-800);
-  --sds-color-icon-default-secondary: var(--gray-500);
-  --sds-color-icon-default-tertiary: var(--gray-400);
-  --sds-color-icon-brand-default: var(--sds-color-brand-800);
-  --sds-color-icon-brand-secondary: var(--sds-color-brand-600);
-  --sds-color-icon-brand-tertiary: var(--sds-color-brand-500);
-  --sds-color-icon-brand-on-brand: var(--sds-color-brand-100);
-  --sds-color-icon-brand-on-brand-secondary: var(
-    --sds-color-brand-900
-  );
-  --sds-color-icon-brand-on-brand-tertiary: var(
-    --sds-color-brand-800
-  );
-  --sds-color-icon-positive-default: var(--green-800);
-  --sds-color-icon-positive-secondary: var(--green-600);
-  --sds-color-icon-positive-tertiary: var(--green-500);
-  --sds-color-icon-positive-on-positive: var(--green-100);
-  --sds-color-icon-positive-on-positive-secondary: var(--green-800);
-  --sds-color-icon-positive-on-positive-tertiary: var(--green-900);
-  --sds-color-icon-warning-default: var(--yellow-900);
-  --sds-color-icon-warning-secondary: var(--yellow-700);
-  --sds-color-icon-warning-tertiary: var(--yellow-600);
-  --sds-color-icon-warning-on-warning: var(--yellow-1000);
-  --sds-color-icon-warning-on-warning-secondary: var(--yellow-800);
-  --sds-color-icon-warning-on-warning-tertiary: var(--yellow-900);
-  --sds-color-icon-danger-default: var(--red-700);
-  --sds-color-icon-danger-secondary: var(--red-600);
-  --sds-color-icon-danger-tertiary: var(--red-500);
-  --sds-color-icon-danger-on-danger: var(--red-100);
-  --sds-color-icon-danger-on-danger-secondary: var(--red-700);
-  --sds-color-icon-danger-on-danger-tertiary: var(--red-700);
-  --sds-color-icon-disabled-default: var(--sds-color-brand-400);
-  --sds-color-icon-utilities-icon: var(--pink-600);
-  --sds-color-icon-utilities-icon-on-measurement: var(--pink-800);
-  --sds-color-icon-disabled-on-disabled: var(--sds-color-brand-400);
+* {
+  box-sizing: border-box;
 }
+
+/* ==========================================================================
+   Light Theme
+   ========================================================================== */
+
+.theme-light {
+  --sds-color-background-default-default: rgba(255, 255, 255, 1);
+  --sds-color-background-neutral-default: var(--sds-color-slate-800);
+  --sds-color-background-neutral-secondary: var(--sds-color-slate-300);
+  --sds-color-background-neutral-secondary-hover: var(--sds-color-slate-400);
+  --sds-color-background-neutral-tertiary: var(--sds-color-slate-200);
+  --sds-color-background-neutral-tertiary-hover: var(--sds-color-slate-300);
+  --sds-color-background-default-default-hover: rgba(249, 250, 251, 1);
+  --sds-color-background-default-secondary: rgba(249, 250, 251, 1);
+  --sds-color-background-default-secondary-hover: rgba(243, 244, 246, 1);
+  --sds-color-background-default-tertiary: rgba(229, 231, 235, 1);
+  --sds-color-background-default-tertiary-hover: rgba(209, 213, 219, 1);
+  --sds-color-background-brand-default: var(--sds-color-accent-600);
+  --sds-color-background-brand-hover: var(--sds-color-accent-700);
+  --sds-color-background-brand-secondary: rgba(236, 240, 255, 1);
+  --sds-color-background-brand-secondary-hover: rgba(224, 231, 255, 1);
+  --sds-color-background-brand-tertiary: rgba(243, 246, 255, 1);
+  --sds-color-background-brand-tertiary-hover: rgba(236, 240, 255, 1);
+  --sds-color-background-positive-default: var(--sds-color-green-500);
+  --sds-color-background-positive-hover: var(--sds-color-green-600);
+  --sds-color-background-positive-secondary: var(--sds-color-green-200);
+  --sds-color-background-positive-secondary-hover: var(--sds-color-green-300);
+  --sds-color-background-positive-tertiary: var(--sds-color-green-100);
+  --sds-color-background-positive-tertiary-hover: var(--sds-color-green-200);
+  --sds-color-background-warning-default: var(--sds-color-yellow-400);
+  --sds-color-background-warning-hover: var(--sds-color-yellow-500);
+  --sds-color-background-warning-secondary: var(--sds-color-yellow-200);
+  --sds-color-background-warning-secondary-hover: var(--sds-color-yellow-300);
+  --sds-color-background-warning-tertiary: var(--sds-color-yellow-100);
+  --sds-color-background-warning-tertiary-hover: var(--sds-color-yellow-200);
+  --sds-color-background-danger-default: var(--sds-color-red-500);
+  --sds-color-background-danger-hover: var(--sds-color-red-600);
+  --sds-color-background-danger-secondary: var(--sds-color-red-200);
+  --sds-color-background-danger-secondary-hover: var(--sds-color-red-300);
+  --sds-color-background-danger-tertiary: var(--sds-color-red-100);
+  --sds-color-background-danger-tertiary-hover: var(--sds-color-red-200);
+  --sds-color-background-disabled-default: rgba(229, 231, 235, 1);
+  --sds-color-background-utilities-scrim: rgba(255, 255, 255, 0.85);
+  --sds-color-background-utilities-blanket: rgba(0, 0, 0, 0.5);
+  --sds-color-background-utilities-overlay: rgba(0, 0, 0, 0.4);
+  --sds-color-background-utilities-measurement: var(--sds-color-pink-200);
+
+  --sds-color-text-default-default: rgba(17, 24, 39, 1);
+  --sds-color-text-default-secondary: rgba(107, 114, 128, 1);
+  --sds-color-text-default-tertiary: rgba(156, 163, 175, 1);
+  --sds-color-text-neutral-default: var(--sds-color-slate-900);
+  --sds-color-text-neutral-secondary: var(--sds-color-slate-700);
+  --sds-color-text-neutral-tertiary: var(--sds-color-slate-600);
+  --sds-color-text-neutral-on-neutral: var(--sds-color-slate-100);
+  --sds-color-text-neutral-on-neutral-secondary: var(--sds-color-slate-900);
+  --sds-color-text-neutral-on-neutral-tertiary: var(--sds-color-slate-800);
+  --sds-color-text-brand-default: var(--sds-color-accent-600);
+  --sds-color-text-brand-secondary: var(--sds-color-accent-500);
+  --sds-color-text-brand-tertiary: var(--sds-color-accent-400);
+  --sds-color-text-brand-on-brand: var(--sds-color-accent-100);
+  --sds-color-text-brand-on-brand-secondary: var(--sds-color-accent-900);
+  --sds-color-text-brand-on-brand-tertiary: var(--sds-color-accent-800);
+  --sds-color-text-positive-default: var(--sds-color-green-700);
+  --sds-color-text-positive-secondary: var(--sds-color-green-600);
+  --sds-color-text-positive-tertiary: var(--sds-color-green-500);
+  --sds-color-text-positive-on-positive: var(--sds-color-green-100);
+  --sds-color-text-positive-on-positive-secondary: var(--sds-color-green-800);
+  --sds-color-text-positive-on-positive-tertiary: var(--sds-color-green-800);
+  --sds-color-text-warning-default: var(--sds-color-yellow-800);
+  --sds-color-text-warning-secondary: var(--sds-color-yellow-700);
+  --sds-color-text-warning-tertiary: var(--sds-color-yellow-600);
+  --sds-color-text-warning-on-warning: var(--sds-color-yellow-1000);
+  --sds-color-text-warning-on-warning-secondary: var(--sds-color-yellow-800);
+  --sds-color-text-warning-on-warning-tertiary: var(--sds-color-yellow-900);
+  --sds-color-text-danger-default: var(--sds-color-red-600);
+  --sds-color-text-danger-secondary: var(--sds-color-red-500);
+  --sds-color-text-danger-tertiary: var(--sds-color-red-400);
+  --sds-color-text-danger-on-danger: var(--sds-color-red-100);
+  --sds-color-text-danger-on-danger-secondary: var(--sds-color-red-700);
+  --sds-color-text-danger-on-danger-tertiary: var(--sds-color-red-700);
+  --sds-color-text-disabled-default: rgba(156, 163, 175, 1);
+  --sds-color-text-utilities-text-on-overlay: var(--sds-color-black-1000);
+  --sds-color-text-utilities-text-on-measurement: var(--sds-color-pink-800);
+  --sds-color-text-disabled-on-disabled: rgba(156, 163, 175, 1);
+
+  --sds-color-border-default-default: rgba(229, 231, 235, 1);
+  --sds-color-border-default-secondary: rgba(209, 213, 219, 1);
+  --sds-color-border-default-tertiary: rgba(156, 163, 175, 1);
+  --sds-color-border-neutral-default: var(--sds-color-slate-900);
+  --sds-color-border-neutral-secondary: var(--sds-color-slate-600);
+  --sds-color-border-neutral-tertiary: var(--sds-color-slate-400);
+  --sds-color-border-brand-default: var(--sds-color-accent-500);
+  --sds-color-border-brand-secondary: var(--sds-color-accent-400);
+  --sds-color-border-brand-tertiary: var(--sds-color-accent-300);
+  --sds-color-border-positive-default: var(--sds-color-green-600);
+  --sds-color-border-positive-secondary: var(--sds-color-green-500);
+  --sds-color-border-positive-tertiary: var(--sds-color-green-400);
+  --sds-color-border-warning-default: var(--sds-color-yellow-600);
+  --sds-color-border-warning-secondary: var(--sds-color-yellow-500);
+  --sds-color-border-warning-tertiary: var(--sds-color-yellow-400);
+  --sds-color-border-danger-default: var(--sds-color-red-600);
+  --sds-color-border-danger-secondary: var(--sds-color-red-500);
+  --sds-color-border-danger-tertiary: var(--sds-color-red-400);
+  --sds-color-border-disabled-default: rgba(229, 231, 235, 1);
+  --sds-color-border-utilities-measurement: var(--sds-color-pink-400);
+  --sds-color-border-utilities-swatch: rgba(0, 0, 0, 0.12);
+
+  --sds-color-icon-default-default: rgba(17, 24, 39, 1);
+  --sds-color-icon-neutral-default: var(--sds-color-slate-900);
+  --sds-color-icon-neutral-secondary: var(--sds-color-slate-700);
+  --sds-color-icon-neutral-tertiary: var(--sds-color-slate-600);
+  --sds-color-icon-neutral-on-neutral: var(--sds-color-slate-100);
+  --sds-color-icon-neutral-on-neutral-secondary: var(--sds-color-slate-900);
+  --sds-color-icon-neutral-on-neutral-tertiary: var(--sds-color-slate-800);
+  --sds-color-icon-default-secondary: rgba(107, 114, 128, 1);
+  --sds-color-icon-default-tertiary: rgba(156, 163, 175, 1);
+  --sds-color-icon-brand-default: var(--sds-color-accent-600);
+  --sds-color-icon-brand-secondary: var(--sds-color-accent-500);
+  --sds-color-icon-brand-tertiary: var(--sds-color-accent-400);
+  --sds-color-icon-brand-on-brand: var(--sds-color-accent-100);
+  --sds-color-icon-brand-on-brand-secondary: var(--sds-color-accent-900);
+  --sds-color-icon-brand-on-brand-tertiary: var(--sds-color-accent-800);
+  --sds-color-icon-positive-default: var(--sds-color-green-700);
+  --sds-color-icon-positive-secondary: var(--sds-color-green-600);
+  --sds-color-icon-positive-tertiary: var(--sds-color-green-500);
+  --sds-color-icon-positive-on-positive: var(--sds-color-green-100);
+  --sds-color-icon-positive-on-positive-secondary: var(--sds-color-green-800);
+  --sds-color-icon-positive-on-positive-tertiary: var(--sds-color-green-900);
+  --sds-color-icon-warning-default: var(--sds-color-yellow-800);
+  --sds-color-icon-warning-secondary: var(--sds-color-yellow-700);
+  --sds-color-icon-warning-tertiary: var(--sds-color-yellow-600);
+  --sds-color-icon-warning-on-warning: var(--sds-color-yellow-1000);
+  --sds-color-icon-warning-on-warning-secondary: var(--sds-color-yellow-800);
+  --sds-color-icon-warning-on-warning-tertiary: var(--sds-color-yellow-900);
+  --sds-color-icon-danger-default: var(--sds-color-red-600);
+  --sds-color-icon-danger-secondary: var(--sds-color-red-500);
+  --sds-color-icon-danger-tertiary: var(--sds-color-red-400);
+  --sds-color-icon-danger-on-danger: var(--sds-color-red-100);
+  --sds-color-icon-danger-on-danger-secondary: var(--sds-color-red-700);
+  --sds-color-icon-danger-on-danger-tertiary: var(--sds-color-red-700);
+  --sds-color-icon-disabled-default: rgba(156, 163, 175, 1);
+  --sds-color-icon-utilities-icon: var(--sds-color-pink-600);
+  --sds-color-icon-utilities-icon-on-measurement: var(--sds-color-pink-800);
+  --sds-color-icon-disabled-on-disabled: rgba(156, 163, 175, 1);
+}
+
+/* ==========================================================================
+   Main Container
+   ========================================================================== */
 
 .pluginContainer {
   position: relative;
@@ -582,17 +584,15 @@ dl {
   flex-direction: column;
   align-items: flex-start;
   background: var(--sds-color-background-default-default);
-
-  /* Drop Shadow/400 */
-  box-shadow: var(--sds-size-depth-0) var(--sds-size-depth-400)
-      var(--sds-size-depth-800) var(--sds-size-depth-negative-100)
-      var(--sds-color-black-200),
-    var(--sds-size-depth-0) var(--sds-size-depth-100)
-      var(--sds-size-depth-100) var(--sds-size-depth-negative-100)
-      var(--sds-color-black-100);
-
   overflow: auto;
+  font-family: var(--family-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+/* ==========================================================================
+   Navigation (Currently Hidden)
+   ========================================================================== */
 
 .navbar {
   position: absolute;
@@ -603,8 +603,7 @@ dl {
   align-items: stretch;
   gap: var(--sds-size-space-400);
   flex-shrink: 0;
-  border-right: var(--sds-size-stroke-border) solid
-    var(--sds-color-border-default-default);
+  border-right: var(--sds-size-stroke-border) solid var(--sds-color-border-default-default);
   background: var(--sds-color-background-default-secondary);
   z-index: 10;
 }
@@ -626,19 +625,17 @@ dl {
 .navItemContainer {
   display: flex;
   align-items: center;
-  height: 48px;
-  padding: var(--sds-size-space-150) var(--sds-size-space-200);
+  height: 44px;
+  padding: var(--sds-size-space-200) var(--sds-size-space-300);
   gap: var(--sds-size-space-200);
   border-radius: var(--sds-size-radius-100);
   cursor: pointer;
-  transition: all 0.2s ease-out;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0 var(--sds-size-space-200);
 }
 
 .navItemContainer:hover {
-  background-color: var(
-    --sds-color-background-default-secondary-hover
-  );
-  transform: translateX(2px);
+  background-color: var(--sds-color-background-default-secondary-hover);
 }
 
 .navItemContainer:focus-visible {
@@ -648,8 +645,6 @@ dl {
 
 .navItemActive {
   background-color: var(--sds-color-background-brand-tertiary);
-  border-left: 3px solid var(--sds-color-border-brand-default);
-  padding-left: calc(var(--sds-size-space-200) - 3px);
 }
 
 .navItemActive .navItemLabel {
@@ -659,91 +654,99 @@ dl {
 
 .navItemLabel {
   color: var(--sds-color-text-default-default);
-  /* Body Small */
   font-family: var(--sds-typography-body-font-family);
-  font-size: var(--sds-typography-body-size-small);
+  font-size: var(--sds-typography-body-size-medium);
   font-style: normal;
   font-weight: var(--sds-typography-body-font-weight-regular);
-  line-height: 140%;
+  line-height: 1.4;
   cursor: pointer;
 }
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
 
 .header {
   display: flex;
   position: sticky;
   top: 0;
   width: 100%;
-  height: 48px;
-  padding: var(--sds-size-space-200);
+  height: 52px;
+  padding: var(--sds-size-space-200) var(--sds-size-space-300);
   align-items: center;
-  gap: var(--sds-size-space-200, 8px);
+  gap: var(--sds-size-space-300);
   align-self: stretch;
-  border-bottom: var(--sds-size-stroke-border) solid
-    var(--sds-color-border-default-default);
+  border-bottom: var(--sds-size-stroke-border) solid var(--sds-color-border-default-default);
   background: var(--sds-color-background-default-default);
   z-index: 1000;
 }
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
 
 .icon-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--sds-size-space-100);
-
-  width: var(--sds-size-icon-small);
-  height: var(--sds-size-icon-small);
-
-  color: var(--sds-color-icon-default-default);
+  padding: var(--sds-size-space-150);
+  width: 28px;
+  height: 28px;
+  color: var(--sds-color-icon-default-secondary);
   background-color: transparent;
   cursor: pointer;
   border: none;
-  transition: all 0.15s ease-in-out;
+  border-radius: var(--sds-size-radius-100);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .icon-button:hover {
   background-color: var(--sds-color-background-default-secondary-hover);
-  border-radius: var(--sds-size-radius-100);
+  color: var(--sds-color-icon-default-default);
 }
 
 .icon-button:active {
   background-color: var(--sds-color-background-default-tertiary);
-  transform: scale(0.96);
+  transform: scale(0.95);
 }
 
 .icon-button:focus-visible {
   outline: 2px solid var(--sds-color-border-brand-default);
-  outline-offset: 2px;
-  border-radius: var(--sds-size-radius-100);
+  outline-offset: 1px;
 }
 
 .icon-button-box {
   display: flex;
-  padding: var(--sds-size-space-100);
+  padding: var(--sds-size-space-150);
   align-items: center;
-  gap: var(--sds-size-space-400);
+  gap: var(--sds-size-space-100);
   border-radius: var(--sds-size-radius-100);
-  border: var(--body-extra-small, 1px) solid
-    var(--sds-color-border-default-default);
+  border: var(--sds-size-stroke-border) solid var(--sds-color-border-default-default);
   background: var(--sds-color-background-default-secondary);
-  transition: all 0.15s ease-in-out;
+  color: var(--sds-color-icon-default-secondary);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .icon-button-box:hover {
-  border-color: var(--sds-color-border-brand-default);
-  background: var(--sds-color-background-brand-tertiary);
+  border-color: var(--sds-color-border-default-secondary);
+  background: var(--sds-color-background-default-secondary-hover);
+  color: var(--sds-color-icon-default-default);
 }
 
 .icon-button-box:focus-visible {
   outline: 2px solid var(--sds-color-border-brand-default);
-  outline-offset: 2px;
+  outline-offset: 1px;
 }
 
+/* ==========================================================================
+   Collection Selector
+   ========================================================================== */
+
 .collectionSelectorBox {
-  padding: var(--sds-size-space-100);
+  padding: var(--sds-size-space-150) var(--sds-size-space-200);
   align-items: center;
   border-radius: var(--sds-size-radius-100);
-  border: var(--body-extra-small, 1px) solid
-    var(--sds-color-border-default-default);
+  border: var(--sds-size-stroke-border) solid var(--sds-color-border-default-default);
   background: var(--sds-color-background-default-secondary);
   min-width: 120px;
   max-width: 200px;
@@ -751,23 +754,25 @@ dl {
   font-size: var(--sds-typography-body-size-small);
   font-weight: var(--sds-typography-body-font-weight-regular);
   color: var(--sds-color-text-default-default);
-  transition: all 0.2s ease-in-out;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 }
 
 .collectionSelectorBox:hover {
-  border-color: var(--sds-color-border-brand-default);
+  border-color: var(--sds-color-border-default-secondary);
   background: var(--sds-color-background-default-secondary-hover);
 }
 
 .collectionSelectorBox:focus {
-  outline: var(--sds-size-stroke-focus-ring) solid var(--sds-color-border-brand-default);
-  outline-offset: 2px;
+  outline: 2px solid var(--sds-color-border-brand-default);
+  outline-offset: 1px;
+  border-color: var(--sds-color-border-brand-default);
 }
 
 .collectionSelectorBox option {
   background: var(--sds-color-background-default-secondary);
   color: var(--sds-color-text-default-default);
-  padding: var(--sds-size-space-100);
+  padding: var(--sds-size-space-200);
 }
 
 .actions-box {
@@ -775,6 +780,10 @@ dl {
   align-items: center;
   gap: var(--sds-size-space-200);
 }
+
+/* ==========================================================================
+   Table
+   ========================================================================== */
 
 .tableContainer {
   flex: 1;
@@ -786,16 +795,15 @@ dl {
 .tableHeaderContainer,
 .tableRowContainer {
   display: flex;
-  height: 32px;
-  padding: var(--sds-size-space-0) 0px;
+  height: 36px;
+  padding: 0;
   align-items: center;
   align-self: stretch;
-  border-bottom: var(--sds-size-stroke-border) solid
-    var(--sds-color-border-default-default);
+  border-bottom: var(--sds-size-stroke-border) solid var(--sds-color-border-default-default);
 }
 
 .tableRowContainer {
-  transition: background-color 0.15s ease-in-out;
+  transition: background-color 0.1s ease;
 }
 
 .tableRowContainer:hover {
@@ -811,49 +819,54 @@ dl {
   top: 0;
   z-index: 110;
   background: var(--sds-color-background-default-default);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
 .tableHeaderContainer {
   position: sticky;
   top: 0;
+  background: var(--sds-color-background-default-secondary);
 }
 
 .tableHeaderItemContainer,
 .tableValueItemContainer {
   display: flex;
   align-items: center;
-  height: 32px;
+  height: 36px;
   width: 220px;
   min-width: 150px;
-  padding: var(--sds-size-space-100);
+  padding: var(--sds-size-space-200) var(--sds-size-space-300);
   text-align: start;
-  border-right: var(--sds-size-stroke-border) solid
-    var(--sds-color-border-default-secondary);
-  border-bottom: var(--sds-size-stroke-border) solid
-    var(--sds-color-border-default-secondary);
+  border-right: var(--sds-size-stroke-border) solid var(--sds-color-border-default-default);
   color: var(--sds-color-text-default-secondary);
   font-family: var(--sds-typography-body-font-family);
-  font-size: var(--sds-typography-body-size-extra-small);
+  font-size: var(--sds-typography-body-size-small);
   font-style: normal;
   font-weight: var(--sds-typography-body-font-weight-regular);
-  line-height: 140%;
+  line-height: 1.4;
   overflow: hidden;
+}
+
+.tableHeaderItemContainer {
+  font-weight: var(--sds-typography-body-font-weight-strong);
+  color: var(--sds-color-text-default-tertiary);
+  font-size: var(--sds-typography-body-size-extra-small);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .tableHeaderItemContainer > span,
 .tableValueItemContainer > span {
   text-overflow: ellipsis;
-  /* Display ellipsis when text is too long */
   white-space: nowrap;
-  /* Prevent text wrapping */
   overflow: hidden;
-  /* Ensure text-overflow works */
   flex-grow: 1;
   -webkit-user-select: text;
   user-select: text;
   cursor: text;
-  /* Ensure the text takes up available space */
+}
+
+.tableValueItemContainer {
+  color: var(--sds-color-text-default-default);
 }
 
 .tableValueItemContainer:nth-child(1),
@@ -862,16 +875,13 @@ dl {
   left: 0;
   background: var(--sds-color-background-default-default);
   z-index: 10;
-  /* Shadow to indicate content slides behind */
-  box-shadow: 2px 0 4px -1px rgba(0, 0, 0, 0.1);
 }
 
-/* First column header needs both vertical AND horizontal stickiness */
 .tableHeaderItemContainer:nth-child(1) {
-  z-index: 120; /* Higher than tableHead (110) and regular sticky cells (10) */
+  background: var(--sds-color-background-default-secondary);
+  z-index: 120;
 }
 
-/* For tableheaderItemContainer except the first column, keep the width as 240px */
 .tableHeaderItemContainer:not(:first-child) {
   width: 240px;
   min-width: 150px;
@@ -882,49 +892,47 @@ dl {
   min-width: 150px;
 }
 
+/* ==========================================================================
+   Alias Values
+   ========================================================================== */
+
 .aliasValueContainer {
   position: relative;
   display: inline-block;
-  /* Ensure the container wraps its contents */
 }
 
 .aliasValue {
   margin: 0;
-  color: var(--sds-color-text-default-default);
-  background: linear-gradient(
-    135deg,
-    var(--sds-color-background-brand-tertiary) 0%,
-    var(--sds-color-background-brand-secondary) 100%
-  );
-  padding: var(--sds-size-space-050) var(--sds-size-space-100);
+  color: var(--sds-color-text-brand-default);
+  background: var(--sds-color-background-brand-tertiary);
+  padding: var(--sds-size-space-050) var(--sds-size-space-150);
   border-radius: var(--sds-size-radius-100);
-  border: 1px solid var(--sds-color-border-brand-tertiary);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border: 1px solid transparent;
   opacity: 1;
   font-size: var(--sds-typography-body-size-extra-small);
-  font-family: var(--sds-typography-body-font-family);
+  font-family: var(--sds-typography-code-font-family);
   font-weight: var(--sds-typography-body-font-weight-regular);
   max-width: 100%;
-  width: -moz-fit-content;
   width: fit-content;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .aliasValue:hover {
   cursor: pointer;
   background: var(--sds-color-background-brand-secondary);
-  border-color: var(--sds-color-border-brand-default);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-color: var(--sds-color-border-brand-tertiary);
 }
 
 .aliasValue:active {
-  transform: translateY(0);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  transform: scale(0.98);
 }
+
+/* ==========================================================================
+   Color Values
+   ========================================================================== */
 
 .colorValueContainer {
   display: flex;
@@ -933,27 +941,27 @@ dl {
 }
 
 .colorTileValue {
-  width: 24px;
-  height: 24px;
-  border-radius: var(--sds-size-radius-100);
-  border: var(--body-extra-small, 1px) solid
-    var(--sds-color-border-default-default);
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  border: var(--sds-size-stroke-border) solid var(--sds-color-border-utilities-swatch);
   cursor: pointer;
   position: relative;
-  /* Checkerboard pattern for transparency */
   background-image:
     linear-gradient(45deg, var(--sds-color-background-default-tertiary) 25%, transparent 25%),
     linear-gradient(-45deg, var(--sds-color-background-default-tertiary) 25%, transparent 25%),
     linear-gradient(45deg, transparent 75%, var(--sds-color-background-default-tertiary) 75%),
     linear-gradient(-45deg, transparent 75%, var(--sds-color-background-default-tertiary) 75%);
-  background-size: 8px 8px;
-  background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+  background-size: 6px 6px;
+  background-position: 0 0, 0 3px, 3px -3px, -3px 0px;
   background-color: var(--sds-color-background-default-default);
-  transition: transform 0.15s ease-out;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
 }
 
 .colorTileValue:hover {
-  transform: scale(1.15);
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .stringValue {
@@ -964,21 +972,29 @@ dl {
   cursor: text;
 }
 
+/* ==========================================================================
+   Tooltips
+   ========================================================================== */
+
 .tooltip.aliasTooltip {
-  background-color: var(--sds-color-background-brand-secondary);
+  background-color: var(--sds-color-background-default-secondary);
   color: var(--sds-color-text-default-default);
-  border: var(--body-extra-small, 1px) solid
-    var(--sds-color-border-default-default);
+  border: var(--sds-size-stroke-border) solid var(--sds-color-border-default-secondary);
   font-size: var(--sds-typography-body-size-extra-small);
   font-family: var(--sds-typography-body-font-family);
   font-weight: var(--sds-typography-body-font-weight-regular);
-  padding: var(--sds-size-space-100);
+  padding: var(--sds-size-space-200);
   border-radius: var(--sds-size-radius-100);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .tooltip.tooltipArrow {
   display: none;
 }
+
+/* ==========================================================================
+   Alias Resolution Popover
+   ========================================================================== */
 
 .aliasResolutionContainer {
   position: absolute;
@@ -987,23 +1003,20 @@ dl {
   min-width: 150px;
   z-index: 10000;
   display: flex;
-  padding: var(--sds-size-space-300) var(--sds-size-space-200);
+  padding: var(--sds-size-space-300);
   flex-direction: column;
   align-items: center;
-  gap: var(--sds-size-space-100);
-  border-radius: var(--sds-size-radius-100);
+  gap: var(--sds-size-space-150);
+  border-radius: var(--sds-size-radius-200);
   background: var(--sds-color-background-default-secondary);
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06),
-    0 0 0 1px var(--sds-color-border-default-secondary);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 0 0 0 1px var(--sds-color-border-default-default);
   animation: popoverSlideIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes popoverSlideIn {
   from {
     opacity: 0;
-    transform: translateY(-8px) scale(0.95);
+    transform: translateY(-4px) scale(0.98);
   }
   to {
     opacity: 1;
@@ -1013,17 +1026,20 @@ dl {
 
 .resolvedAliasLabel {
   display: flex;
-  padding: var(--sds-size-space-100) var(--sds-size-space-150);
+  padding: var(--sds-size-space-150) var(--sds-size-space-200);
   justify-content: center;
   align-items: center;
   gap: var(--sds-size-space-200);
   border-radius: var(--sds-size-radius-100);
   border: 1px solid var(--sds-color-border-default-default);
-  background: var(--sds-color-background-default-secondary-hover);
+  background: var(--sds-color-background-default-default);
+  font-family: var(--sds-typography-code-font-family);
+  font-size: var(--sds-typography-body-size-extra-small);
+  transition: all 0.15s ease;
 }
 
 .resolvedAliasLabel:hover {
-  border: 1px solid var(--sds-color-border-default-secondary);
+  border-color: var(--sds-color-border-default-secondary);
   cursor: pointer;
 }
 
@@ -1036,50 +1052,49 @@ dl {
   font-weight: var(--sds-typography-body-font-weight-strong);
 }
 
+/* ==========================================================================
+   Icons
+   ========================================================================== */
+
 .icon {
-  transition: transform 0.2s ease-out;
+  transition: transform 0.15s ease;
 }
 
 .icon path {
-  stroke: var(--sds-color-icon-brand-on-brand-secondary);
-  width: 15px;
-  height: 15px;
-  transition: stroke 0.15s ease-out;
+  stroke: var(--sds-color-icon-default-secondary);
+  width: 16px;
+  height: 16px;
+  transition: stroke 0.15s ease;
 }
 
 .icon:hover path {
-  stroke: var(--sds-color-icon-default-secondary);
+  stroke: var(--sds-color-icon-default-default);
 }
 
 .icon:active {
-  animation: copyPulse 0.3s ease-out;
-}
-
-.icon:active path {
-  stroke: var(--sds-color-icon-default-tertiary);
+  animation: copyPulse 0.2s ease;
 }
 
 @keyframes copyPulse {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
+  50% { transform: scale(1.1); }
 }
+
+/* ==========================================================================
+   Popovers
+   ========================================================================== */
 
 .popoverContainer {
   position: absolute;
   top: 100%;
   right: 0%;
-  /* transform: translateX(-50%); */
-  /* margin-top: var(--sds-size-space-200); */
-  box-shadow: var(--sds-size-depth-0) var(--sds-size-depth-400)
-      var(--sds-size-depth-800) var(--sds-size-depth-negative-100)
-      var(--sds-color-black-200),
-    var(--sds-size-depth-0) var(--sds-size-depth-100)
-      var(--sds-size-depth-100) var(--sds-size-depth-negative-100)
-      var(--sds-color-black-100);
-  border-radius: var(--sds-size-radius-100);
+  margin-top: var(--sds-size-space-100);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border-radius: var(--sds-size-radius-200);
   min-width: 200px;
-  border: 1px solid var(--sds-color-border-default-secondary);
+  border: 1px solid var(--sds-color-border-default-default);
   background: var(--sds-color-background-default-secondary);
+  animation: popoverSlideIn 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .configurationForm {
@@ -1090,13 +1105,12 @@ dl {
   gap: var(--sds-size-space-300);
 }
 
-/* Hover states for radio buttons and checkboxes in view options */
 .configurationForm label {
   cursor: pointer;
-  transition: background-color 0.15s ease-in-out;
-  border-radius: var(--sds-size-radius-050);
-  padding: var(--sds-size-space-050);
-  margin: calc(var(--sds-size-space-050) * -1);
+  transition: background-color 0.1s ease;
+  border-radius: var(--sds-size-radius-100);
+  padding: var(--sds-size-space-100);
+  margin: calc(var(--sds-size-space-100) * -1);
 }
 
 .configurationForm label:hover {
@@ -1112,8 +1126,13 @@ dl {
   position: relative;
 }
 
-.jsonViewContainer {
-  -webkit-user-select: auto;
+/* ==========================================================================
+   Code Views (JSON & CSS)
+   ========================================================================== */
+
+.jsonViewContainer,
+.cssViewContainer {
+  -webkit-user-select: text;
   user-select: text;
   cursor: text;
   border: 1px solid var(--sds-color-border-default-default);
@@ -1121,32 +1140,21 @@ dl {
   color: var(--sds-color-text-default-default);
   font-family: var(--sds-typography-code-font-family);
   font-size: var(--sds-typography-code-size-small);
-  padding: var(--sds-size-space-300);
+  padding: var(--sds-size-space-400);
   overflow: auto;
   width: 100%;
-  margin-inline: var(--sds-size-space-100);
-  border-radius: var(--sds-size-radius-100);
+  margin: var(--sds-size-space-300);
+  border-radius: var(--sds-size-radius-200);
+  line-height: 1.6;
 }
 
-.cssViewContainer {
-  width: 100%;
-  -webkit-user-select: auto;
-  user-select: text;
-  cursor: text;
-  border: 1px solid var(--sds-color-border-default-default);
-  background: var(--sds-color-background-default-secondary);
-  color: var(--sds-color-text-default-default);
-  font-family: var(--sds-typography-code-font-family);
-  font-size: var(--sds-typography-code-size-small);
-  padding: var(--sds-size-space-300);
-  overflow: auto;
-  margin-inline: var(--sds-size-space-100);
-  border-radius: var(--sds-size-radius-100);
-}
+/* ==========================================================================
+   Search
+   ========================================================================== */
 
 .searchContainer {
   display: flex;
-  gap: var(--sds-size-space-150);
+  gap: var(--sds-size-space-200);
   align-items: center;
   width: 100%;
   height: 100%;
@@ -1154,65 +1162,62 @@ dl {
 
 .searchInput {
   flex: 1;
-  padding: var(--sds-size-space-100);
+  padding: var(--sds-size-space-150) var(--sds-size-space-200);
   border-radius: var(--sds-size-radius-100);
-  border: var(--body-extra-small, 1px) solid
-    var(--sds-color-border-default-default);
+  border: var(--sds-size-stroke-border) solid var(--sds-color-border-default-default);
   background: var(--sds-color-background-default-secondary);
   font-family: var(--sds-typography-body-font-family);
   font-size: var(--sds-typography-body-size-small);
   font-weight: var(--sds-typography-body-font-weight-regular);
   color: var(--sds-color-text-default-default);
   outline: none;
-  transition: all 0.2s ease-in-out;
-  min-width: 0; /* Allow shrinking in narrow containers */
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 0;
 }
 
 .searchInput:hover {
-  border-color: var(--sds-color-border-brand-default);
+  border-color: var(--sds-color-border-default-secondary);
+  background: var(--sds-color-background-default-secondary-hover);
 }
 
 .searchInput:focus {
   border-color: var(--sds-color-border-brand-default);
   background: var(--sds-color-background-default-default);
-  box-shadow: 0 0 0 2px var(--sds-color-border-brand-tertiary);
+  box-shadow: 0 0 0 2px rgba(99, 132, 255, 0.15);
 }
 
 .searchInput::placeholder {
-  color: var(--sds-color-text-default-secondary);
-  opacity: 0.6;
+  color: var(--sds-color-text-default-tertiary);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+/* ==========================================================================
+   Options Popover
+   ========================================================================== */
 
 .optionsPopover {
   padding: var(--sds-size-space-200);
   display: flex;
   flex-direction: column;
-  gap: var(--sds-size-space-200);
+  gap: var(--sds-size-space-100);
 
   li {
     list-style: none;
-    font-size: small;
+    font-size: var(--sds-typography-body-size-small);
     color: var(--sds-color-text-default-secondary);
+    padding: var(--sds-size-space-150) var(--sds-size-space-200);
+    border-radius: var(--sds-size-radius-100);
     opacity: 0;
-    animation: fadeIn 0.1s forwards;
+    animation: fadeIn 0.15s forwards;
+    transition: all 0.1s ease;
 
     &:hover:not(.disabledOption):not(.hireMeItem) {
       cursor: pointer;
+      background: var(--sds-color-background-default-tertiary);
       color: var(--sds-color-text-default-default);
-      transition: color 0.3s ease-in-out;
     }
 
     &.disabledOption {
-      opacity: 0.5;
+      opacity: 0.4;
       cursor: not-allowed;
     }
 
@@ -1221,60 +1226,45 @@ dl {
       color: inherit;
 
       &:hover {
-        text-decoration: underline;
+        text-decoration: none;
         color: var(--sds-color-text-default-default);
-        transition: color 0.3s ease-in-out;
       }
     }
 
-    /* Delay each li's animation for a staggered effect */
-    &:nth-child(1) {
-      animation-delay: 0s;
-    }
-    &:nth-child(2) {
-      animation-delay: 0.1s;
-    }
-    &:nth-child(3) {
-      animation-delay: 0.2s;
-    }
-    &:nth-child(4) {
-      animation-delay: 0.3s;
-    }
-    &:nth-child(5) {
-      animation-delay: 0.4s;
-    }
-    &:nth-child(6) {
-      animation-delay: 0.6s;
-    }
+    &:nth-child(1) { animation-delay: 0s; }
+    &:nth-child(2) { animation-delay: 0.05s; }
+    &:nth-child(3) { animation-delay: 0.1s; }
+    &:nth-child(4) { animation-delay: 0.15s; }
+    &:nth-child(5) { animation-delay: 0.2s; }
+    &:nth-child(6) { animation-delay: 0.25s; }
   }
 }
 
 .optionsPopover .hireMeItem {
-  margin-top: 8px;
-  color: var(--sds-color-brand-1000);
+  margin-top: var(--sds-size-space-100);
 }
 
 .optionsPopover .hireMeButton {
   display: block;
-  padding: 4px 6px;
-  background-color: var(--sds-color-brand-300);
-  color: var(--sds-color-brand-1000);
+  padding: var(--sds-size-space-150) var(--sds-size-space-200);
+  background-color: var(--sds-color-background-brand-default);
+  color: var(--sds-color-text-brand-on-brand);
   text-decoration: none;
-  border-radius: 4px;
-  font-weight: bold;
+  border-radius: var(--sds-size-radius-100);
+  font-weight: var(--sds-typography-body-font-weight-strong);
   text-align: center;
-  transition: background-color 0.2s ease;
+  transition: all 0.15s ease;
 }
 
 .optionsPopover .hireMeButton:hover,
 .optionsPopover .hireMeButton:focus {
-  background-color: var(--sds-color-brand-400);
-  color: var(--sds-color-brand-1000);  /* Ensure color doesn't change on hover */
-  text-decoration: none;  /* Prevent underline on hover */
+  background-color: var(--sds-color-background-brand-hover);
+  color: var(--sds-color-text-brand-on-brand);
+  text-decoration: none;
 }
 
 .optionsPopover .hireMeButton:focus {
-  outline: 2px solid var(--sds-color-brand-500);
+  outline: 2px solid var(--sds-color-border-brand-default);
   outline-offset: 2px;
 }
 
@@ -1283,140 +1273,111 @@ dl {
   justify-content: space-between;
   align-items: center;
   gap: var(--sds-size-space-100);
-  margin-top: var(--sds-size-space-300);
+  margin-top: var(--sds-size-space-200);
+  padding-top: var(--sds-size-space-200);
+  border-top: 1px solid var(--sds-color-border-default-default);
 }
+
+/* ==========================================================================
+   Modal
+   ========================================================================== */
 
 .modalContainer {
   position: fixed;
-  inset: 0; 
+  inset: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--sds-color-background-utilities-overlay);
-  z-index: 10;
+  background-color: var(--sds-color-background-utilities-blanket);
+  z-index: 10000;
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
+  animation: fadeIn 0.15s ease;
 }
 
 .confirmationPopover {
-  padding: var(--sds-size-space-150) var(--sds-size-space-300);
+  padding: var(--sds-size-space-400);
   display: flex;
   flex-direction: column;
-  gap: var(--sds-size-space-200);
-  background-color: var(--sds-color-background-default-default);
+  gap: var(--sds-size-space-300);
+  background-color: var(--sds-color-background-default-secondary);
   border: 1px solid var(--sds-color-border-default-default);
-  border-radius: var(--sds-size-radius-100);
-  box-shadow: var(--sds-size-depth-0) var(--sds-size-depth-400)
-    var(--sds-size-depth-800) var(--sds-size-depth-negative-200)
-    var(--sds-color-black-400);
+  border-radius: var(--sds-size-radius-200);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
   color: var(--sds-color-text-default-default);
-  z-index: 20; /* Ensure it's above the overlay */
+  z-index: 20;
+  min-width: 280px;
+  animation: modalSlideIn 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Resize Handle
+   ========================================================================== */
 
 .resizeHandle {
   position: absolute;
   top: 0;
-  right: -4px;
-  width: 8px;
+  right: -3px;
+  width: 6px;
   height: 100%;
   cursor: col-resize;
   background: transparent;
   z-index: 100;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.15s ease;
 }
 
-/* Add subtle visual indicator */
 .resizeHandle::after {
   content: '';
   position: absolute;
   top: 50%;
   left: 50%;
   width: 2px;
-  height: 60%;
-  background: var(--sds-color-border-default-tertiary);
+  height: 50%;
+  background: var(--sds-color-border-default-secondary);
   transform: translate(-50%, -50%);
-  opacity: 0.4;
-  transition: opacity 0.2s ease-in-out;
+  opacity: 0;
+  transition: opacity 0.15s ease;
   border-radius: 1px;
 }
 
-/* Add grip pattern dots */
-.resizeHandle::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 2px;
-  height: 2px;
-  background: var(--sds-color-border-brand-default);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  transition: opacity 0.2s ease-in-out;
-  box-shadow:
-    0 -4px 0 var(--sds-color-border-brand-default),
-    0 4px 0 var(--sds-color-border-brand-default);
+.resizeHandle:hover::after,
+.tableHeaderItemContainer:hover .resizeHandle::after {
+  opacity: 1;
 }
 
 .resizeHandle:hover {
   background: var(--sds-color-background-brand-tertiary);
-  opacity: 0.5;
 }
 
-.resizeHandle:hover::after {
-  opacity: 0;
-}
-
-.resizeHandle:hover::before {
-  opacity: 0.8;
-}
-
-.resizeHandle:active {
-  background: var(--sds-color-background-brand-default);
-  opacity: 0.6;
-}
-
-.tableHeaderItemContainer:hover .resizeHandle::after {
-  opacity: 0.8;
+.resizeHandle:active::after {
   background: var(--sds-color-border-brand-default);
 }
 
-/* Light mode specific resize handle improvements */
-.theme-light .resizeHandle::after {
-  background: var(--sds-color-border-default-default);
-  opacity: 0.6;
-}
+/* ==========================================================================
+   Toast Notifications
+   ========================================================================== */
 
-.theme-light .resizeHandle::before {
-  background: var(--sds-color-border-brand-default);
-  box-shadow:
-    0 -4px 0 var(--sds-color-border-brand-default),
-    0 4px 0 var(--sds-color-border-brand-default);
-}
-
-.theme-light .resizeHandle:hover {
-  background: var(--sds-color-background-brand-tertiary);
-  opacity: 0.7;
-}
-
-.theme-light .tableHeaderItemContainer:hover .resizeHandle::after {
-  opacity: 1;
-  background: var(--sds-color-border-brand-default);
-}
-
-/* Toast Notifications */
 .toast {
   background: var(--sds-color-background-default-secondary);
   border: 1px solid var(--sds-color-border-default-default);
-  border-radius: var(--sds-size-radius-100);
-  box-shadow: var(--sds-size-depth-0) var(--sds-size-depth-400)
-    var(--sds-size-depth-800) var(--sds-size-depth-negative-200)
-    var(--sds-color-black-400);
+  border-radius: var(--sds-size-radius-200);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   min-width: 200px;
-  max-width: 400px;
+  max-width: 360px;
   opacity: 0;
   transform: translateX(100%);
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .toastVisible {
@@ -1425,19 +1386,19 @@ dl {
 }
 
 .toast-success {
-  border-left: 4px solid var(--sds-color-border-positive-default);
+  border-left: 3px solid var(--sds-color-border-positive-default);
 }
 
 .toast-info {
-  border-left: 4px solid var(--sds-color-border-brand-default);
+  border-left: 3px solid var(--sds-color-border-brand-default);
 }
 
 .toast-warning {
-  border-left: 4px solid var(--sds-color-border-warning-default);
+  border-left: 3px solid var(--sds-color-border-warning-default);
 }
 
 .toast-error {
-  border-left: 4px solid var(--sds-color-border-danger-default);
+  border-left: 3px solid var(--sds-color-border-danger-default);
 }
 
 .toastContent {
@@ -1460,32 +1421,34 @@ dl {
 .toastCloseButton {
   background: none;
   border: none;
-  color: var(--sds-color-text-default-secondary);
+  color: var(--sds-color-text-default-tertiary);
   cursor: pointer;
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: normal;
   line-height: 1;
-  padding: 0;
+  padding: var(--sds-size-space-100);
   width: 24px;
   height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: var(--sds-size-radius-100);
-  transition: all 0.2s ease-in-out;
+  transition: all 0.15s ease;
 }
 
 .toastCloseButton:hover {
   background: var(--sds-color-background-default-tertiary);
   color: var(--sds-color-text-default-default);
-  transform: scale(1.1);
 }
 
 .toastCloseButton:active {
   transform: scale(0.95);
 }
 
-/* Skeleton Loading Components */
+/* ==========================================================================
+   Loading States
+   ========================================================================== */
+
 .skeleton {
   background: linear-gradient(
     90deg,
@@ -1499,20 +1462,15 @@ dl {
 }
 
 .skeletonColorSwatch {
-  border-radius: var(--sds-size-radius-100);
+  border-radius: 4px;
   flex-shrink: 0;
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
-/* Loading Spinner */
 .loadingContainer {
   display: flex;
   flex-direction: column;
@@ -1527,8 +1485,8 @@ dl {
 
 .spinner {
   position: relative;
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   margin-bottom: var(--sds-size-space-400);
 }
 
@@ -1536,60 +1494,60 @@ dl {
   position: absolute;
   width: 100%;
   height: 100%;
-  border: 3px solid transparent;
+  border: 2px solid transparent;
   border-top-color: var(--sds-color-border-brand-default);
   border-radius: 50%;
-  animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  animation: spin 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
 }
 
 .spinnerRing:nth-child(1) {
-  animation-delay: -0.45s;
-  opacity: 0.8;
+  animation-delay: -0.4s;
+  opacity: 0.9;
 }
 
 .spinnerRing:nth-child(2) {
-  animation-delay: -0.3s;
+  animation-delay: -0.27s;
   opacity: 0.6;
 }
 
 .spinnerRing:nth-child(3) {
-  animation-delay: -0.15s;
-  opacity: 0.4;
+  animation-delay: -0.13s;
+  opacity: 0.3;
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .loadingText {
-  color: var(--sds-color-text-default-secondary);
-  font-size: var(--sds-typography-body-size-medium);
-  font-weight: 400;
+  color: var(--sds-color-text-default-tertiary);
+  font-size: var(--sds-typography-body-size-small);
+  font-weight: var(--sds-typography-body-font-weight-regular);
   margin: 0;
 }
 
-/* Fade-in Animation */
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+
 .fadeIn {
-  animation: fadeIn 0.3s ease-in;
+  animation: fadeIn 0.2s ease;
 }
 
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(8px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
-/* Empty States */
+/* ==========================================================================
+   Empty & Error States
+   ========================================================================== */
+
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -1598,36 +1556,37 @@ dl {
   padding: var(--sds-size-space-2400);
   text-align: center;
   min-height: 300px;
+  flex: 1;
+  width: 100%;
 }
 
 .empty-state-icon {
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
   margin-bottom: var(--sds-size-space-400);
-  opacity: 0.3;
-  color: var(--sds-color-icon-default-secondary);
+  opacity: 0.2;
+  color: var(--sds-color-icon-default-tertiary);
 }
 
 .empty-state-title {
-  font-size: var(--sds-typography-heading-size-base);
+  font-size: var(--sds-typography-heading-size-small);
   font-weight: var(--sds-typography-heading-font-weight);
   color: var(--sds-color-text-default-default);
-  margin-bottom: var(--sds-size-space-200);
+  margin: 0 0 var(--sds-size-space-200) 0;
 }
 
 .empty-state-message {
-  color: var(--sds-color-text-default-secondary);
-  font-size: var(--sds-typography-body-size-medium);
-  max-width: 400px;
+  color: var(--sds-color-text-default-tertiary);
+  font-size: var(--sds-typography-body-size-small);
+  max-width: 280px;
   line-height: 1.5;
-  margin-bottom: var(--sds-size-space-400);
+  margin: 0;
 }
 
 .empty-state-action {
-  margin-top: var(--sds-size-space-200);
+  margin-top: var(--sds-size-space-400);
 }
 
-/* Error States */
 .error-state {
   display: flex;
   flex-direction: column;
@@ -1635,46 +1594,48 @@ dl {
   justify-content: center;
   padding: var(--sds-size-space-1200);
   text-align: center;
-  color: var(--sds-color-text-danger-default);
   min-height: 300px;
+  flex: 1;
+  width: 100%;
 }
 
 .error-state-icon {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   margin-bottom: var(--sds-size-space-300);
-  opacity: 0.5;
+  opacity: 0.4;
   color: var(--sds-color-icon-danger-default);
 }
 
 .error-state-title {
-  font-size: var(--sds-typography-heading-size-base);
+  font-size: var(--sds-typography-heading-size-small);
   font-weight: var(--sds-typography-heading-font-weight);
   color: var(--sds-color-text-danger-default);
-  margin-bottom: var(--sds-size-space-200);
+  margin: 0 0 var(--sds-size-space-200) 0;
 }
 
 .error-state-message {
   color: var(--sds-color-text-default-secondary);
   font-size: var(--sds-typography-body-size-small);
-  margin-bottom: var(--sds-size-space-400);
-  max-width: 400px;
+  margin: 0;
+  max-width: 320px;
   line-height: 1.5;
 }
 
-/* Support Toast - Compact Design */
+/* ==========================================================================
+   Support Toast
+   ========================================================================== */
+
 .supportToast {
-  background: var(--sds-color-background-default-default);
+  background: var(--sds-color-background-default-secondary);
   border: 1px solid var(--sds-color-border-default-default);
-  border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15),
-              0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  border-radius: var(--sds-size-radius-200);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  width: 280px;
   opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(16px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
-  backdrop-filter: blur(12px);
   pointer-events: auto;
 }
 
@@ -1684,33 +1645,33 @@ dl {
 }
 
 .supportToastContent {
-  padding: 12px 16px;
+  padding: var(--sds-size-space-300);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--sds-size-space-200);
 }
 
 .supportToastCloseButton {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: var(--sds-size-space-200);
+  right: var(--sds-size-space-200);
   background: none;
   border: none;
   color: var(--sds-color-text-default-tertiary);
   cursor: pointer;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: normal;
   line-height: 1;
-  padding: 4px;
+  padding: var(--sds-size-space-100);
   width: 20px;
   height: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  border-radius: var(--sds-size-radius-100);
   transition: all 0.15s ease;
   z-index: 1;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .supportToastCloseButton:hover {
@@ -1726,149 +1687,119 @@ dl {
 .supportToastHeader {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding-right: 24px;
+  gap: var(--sds-size-space-200);
+  padding-right: var(--sds-size-space-600);
 }
 
 .supportToastIcon {
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1;
   flex-shrink: 0;
 }
 
 .supportToastTitle {
   font-family: var(--sds-typography-body-font-family);
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--sds-typography-body-size-small);
+  font-weight: var(--sds-typography-body-font-weight-strong);
   color: var(--sds-color-text-default-default);
   line-height: 1.3;
 }
 
 .supportToastBody {
   font-family: var(--sds-typography-body-font-family);
-  font-size: 12px;
-  font-weight: 400;
+  font-size: var(--sds-typography-body-size-extra-small);
+  font-weight: var(--sds-typography-body-font-weight-regular);
   color: var(--sds-color-text-default-secondary);
   line-height: 1.4;
-  padding-left: 24px;
+  padding-left: var(--sds-size-space-600);
 }
 
 .supportToastActions {
   display: flex;
-  gap: 8px;
-  padding-left: 24px;
+  gap: var(--sds-size-space-200);
+  padding-left: var(--sds-size-space-600);
 }
 
 .supportToastButton {
   font-family: var(--sds-typography-body-font-family);
-  font-size: 12px;
-  font-weight: 500;
-  padding: 6px 12px;
-  border-radius: 6px;
+  font-size: var(--sds-typography-body-size-extra-small);
+  font-weight: var(--sds-typography-body-font-weight-strong);
+  padding: var(--sds-size-space-150) var(--sds-size-space-200);
+  border-radius: var(--sds-size-radius-100);
   border: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
   white-space: nowrap;
   flex: 0 0 auto;
 }
 
 .supportToastButtonStar {
-  background: var(--sds-color-gray-900);
-  color: var(--sds-color-white-1000);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-.theme-light .supportToastButtonStar {
-  background: var(--sds-color-gray-1000);
-  color: var(--sds-color-white-1000);
+  background: var(--sds-color-background-default-tertiary);
+  color: var(--sds-color-text-default-default);
 }
 
 .supportToastButtonStar:hover {
-  background: var(--sds-color-gray-800);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-}
-
-.theme-light .supportToastButtonStar:hover {
-  background: var(--sds-color-gray-900);
+  background: var(--sds-color-background-default-tertiary-hover);
 }
 
 .supportToastButtonStar:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transform: scale(0.98);
 }
 
 .supportToastButtonSponsor {
-  background: var(--sds-color-gray-800);
-  color: var(--sds-color-white-1000);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-.theme-light .supportToastButtonSponsor {
-  background: var(--sds-color-gray-900);
+  background: var(--sds-color-background-brand-default);
+  color: var(--sds-color-text-brand-on-brand);
 }
 
 .supportToastButtonSponsor:hover {
-  background: var(--sds-color-gray-700);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-}
-
-.theme-light .supportToastButtonSponsor:hover {
-  background: var(--sds-color-gray-800);
+  background: var(--sds-color-background-brand-hover);
 }
 
 .supportToastButtonSponsor:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transform: scale(0.98);
 }
 
 .supportToastButtonTertiary {
   background: transparent;
-  color: var(--sds-color-text-default-secondary);
+  color: var(--sds-color-text-default-tertiary);
   border: 1px solid var(--sds-color-border-default-default);
-  box-shadow: none;
 }
 
 .supportToastButtonTertiary:hover {
-  background: var(--sds-color-background-default-secondary);
+  background: var(--sds-color-background-default-tertiary);
   color: var(--sds-color-text-default-default);
-  border-color: var(--sds-color-border-default-secondary);
-  transform: none;
-  box-shadow: none;
 }
 
 .supportToastButtonTertiary:active {
-  background: var(--sds-color-background-default-tertiary);
   transform: scale(0.98);
 }
 
 .supportToastFooter {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  padding-left: 24px;
-  padding-top: 4px;
-  opacity: 0.7;
+  gap: var(--sds-size-space-150);
+  font-size: var(--sds-typography-body-size-extra-small);
+  padding-left: var(--sds-size-space-600);
+  padding-top: var(--sds-size-space-100);
+  opacity: 0.6;
 }
 
 .supportToastGreeting {
-  color: var(--sds-color-text-default-secondary);
+  color: var(--sds-color-text-default-tertiary);
   font-family: var(--sds-typography-body-font-family);
-  font-weight: 400;
+  font-weight: var(--sds-typography-body-font-weight-regular);
 }
 
 .supportToastLaterLink {
   background: none;
   border: none;
-  color: var(--sds-color-text-default-secondary);
+  color: var(--sds-color-text-default-tertiary);
   text-decoration: none;
   cursor: pointer;
   padding: 0;
-  font-size: 11px;
+  font-size: var(--sds-typography-body-size-extra-small);
   font-family: var(--sds-typography-body-font-family);
-  font-weight: 400;
+  font-weight: var(--sds-typography-body-font-weight-regular);
   transition: color 0.15s ease;
 }
 
@@ -1878,10 +1809,10 @@ dl {
 }
 
 .supportToastSocialLink {
-  color: var(--sds-color-text-default-secondary);
+  color: var(--sds-color-text-default-tertiary);
   text-decoration: none;
   transition: color 0.15s ease;
-  font-weight: 400;
+  font-weight: var(--sds-typography-body-font-weight-regular);
 }
 
 .supportToastSocialLink:hover {
@@ -1891,7 +1822,6 @@ dl {
 
 .supportToastSocialsSeparator {
   color: var(--sds-color-text-default-tertiary);
-  opacity: 0.6;
+  opacity: 0.5;
   font-size: 10px;
 }
-
