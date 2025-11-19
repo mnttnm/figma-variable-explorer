@@ -12,6 +12,7 @@ import { VerticalMore } from "./VerticalMore";
 import { WarningIcon } from "./WarningIcon";
 import { EmptyIcon } from "./EmptyIcon";
 import { SearchIconLarge } from "./SearchIconLarge";
+import { DownwardArrowIcon } from "./DownwardArrowIcon";
 
 export {
   MenuIcon,
@@ -28,4 +29,5 @@ export {
   WarningIcon,
   EmptyIcon,
   SearchIconLarge,
+  DownwardArrowIcon,
 };

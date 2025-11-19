@@ -198,7 +198,11 @@ async function collectionAsJSON(
           ? "color"
           : resolvedType === "FLOAT"
           ? fontWeight || "number"
-          : fontFamily || "unknown";
+          : resolvedType === "STRING"
+          ? fontFamily || "string"
+          : resolvedType === "BOOLEAN"
+          ? "boolean"
+          : "unknown";
       obj.$value = await valueToJSON(
         value,
         resolvedType,
