@@ -4,6 +4,7 @@ import styles from "../style.css";
 import { VariablesContext, VariableStatus } from "../contexts/VariablesContext";
 import ConfigurationContext from "../contexts/ConfigurationContext";
 import { useToast } from "../contexts/ToastContext";
+import { useAnalytics } from "../contexts/AnalyticsContext";
 import { CopyIcon, ExportIcon, DownwardArrowIcon } from "./icons";
 import { ExportContentType } from "../types";
 
@@ -12,6 +13,7 @@ const ActionBar = () => {
     useContext(VariablesContext)!;
   const { variableViewMode } = useContext(ConfigurationContext)!;
   const { addToast } = useToast();
+  const { trackEvent } = useAnalytics();
 
   const [showExportMenu, setShowExportMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -44,8 +46,10 @@ const ActionBar = () => {
     try {
       await handleCopyContent();
       addToast(`${variableViewMode.toUpperCase()} copied to clipboard`, 'success');
+      trackEvent('copy_completed', { format: variableViewMode });
     } catch (error) {
       addToast('Failed to copy to clipboard', 'error');
+      trackEvent('error_occurred', { action: 'copy', format: variableViewMode });
     }
   };
 
@@ -54,8 +58,10 @@ const ActionBar = () => {
       await handleExport(type, true, format);
       const formatLabel = format || type;
       addToast(`Exported as ${formatLabel.toUpperCase()}`, 'success');
+      trackEvent('export_completed', { type, format: formatLabel });
     } catch (error) {
       addToast('Export failed', 'error');
+      trackEvent('error_occurred', { action: 'export', type });
     }
     setShowExportMenu(false);
   };

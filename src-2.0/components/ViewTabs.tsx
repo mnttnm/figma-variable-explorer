@@ -2,6 +2,7 @@ import { h } from "preact";
 import { useContext } from "preact/hooks";
 import styles from "../style.css";
 import ConfigurationContext from "../contexts/ConfigurationContext";
+import { useAnalytics } from "../contexts/AnalyticsContext";
 import { VariableViewMode } from "../types";
 
 interface Tab {
@@ -18,6 +19,14 @@ const tabs: Tab[] = [
 const ViewTabs = () => {
   const { variableViewMode, setVariableViewMode } =
     useContext(ConfigurationContext)!;
+  const { trackEvent } = useAnalytics();
+
+  const handleTabClick = (tabId: VariableViewMode) => {
+    if (tabId !== variableViewMode) {
+      trackEvent('view_switched', { from: variableViewMode, to: tabId });
+    }
+    setVariableViewMode(tabId);
+  };
 
   return (
     <div className={styles.viewTabs}>
@@ -27,7 +36,7 @@ const ViewTabs = () => {
           className={`${styles.viewTab} ${
             variableViewMode === tab.id ? styles.viewTabActive : ""
           }`}
-          onClick={() => setVariableViewMode(tab.id)}
+          onClick={() => handleTabClick(tab.id)}
         >
           {tab.label}
         </button>

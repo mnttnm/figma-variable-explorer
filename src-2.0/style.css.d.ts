@@ -90,6 +90,17 @@ declare const styles: {
   readonly "error-state-icon": string;
   readonly "error-state-title": string;
   readonly "error-state-message": string;
+  // Analytics Consent Banner
+  readonly "consentBanner": string;
+  readonly "consentBannerVisible": string;
+  readonly "consentContent": string;
+  readonly "consentHeader": string;
+  readonly "consentTitle": string;
+  readonly "consentMessage": string;
+  readonly "consentActions": string;
+  readonly "consentButtonPrimary": string;
+  readonly "consentButtonSecondary": string;
+  readonly "consentFooter": string;
   readonly "supportToast": string;
   readonly "supportToastVisible": string;
   readonly "supportToastContent": string;

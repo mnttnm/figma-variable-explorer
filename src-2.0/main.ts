@@ -76,6 +76,43 @@ export default function () {
     }
   });
 
+  // Analytics consent handlers
+  on("ANALYTICS_GET_CONSENT", async function () {
+    try {
+      const consent = await figma.clientStorage.getAsync("analyticsConsent");
+      emit("ANALYTICS_CONSENT_LOADED", consent ?? null);
+    } catch (error) {
+      console.error("Error getting analytics consent:", error);
+      emit("ANALYTICS_CONSENT_LOADED", null);
+    }
+  });
+
+  on("ANALYTICS_SET_CONSENT", async function (consent: boolean) {
+    try {
+      await figma.clientStorage.setAsync("analyticsConsent", consent);
+    } catch (error) {
+      console.error("Error setting analytics consent:", error);
+    }
+  });
+
+  on("ANALYTICS_GET_ANONYMOUS_ID", async function () {
+    try {
+      const id = await figma.clientStorage.getAsync("analyticsAnonymousId");
+      emit("ANALYTICS_ANONYMOUS_ID_LOADED", id ?? null);
+    } catch (error) {
+      console.error("Error getting anonymous ID:", error);
+      emit("ANALYTICS_ANONYMOUS_ID_LOADED", null);
+    }
+  });
+
+  on("ANALYTICS_SET_ANONYMOUS_ID", async function (id: string) {
+    try {
+      await figma.clientStorage.setAsync("analyticsAnonymousId", id);
+    } catch (error) {
+      console.error("Error setting anonymous ID:", error);
+    }
+  });
+
   on<GetJsonDataHandler>(
     "GET_JSON_DATA_FOR_EXPORT",
     async function (

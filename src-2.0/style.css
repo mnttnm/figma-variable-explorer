@@ -1771,6 +1771,111 @@ ul, li, dl {
 }
 
 /* ==========================================================================
+   Analytics Consent Banner
+   ========================================================================== */
+
+.consentBanner {
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  background: var(--sds-color-background-default-secondary);
+  border: 1px solid var(--sds-color-border-default-default);
+  border-radius: var(--sds-size-radius-200);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  z-index: 10002;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.consentBannerVisible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.consentContent {
+  padding: var(--sds-size-space-300);
+}
+
+.consentHeader {
+  margin-bottom: var(--sds-size-space-200);
+}
+
+.consentTitle {
+  font-size: var(--sds-typography-body-size-medium);
+  font-weight: var(--sds-typography-heading-font-weight);
+  color: var(--sds-color-text-default-default);
+}
+
+.consentMessage {
+  font-size: var(--sds-typography-body-size-small);
+  color: var(--sds-color-text-default-secondary);
+  line-height: 1.5;
+  margin: 0 0 var(--sds-size-space-300) 0;
+}
+
+.consentActions {
+  display: flex;
+  gap: var(--sds-size-space-200);
+  margin-bottom: var(--sds-size-space-200);
+}
+
+.consentButtonPrimary {
+  flex: 1;
+  padding: var(--sds-size-space-200) var(--sds-size-space-300);
+  background: var(--sds-color-background-brand-default);
+  color: var(--sds-color-text-brand-on-brand);
+  border: none;
+  border-radius: var(--sds-size-radius-100);
+  font-family: var(--sds-typography-body-font-family);
+  font-size: var(--sds-typography-body-size-small);
+  font-weight: var(--sds-typography-body-font-weight-strong);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.consentButtonPrimary:hover {
+  background: var(--sds-color-background-brand-hover);
+}
+
+.consentButtonPrimary:active {
+  transform: scale(0.98);
+}
+
+.consentButtonSecondary {
+  flex: 1;
+  padding: var(--sds-size-space-200) var(--sds-size-space-300);
+  background: transparent;
+  color: var(--sds-color-text-default-secondary);
+  border: var(--sds-size-stroke-border) solid var(--sds-color-border-default-default);
+  border-radius: var(--sds-size-radius-100);
+  font-family: var(--sds-typography-body-font-family);
+  font-size: var(--sds-typography-body-size-small);
+  font-weight: var(--sds-typography-body-font-weight-regular);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.consentButtonSecondary:hover {
+  background: var(--sds-color-background-default-tertiary);
+  color: var(--sds-color-text-default-default);
+}
+
+.consentButtonSecondary:active {
+  transform: scale(0.98);
+}
+
+.consentFooter {
+  font-size: var(--sds-typography-body-size-extra-small);
+  color: var(--sds-color-text-default-tertiary);
+  margin: 0;
+  text-align: center;
+}
+
+/* ==========================================================================
    Support Toast
    ========================================================================== */
 

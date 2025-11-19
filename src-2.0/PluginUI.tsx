@@ -5,7 +5,9 @@ import { ConfigurationContextProvider } from "./contexts/ConfigurationContext";
 import { SearchContextProvider } from "./contexts/SearchContext";
 import { ThemeProvider, useTheme } from "./contexts/ThemeContext";
 import { ToastProvider } from "./contexts/ToastContext";
+import { AnalyticsProvider, useAnalytics } from "./contexts/AnalyticsContext";
 import { SupportToast } from "./components/SupportToast";
+import { AnalyticsConsentBanner } from "./components/AnalyticsConsentBanner";
 import { useLaunchTracking } from "./hooks/hooks";
 import React from "preact/compat";
 import { h } from "preact";
@@ -139,7 +141,13 @@ const MainContent = () => {
 
 const ThemedApp = () => {
   const { theme } = useTheme();
+  const { trackEvent } = useAnalytics();
   const { shouldShowPrompt, markAsSeen, dismissPrompt } = useLaunchTracking(3);
+
+  // Track plugin opened
+  useEffect(() => {
+    trackEvent('plugin_opened');
+  }, []);
 
   const handleStar = () => {
     window.open("https://github.com/mnttnm/figma-variable-explorer", "_blank");
@@ -183,6 +191,9 @@ const ThemedApp = () => {
           />
         </div>
       )}
+
+      {/* Analytics Consent Banner */}
+      <AnalyticsConsentBanner />
     </div>
   );
 };
@@ -190,15 +201,17 @@ const ThemedApp = () => {
 const PluginUI = () => {
   return (
     <ThemeProvider>
-      <ToastProvider>
-        <SearchContextProvider>
-          <ConfigurationContextProvider>
-            <VariablesContextProvider>
-              <ThemedApp />
-            </VariablesContextProvider>
-          </ConfigurationContextProvider>
-        </SearchContextProvider>
-      </ToastProvider>
+      <AnalyticsProvider>
+        <ToastProvider>
+          <SearchContextProvider>
+            <ConfigurationContextProvider>
+              <VariablesContextProvider>
+                <ThemedApp />
+              </VariablesContextProvider>
+            </ConfigurationContextProvider>
+          </SearchContextProvider>
+        </ToastProvider>
+      </AnalyticsProvider>
     </ThemeProvider>
   );
 };
