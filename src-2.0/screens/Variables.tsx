@@ -342,13 +342,94 @@ const TabularView = (collectionData: CollectionVariables) => {
 };
 
 const CSSView = (data: any) => {
-  return <pre className={`${styles.cssViewContainer} ${styles.fadeIn}`}>{data}</pre>;
+  const { currentSearchTerm } = useContext(
+    SearchContext
+  ) as SearchContextState;
+
+  const filteredData = useMemo(() => {
+    if (!currentSearchTerm || !data) return data;
+
+    const lines = data.split('\n');
+    const lowerSearchTerm = currentSearchTerm.toLowerCase();
+
+    const filteredLines = lines.filter((line: string) =>
+      line.toLowerCase().includes(lowerSearchTerm)
+    );
+
+    return filteredLines.join('\n');
+  }, [data, currentSearchTerm]);
+
+  // Show empty state if search returns no results
+  if (currentSearchTerm && filteredData === '') {
+    return (
+      <div className={`${styles.cssViewContainer} ${styles.fadeIn}`}>
+        <div className={styles["empty-state"]}>
+          <div className={styles["empty-state-icon"]}>
+            <SearchIconLarge />
+          </div>
+          <h3 className={styles["empty-state-title"]}>No Results Found</h3>
+          <p className={styles["empty-state-message"]}>
+            No CSS variables match "{currentSearchTerm}". Try a different search term.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return <pre className={`${styles.cssViewContainer} ${styles.fadeIn}`}>{filteredData}</pre>;
 };
 
 const JSONView = (collectionData: JSONData) => {
+  const { currentSearchTerm } = useContext(
+    SearchContext
+  ) as SearchContextState;
+
+  const filteredData = useMemo(() => {
+    if (!currentSearchTerm || !collectionData) return collectionData;
+
+    const lowerSearchTerm = currentSearchTerm.toLowerCase();
+
+    // Filter the variables object based on search term
+    if (collectionData.variables) {
+      const filteredVariables = Object.fromEntries(
+        Object.entries(collectionData.variables).filter(([key, value]) => {
+          // Search in key name
+          if (key.toLowerCase().includes(lowerSearchTerm)) return true;
+          // Search in stringified value
+          if (JSON.stringify(value).toLowerCase().includes(lowerSearchTerm)) return true;
+          return false;
+        })
+      );
+
+      return {
+        ...collectionData,
+        variables: filteredVariables
+      };
+    }
+
+    return collectionData;
+  }, [collectionData, currentSearchTerm]);
+
+  // Show empty state if search returns no results
+  if (currentSearchTerm && filteredData?.variables && Object.keys(filteredData.variables).length === 0) {
+    return (
+      <div className={`${styles.jsonViewContainer} ${styles.fadeIn}`}>
+        <div className={styles["empty-state"]}>
+          <div className={styles["empty-state-icon"]}>
+            <SearchIconLarge />
+          </div>
+          <h3 className={styles["empty-state-title"]}>No Results Found</h3>
+          <p className={styles["empty-state-message"]}>
+            No JSON variables match "{currentSearchTerm}". Try a different search term.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <pre className={`${styles.jsonViewContainer} ${styles.fadeIn}`}>
-      {JSON.stringify(collectionData, null, 2)}
+      {JSON.stringify(filteredData, null, 2)}
     </pre>
   );
 };

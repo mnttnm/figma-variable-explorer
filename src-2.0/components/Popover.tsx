@@ -9,11 +9,7 @@ import {
   Checkbox,
 } from "@create-figma-plugin/ui";
 import { ForwardedRef, forwardRef } from "preact/compat";
-import { ColorResolutionMode, VariableViewMode } from "../types";
-import {
-  VariablesContext,
-  VariableStatus,
-} from "../contexts/VariablesContext";
+import { ColorResolutionMode } from "../types";
 import React from "preact/compat";
 
 interface PopoverProps {
@@ -47,12 +43,9 @@ export const ViewConfigurationPopover = () => {
     colorResolutionMode,
     setColorResolutionMode,
     variableViewMode,
-    setVariableViewMode,
     showAliasLabels,
     setShowAliasLabels,
   } = useContext(ConfigurationContext)!;
-
-  const { changeDataStatus } = useContext(VariablesContext)!;
 
   const colorModeOptions: Array<RadioButtonsOption> = [
     { children: <Text>HSL</Text>, value: "hsla" },
@@ -67,20 +60,6 @@ export const ViewConfigurationPopover = () => {
     setColorResolutionMode(newColorMode as ColorResolutionMode);
   };
 
-  const viewModeOptions: Array<RadioButtonsOption> = [
-    { children: <Text>Table</Text>, value: "table" },
-    { children: <Text>CSS</Text>, value: "css" },
-    { children: <Text>Json</Text>, value: "json" },
-  ];
-
-  const handleViewModeChange = (
-    event: JSX.TargetedEvent<HTMLInputElement, Event>
-  ) => {
-    const newViewMode = event.currentTarget.value;
-    changeDataStatus(VariableStatus.LOADING); // we need this to keep the data status and viewmode in sync
-    setVariableViewMode(newViewMode as VariableViewMode);
-  };
-
   const handleAliasLabelsChange = (
     event: JSX.TargetedEvent<HTMLInputElement, Event>
   ) => {
@@ -89,14 +68,6 @@ export const ViewConfigurationPopover = () => {
 
   return (
     <form className={styles.configurationForm}>
-      <fieldset name="viewMode">
-        <legend>View Mode</legend>
-        <RadioButtons
-          onChange={handleViewModeChange}
-          options={viewModeOptions}
-          value={variableViewMode}
-        />
-      </fieldset>
       <fieldset name="colorMode">
         <legend>Color Mode</legend>
         <RadioButtons

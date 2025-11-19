@@ -15,28 +15,21 @@ import ActionBar from "./components/ActionBar";
 import SearchBar from "./components/SearchBar";
 import IconButton from "./components/IconButton";
 import { SliderMenuIcon, VerticalMore } from "./components/icons";
-import { useContext, useRef, useState, useCallback, useEffect } from "preact/hooks";
+import { useContext, useRef, useCallback, useEffect } from "preact/hooks";
 import ConfigurationContext from "./contexts/ConfigurationContext";
 import { Popover, ViewConfigurationPopover } from "./components/Popover";
 import { OptionsPopover } from "./components/OptionsPopover";
-import { CustomModal } from "./components/CustomModal";
 import { useEscape } from "./hooks/hooks";
-import { ExportContentType } from "./types";
 
 const MainContent = () => {
   const {
-    variableViewMode,
     currentPopoverType,
     setCurrentPopoverType,
   } = useContext(ConfigurationContext)!;
 
-  const [exportContentType, setExportContentType] = useState<ExportContentType>("markdown");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const settingsRef = useRef<HTMLButtonElement>(null);
   const moreRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
-  const modalRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = useCallback((event: MouseEvent) => {
     const target = event.target as HTMLElement;
@@ -64,12 +57,6 @@ const MainContent = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [handleClickOutside]);
-
-  const openModal = (exportContentType: ExportContentType) => {
-    setIsModalOpen(true);
-    setExportContentType(exportContentType);
-  };
-  const closeModal = () => setIsModalOpen(false);
 
   return (
     <main className={styles.mainContent}>
@@ -129,15 +116,9 @@ const MainContent = () => {
                   right: 0,
                 }}
               >
-                <OptionsPopover openModal={openModal} />
+                <OptionsPopover />
               </Popover>
             )}
-            <CustomModal
-              showModal={isModalOpen}
-              onClose={closeModal}
-              ref={modalRef}
-              exportContentType={exportContentType}
-            />
           </div>
         </div>
       </header>

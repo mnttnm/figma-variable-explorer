@@ -1095,6 +1095,7 @@ ul, li, dl {
   border: 1px solid var(--sds-color-border-default-default);
   background: var(--sds-color-background-default-secondary);
   animation: popoverSlideIn 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
 }
 
 .configurationForm {
