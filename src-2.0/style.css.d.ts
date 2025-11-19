@@ -60,6 +60,9 @@ declare const styles: {
   readonly "spinner": string;
   readonly "spinnerRing": string;
   readonly "loadingText": string;
+  readonly "loadingTip": string;
+  readonly "tipFadeIn": string;
+  readonly "tipFadeOut": string;
   readonly "empty-state": string;
   readonly "empty-state-icon": string;
   readonly "empty-state-title": string;
@@ -111,6 +114,7 @@ declare const styles: {
   readonly "actionBarLeft": string;
   readonly "actionBarInfo": string;
   readonly "actionBarRight": string;
+  readonly "actionBarBranding": string;
   readonly "actionButton": string;
   readonly "exportMenuContainer": string;
   readonly "exportMenu": string;

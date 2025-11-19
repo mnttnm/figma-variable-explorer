@@ -1528,6 +1528,25 @@ ul, li, dl {
   margin: 0;
 }
 
+.loadingTip {
+  color: var(--sds-color-text-default-tertiary);
+  font-size: var(--sds-typography-body-size-small);
+  margin: var(--sds-size-space-400) 0 0 0;
+  max-width: 280px;
+  text-align: center;
+  line-height: 1.5;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.tipFadeIn {
+  opacity: 0.7;
+}
+
+.tipFadeOut {
+  opacity: 0;
+}
+
 /* ==========================================================================
    Animations
    ========================================================================== */
@@ -1998,6 +2017,10 @@ ul, li, dl {
   color: var(--sds-color-text-default-default);
 }
 
+.viewTab:active {
+  transform: scale(0.97);
+}
+
 .viewTabActive {
   background: var(--sds-color-background-brand-tertiary);
   color: var(--sds-color-text-brand-default);
@@ -2037,6 +2060,22 @@ ul, li, dl {
   display: flex;
   align-items: center;
   gap: var(--sds-size-space-200);
+}
+
+.actionBarBranding {
+  font-size: var(--sds-typography-body-size-small);
+  color: var(--sds-color-text-default-tertiary);
+  text-decoration: none;
+  padding: var(--sds-size-space-100) var(--sds-size-space-200);
+  border-radius: var(--sds-size-radius-100);
+  transition: all 0.15s ease;
+  opacity: 0.7;
+}
+
+.actionBarBranding:hover {
+  color: var(--sds-color-text-brand-default);
+  background: var(--sds-color-background-brand-tertiary);
+  opacity: 1;
 }
 
 .actionButton {

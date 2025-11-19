@@ -3,6 +3,7 @@ import { useContext, useState, useRef, useEffect } from "preact/hooks";
 import styles from "../style.css";
 import { VariablesContext, VariableStatus } from "../contexts/VariablesContext";
 import ConfigurationContext from "../contexts/ConfigurationContext";
+import { useToast } from "../contexts/ToastContext";
 import { CopyIcon, ExportIcon, DownwardArrowIcon } from "./icons";
 import { ExportContentType } from "../types";
 
@@ -10,6 +11,7 @@ const ActionBar = () => {
   const { handleCopyContent, handleExport, status, collections, activeCollection } =
     useContext(VariablesContext)!;
   const { variableViewMode } = useContext(ConfigurationContext)!;
+  const { addToast } = useToast();
 
   const [showExportMenu, setShowExportMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -38,6 +40,26 @@ const ActionBar = () => {
     { label: "Export as CSV", type: "csv" },
   ];
 
+  const onCopy = async () => {
+    try {
+      await handleCopyContent();
+      addToast(`${variableViewMode.toUpperCase()} copied to clipboard`, 'success');
+    } catch (error) {
+      addToast('Failed to copy to clipboard', 'error');
+    }
+  };
+
+  const onExport = async (type: ExportContentType, format?: "css" | "scss") => {
+    try {
+      await handleExport(type, true, format);
+      const formatLabel = format || type;
+      addToast(`Exported as ${formatLabel.toUpperCase()}`, 'success');
+    } catch (error) {
+      addToast('Export failed', 'error');
+    }
+    setShowExportMenu(false);
+  };
+
   return (
     <div className={styles.actionBar}>
       <div className={styles.actionBarLeft}>
@@ -46,6 +68,14 @@ const ActionBar = () => {
         </span>
       </div>
       <div className={styles.actionBarRight}>
+        <a
+          href="https://github.com/mnttnm/figma-variable-explorer"
+          target="_blank"
+          className={styles.actionBarBranding}
+          title="Star on GitHub"
+        >
+          ★ Star
+        </a>
         <div className={styles.exportMenuContainer} ref={menuRef}>
           <button
             className={styles.actionButton}
@@ -61,10 +91,7 @@ const ActionBar = () => {
                 <button
                   key={option.label}
                   className={styles.exportMenuItem}
-                  onClick={() => {
-                    handleExport(option.type, true, option.format);
-                    setShowExportMenu(false);
-                  }}
+                  onClick={() => onExport(option.type, option.format)}
                 >
                   {option.label}
                 </button>
@@ -73,7 +100,7 @@ const ActionBar = () => {
           )}
         </div>
         {variableViewMode !== "table" && (
-          <button className={styles.actionButton} onClick={handleCopyContent}>
+          <button className={styles.actionButton} onClick={onCopy}>
             <CopyIcon />
             <span>Copy {variableViewMode.toUpperCase()}</span>
           </button>
