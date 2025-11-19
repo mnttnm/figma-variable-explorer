@@ -2,12 +2,6 @@ import { h, JSX } from "preact";
 import styles from "../style.css";
 import { useContext } from "preact/hooks";
 import ConfigurationContext from "../contexts/ConfigurationContext";
-import {
-  RadioButtons,
-  RadioButtonsOption,
-  Text,
-  Checkbox,
-} from "@create-figma-plugin/ui";
 import { ForwardedRef, forwardRef } from "preact/compat";
 import { ColorResolutionMode } from "../types";
 import React from "preact/compat";
@@ -47,46 +41,76 @@ export const ViewConfigurationPopover = () => {
     setShowAliasLabels,
   } = useContext(ConfigurationContext)!;
 
-  const colorModeOptions: Array<RadioButtonsOption> = [
-    { children: <Text>HSL</Text>, value: "hsla" },
-    { children: <Text>RGB</Text>, value: "rgba" },
-    { children: <Text>HEX</Text>, value: "hex" },
+  const colorModes: { value: ColorResolutionMode; label: string; description: string }[] = [
+    { value: "hex", label: "HEX", description: "#FF5733" },
+    { value: "rgba", label: "RGB", description: "rgb(255, 87, 51)" },
+    { value: "hsla", label: "HSL", description: "hsl(11, 100%, 60%)" },
   ];
 
-  const handleColorModeChange = (
-    event: JSX.TargetedEvent<HTMLInputElement, Event>
-  ) => {
-    const newColorMode = event.currentTarget.value;
-    setColorResolutionMode(newColorMode as ColorResolutionMode);
-  };
-
-  const handleAliasLabelsChange = (
-    event: JSX.TargetedEvent<HTMLInputElement, Event>
-  ) => {
-    setShowAliasLabels(event.currentTarget.checked);
-  };
-
   return (
-    <form className={styles.configurationForm}>
-      <fieldset name="colorMode">
-        <legend>Color Mode</legend>
-        <RadioButtons
-          onChange={handleColorModeChange}
-          options={colorModeOptions}
-          value={colorResolutionMode}
-        />
-      </fieldset>
+    <div className={styles.settingsPopover}>
+      <div className={styles.settingsHeader}>
+        <span className={styles.settingsTitle}>Settings</span>
+      </div>
+
+      <div className={styles.settingsSection}>
+        <div className={styles.settingsSectionHeader}>
+          <span className={styles.settingsSectionTitle}>Color Format</span>
+          <span className={styles.settingsSectionDescription}>
+            How color values are displayed
+          </span>
+        </div>
+        <div className={styles.settingsOptions}>
+          {colorModes.map((mode) => (
+            <label
+              key={mode.value}
+              className={`${styles.settingsOption} ${
+                colorResolutionMode === mode.value ? styles.settingsOptionActive : ""
+              }`}
+            >
+              <input
+                type="radio"
+                name="colorMode"
+                value={mode.value}
+                checked={colorResolutionMode === mode.value}
+                onChange={() => setColorResolutionMode(mode.value)}
+                className={styles.settingsRadio}
+              />
+              <span className={styles.settingsOptionContent}>
+                <span className={styles.settingsOptionLabel}>{mode.label}</span>
+                <span className={styles.settingsOptionExample}>{mode.description}</span>
+              </span>
+            </label>
+          ))}
+        </div>
+      </div>
+
       {variableViewMode === "table" && (
-        <fieldset name="aliasOptions">
-          <legend>Table Options</legend>
-          <Checkbox
-            onChange={handleAliasLabelsChange}
-            value={showAliasLabels}
-          >
-            <Text>Show alias collection names</Text>
-          </Checkbox>
-        </fieldset>
+        <div className={styles.settingsSection}>
+          <div className={styles.settingsSectionHeader}>
+            <span className={styles.settingsSectionTitle}>Table Display</span>
+            <span className={styles.settingsSectionDescription}>
+              Options for table view
+            </span>
+          </div>
+          <div className={styles.settingsOptions}>
+            <label className={styles.settingsCheckboxOption}>
+              <input
+                type="checkbox"
+                checked={showAliasLabels}
+                onChange={(e) => setShowAliasLabels((e.target as HTMLInputElement).checked)}
+                className={styles.settingsCheckbox}
+              />
+              <span className={styles.settingsCheckboxContent}>
+                <span className={styles.settingsOptionLabel}>Show collection names</span>
+                <span className={styles.settingsOptionExample}>
+                  Display source collection on alias badges
+                </span>
+              </span>
+            </label>
+          </div>
+        </div>
       )}
-    </form>
+    </div>
   );
 };

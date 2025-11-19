@@ -1127,6 +1127,134 @@ ul, li, dl {
   position: relative;
 }
 
+/* Settings Popover */
+.settingsPopover {
+  min-width: 240px;
+}
+
+.settingsHeader {
+  padding: var(--sds-size-space-300) var(--sds-size-space-300) var(--sds-size-space-200);
+  border-bottom: var(--sds-size-stroke-border) solid var(--sds-color-border-default-default);
+}
+
+.settingsTitle {
+  font-size: var(--sds-typography-body-size-medium);
+  font-weight: var(--sds-typography-heading-font-weight);
+  color: var(--sds-color-text-default-default);
+}
+
+.settingsSection {
+  padding: var(--sds-size-space-300);
+  border-bottom: var(--sds-size-stroke-border) solid var(--sds-color-border-default-default);
+}
+
+.settingsSection:last-child {
+  border-bottom: none;
+}
+
+.settingsSectionHeader {
+  margin-bottom: var(--sds-size-space-200);
+}
+
+.settingsSectionTitle {
+  display: block;
+  font-size: var(--sds-typography-body-size-small);
+  font-weight: var(--sds-typography-body-font-weight-strong);
+  color: var(--sds-color-text-default-default);
+  margin-bottom: var(--sds-size-space-050);
+}
+
+.settingsSectionDescription {
+  display: block;
+  font-size: var(--sds-typography-body-size-extra-small);
+  color: var(--sds-color-text-default-tertiary);
+}
+
+.settingsOptions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sds-size-space-100);
+}
+
+.settingsOption {
+  display: flex;
+  align-items: center;
+  gap: var(--sds-size-space-200);
+  padding: var(--sds-size-space-150) var(--sds-size-space-200);
+  border-radius: var(--sds-size-radius-100);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: var(--sds-size-stroke-border) solid transparent;
+}
+
+.settingsOption:hover {
+  background: var(--sds-color-background-default-tertiary);
+}
+
+.settingsOptionActive {
+  background: var(--sds-color-background-brand-tertiary);
+  border-color: var(--sds-color-border-brand-default);
+}
+
+.settingsOptionActive:hover {
+  background: var(--sds-color-background-brand-secondary);
+}
+
+.settingsRadio {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--sds-color-background-brand-default);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.settingsOptionContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sds-size-space-025);
+}
+
+.settingsOptionLabel {
+  font-size: var(--sds-typography-body-size-small);
+  font-weight: var(--sds-typography-body-font-weight-regular);
+  color: var(--sds-color-text-default-default);
+}
+
+.settingsOptionExample {
+  font-size: var(--sds-typography-body-size-extra-small);
+  color: var(--sds-color-text-default-tertiary);
+  font-family: var(--sds-typography-code-font-family);
+}
+
+.settingsCheckboxOption {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sds-size-space-200);
+  padding: var(--sds-size-space-150) var(--sds-size-space-200);
+  border-radius: var(--sds-size-radius-100);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.settingsCheckboxOption:hover {
+  background: var(--sds-color-background-default-tertiary);
+}
+
+.settingsCheckbox {
+  width: 14px;
+  height: 14px;
+  accent-color: var(--sds-color-background-brand-default);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.settingsCheckboxContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sds-size-space-025);
+}
+
 /* ==========================================================================
    Code Views (JSON & CSS)
    ========================================================================== */

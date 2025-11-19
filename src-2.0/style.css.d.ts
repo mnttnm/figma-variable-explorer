@@ -34,6 +34,24 @@ declare const styles: {
   readonly "popoverContainer": string;
   readonly "configurationForm": string;
   readonly "configurationBoxContainer": string;
+  // Settings Popover
+  readonly "settingsPopover": string;
+  readonly "settingsHeader": string;
+  readonly "settingsTitle": string;
+  readonly "settingsSection": string;
+  readonly "settingsSectionHeader": string;
+  readonly "settingsSectionTitle": string;
+  readonly "settingsSectionDescription": string;
+  readonly "settingsOptions": string;
+  readonly "settingsOption": string;
+  readonly "settingsOptionActive": string;
+  readonly "settingsRadio": string;
+  readonly "settingsOptionContent": string;
+  readonly "settingsOptionLabel": string;
+  readonly "settingsOptionExample": string;
+  readonly "settingsCheckboxOption": string;
+  readonly "settingsCheckbox": string;
+  readonly "settingsCheckboxContent": string;
   readonly "jsonViewContainer": string;
   readonly "cssViewContainer": string;
   readonly "searchContainer": string;
