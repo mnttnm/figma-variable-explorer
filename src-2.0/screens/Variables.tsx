@@ -64,15 +64,15 @@ export default function Variables() {
   if (variableViewMode === "table") {
     const activeCollectionData =
       data[collections[activeCollection!].id];
-    return TabularView(activeCollectionData);
+    return <TabularView collectionData={activeCollectionData} />;
   } else if (variableViewMode === "css") {
     const activeCollectionData =
       cssData[collections[activeCollection!].id];
-    return CSSView(activeCollectionData);
+    return <CSSView data={activeCollectionData} />;
   } else if (variableViewMode === "json") {
     const activeCollectionData =
-      jsonData[collections[activeCollection!].id];
-    return JSONView(activeCollectionData);
+      jsonData[collections[activeCollection!].jsonId];
+    return <JSONView collectionData={activeCollectionData} />;
   } else {
     return null;
   }
@@ -93,7 +93,7 @@ const ResizeHandle = ({
   );
 };
 
-const TabularView = (collectionData: CollectionVariables) => {
+const TabularView = ({ collectionData }: { collectionData: CollectionVariables }) => {
   if (!collectionData) return null;
 
   const { columnWidths, setColumnWidths } = useContext(ConfigurationContext)!;
@@ -159,6 +159,9 @@ const TabularView = (collectionData: CollectionVariables) => {
   const generateTabularDataForCollection = (
     collectionData: CollectionVariables
   ) => {
+    if (!collectionData?.modes) {
+      return { headers: ["Name"], rows: [] };
+    }
     const headers = ["Name", ...collectionData.modes];
     const rows: Array<any[]> = [];
     for (const [variable, variableValue] of Object.entries(
@@ -341,7 +344,7 @@ const TabularView = (collectionData: CollectionVariables) => {
   );
 };
 
-const CSSView = (data: any) => {
+const CSSView = ({ data }: { data: any }) => {
   const { currentSearchTerm } = useContext(
     SearchContext
   ) as SearchContextState;
@@ -379,7 +382,7 @@ const CSSView = (data: any) => {
   return <pre className={`${styles.cssViewContainer} ${styles.fadeIn}`}>{filteredData}</pre>;
 };
 
-const JSONView = (collectionData: JSONData) => {
+const JSONView = ({ collectionData }: { collectionData: JSONData }) => {
   const { currentSearchTerm } = useContext(
     SearchContext
   ) as SearchContextState;

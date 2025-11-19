@@ -38,6 +38,7 @@ export interface InternalVariable {
 
 interface CollectionObject {
   id: string;
+  jsonId: string;
   name: string;
 }
 
@@ -122,7 +123,7 @@ export const VariablesContextProvider = ({
       const { jsonData, collections } = variablesData;
       if (jsonData) {
         contentToBeCopied = JSON.stringify(
-          jsonData[collections[activeCollection!].id!],
+          jsonData[collections[activeCollection!].jsonId],
           null,
           2
         );
@@ -132,7 +133,7 @@ export const VariablesContextProvider = ({
     } else if (variableViewMode === "css") {
       const { cssData, collections } = variablesData;
       if (cssData) {
-        contentToBeCopied = cssData[collections[activeCollection!].id!];
+        contentToBeCopied = cssData[collections[activeCollection!].id];
       } else {
         contentToBeCopied = "";
       }
@@ -141,22 +142,27 @@ export const VariablesContextProvider = ({
     copy(contentToBeCopied);
   }, [activeCollection, variableViewMode, variablesData]);
 
-  function getCollectionsFromData(
-    data: any,
-    variableViewMode: VariableViewMode
-  ) {
-    if (variableViewMode === "table" || variableViewMode === "css") {
+  function getCollectionsFromData(data: any) {
+    // Map collectionsData keys with corresponding jsonData keys
+    if (data["collectionsData"] && data["jsonData"]) {
+      const collectionsDataKeys = Object.keys(data["collectionsData"]);
+      const jsonDataKeys = Object.keys(data["jsonData"]);
+
+      return collectionsDataKeys.map((collectionKey, index) => {
+        const jsonKey = jsonDataKeys[index] || collectionKey;
+        const displayName = data["jsonData"]?.[jsonKey]?.["$collection_metadata"]?.name || collectionKey;
+        return {
+          id: collectionKey,
+          jsonId: jsonKey,
+          name: displayName,
+        };
+      });
+    } else if (data["collectionsData"]) {
       return Object.keys(data["collectionsData"]).map((collectionKey) => {
         return {
           id: collectionKey,
+          jsonId: collectionKey,
           name: collectionKey,
-        };
-      });
-    } else if (variableViewMode === "json") {
-      return Object.keys(data["jsonData"]).map((collectionKey) => {
-        return {
-          id: collectionKey,
-          name: data["jsonData"][collectionKey]["$collection_metadata"].name,
         };
       });
     } else {
@@ -176,13 +182,13 @@ export const VariablesContextProvider = ({
       switch (exportContentType) {
         case "json":
           const jsonDataForExport = isOnlyForActiveSelection && activeCollection !== undefined && jsonData
-            ? { [Object.keys(jsonData)[activeCollection]]: Object.values(jsonData)[activeCollection] }
+            ? { [collections[activeCollection].jsonId]: jsonData[collections[activeCollection].jsonId] }
             : jsonData || {}; // Fallback to an empty object if jsonData is undefined
           createFileFromContent(`${fileNamePrefix}.json`, JSON.stringify(jsonDataForExport, null, 2));
           break;
         case "markdown":
           const jsonForMarkdown = isOnlyForActiveSelection && activeCollection !== undefined && jsonData
-            ? { [Object.keys(jsonData)[activeCollection]]: Object.values(jsonData)[activeCollection] }
+            ? { [collections[activeCollection].jsonId]: jsonData[collections[activeCollection].jsonId] }
             : jsonData || {}; // Fallback to an empty object if jsonData is undefined
           getMarkdownFromJSON(jsonForMarkdown, `${fileNamePrefix}.md`);
           break;
@@ -201,7 +207,7 @@ export const VariablesContextProvider = ({
           break;
         case "csv":
           const jsonForCSV = isOnlyForActiveSelection && activeCollection !== undefined && jsonData
-            ? { [Object.keys(jsonData)[activeCollection]]: Object.values(jsonData)[activeCollection] }
+            ? { [collections[activeCollection].jsonId]: jsonData[collections[activeCollection].jsonId] }
             : jsonData || {}; // Fallback to an empty object if jsonData is undefined
           getCSVFromData(jsonForCSV, `${fileNamePrefix}.csv`);
           break;
@@ -232,10 +238,7 @@ export const VariablesContextProvider = ({
             colorResolutionMode
           ),
           jsonData: result["jsonData"],
-          collections: getCollectionsFromData(
-            result,
-            variableViewMode
-          ),
+          collections: getCollectionsFromData(result),
         });
         if (Object.keys(result).length > 0 && !activeCollection) {
           setActiveCollection(0);
@@ -251,7 +254,7 @@ export const VariablesContextProvider = ({
       variableViewMode,
       colorResolutionMode
     );
-  }, [colorResolutionMode, variableViewMode]);
+  }, [colorResolutionMode]);
 
   return (
     <VariablesContext.Provider
