@@ -97,7 +97,8 @@ function rgbToHex({
 }
 
 export function getColorValue(color: RGBA): ColorValue {
-  const { r, g, b, a } = color;
+  // Figma's RGB type has no alpha channel, so treat a missing `a` as fully opaque
+  const { r, g, b, a = 1 } = color;
   return {
     hexValue: rgbToHex({ r, g, b, a }),
     rgbaValue: `rgba(${Math.round(r * 255)},${Math.round(
@@ -141,7 +142,7 @@ export async function resolveVariableValue(
     return value.toString();
   } else {
     // STRING type or any other type - convert to string
-    return value.toString();
+    return typeof value === "object" ? JSON.stringify(value) : String(value);
   }
 }
 
@@ -400,7 +401,8 @@ function getSimplifiedCollectionData(
             ? replaceSpacesAndSlashesWithHyphen(
                 (varInfo.values[mode].value as AliasValue).aliasLabel
               )
-            : varInfo.type === "COLOR"
+            : varInfo.type === "COLOR" &&
+              typeof varInfo.values[mode].value === "object"
             ? getColorValueForResolutionMode(
                 varInfo.values[mode].value as ColorValue
               )

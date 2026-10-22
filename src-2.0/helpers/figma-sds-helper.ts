@@ -5,6 +5,7 @@
 
 import { ColorResolutionMode, JSONData } from "../types";
 import { getColorValue } from "./variableResolverHelper";
+import { describeValue } from "./diagnostics";
 
 const KEY_PREFIX_COLLECTION = `@`;
 
@@ -165,62 +166,88 @@ async function collectionAsJSON(
   };
 
   for (const variableId of variableIds) {
-    const { name, resolvedType, valuesByMode, description } =
-      await figma.variables.getVariableByIdAsync(variableId) as Variable;
-    const value = valuesByMode[keyToId[modeKeys[0].key]];
-    const fontWeight =
-      resolvedType === "FLOAT" &&
-      Boolean(name.match(/\/?weight/i)) &&
-      "fontWeight";
-    const fontFamily =
-      resolvedType === "STRING" &&
-      Boolean(name.match(/\/?family/i)) &&
-      "fontFamily";
-    if (
-      (value !== undefined &&
-        ["COLOR", "FLOAT", "STRING"].includes(resolvedType)) ||
-      fontFamily
-    ) {
-      let obj: any = collection;
-      const groupArray = name.split("/");
-      groupArray.forEach((groupName, i) => {
-        const safeName = groupName
-          .split(/[^\da-zA-Z-]+/)
-          .join("_")
-          .toLowerCase();
-        const groupID =
-          i === groupArray.length - 1 ? safeName : `$${safeName}`;
-        obj[`${groupID}`] = obj[`${groupID}`] || {};
-        obj = obj[`${groupID}`];
-      });
-      obj.$type =
-        resolvedType === "COLOR"
-          ? "color"
-          : resolvedType === "FLOAT"
-          ? fontWeight || "number"
-          : fontFamily || "unknown";
-      obj.$value = await valueToJSON(
-        value,
-        resolvedType,
-        collectionIdToKeyMap
+    try {
+      await addVariableToCollectionJSON(
+        collection,
+        variableId,
+        modeKeys,
+        keyToId,
+        collectionIdToKeyMap,
+        colorResolutionMode
       );
-      obj.$description = description || "";
-      obj.$variable_metadata = {
-        name: name,
-        figmaId: variableId,
-        modes: {},
-      };
-      for (const { key: modeKey } of modeKeys) {
-        obj.$variable_metadata.modes[modeKey] = await valueToJSON(
-          valuesByMode[keyToId[modeKey]],
-          resolvedType,
-          collectionIdToKeyMap,
-          colorResolutionMode
-        );
-      }
+    } catch (error) {
+      throw new Error(
+        `${error instanceof Error ? error.message : String(error)} ` +
+          `(while exporting variable ${variableId} in collection "${name}")`
+      );
     }
   }
   return collection;
+}
+
+async function addVariableToCollectionJSON(
+  collection: any,
+  variableId: string,
+  modeKeys: { key: string; name: string }[],
+  keyToId: { [key: string]: string },
+  collectionIdToKeyMap: { [key: string]: string },
+  colorResolutionMode: ColorResolutionMode
+) {
+  const variable = await figma.variables.getVariableByIdAsync(variableId) as Variable | null;
+  if (!variable) return;
+  const { name, resolvedType, valuesByMode, description } = variable;
+  const value = valuesByMode[keyToId[modeKeys[0].key]];
+  const fontWeight =
+    resolvedType === "FLOAT" &&
+    Boolean(name.match(/\/?weight/i)) &&
+    "fontWeight";
+  const fontFamily =
+    resolvedType === "STRING" &&
+    Boolean(name.match(/\/?family/i)) &&
+    "fontFamily";
+  if (
+    (value !== undefined &&
+      ["COLOR", "FLOAT", "STRING"].includes(resolvedType)) ||
+    fontFamily
+  ) {
+    let obj: any = collection;
+    const groupArray = name.split("/");
+    groupArray.forEach((groupName, i) => {
+      const safeName = groupName
+        .split(/[^\da-zA-Z-]+/)
+        .join("_")
+        .toLowerCase();
+      const groupID =
+        i === groupArray.length - 1 ? safeName : `$${safeName}`;
+      obj[`${groupID}`] = obj[`${groupID}`] || {};
+      obj = obj[`${groupID}`];
+    });
+    obj.$type =
+      resolvedType === "COLOR"
+        ? "color"
+        : resolvedType === "FLOAT"
+        ? fontWeight || "number"
+        : fontFamily || "unknown";
+    obj.$value = await valueToJSON(
+      value,
+      resolvedType,
+      collectionIdToKeyMap
+    );
+    obj.$description = description || "";
+    obj.$variable_metadata = {
+      name: name,
+      figmaId: variableId,
+      modes: {},
+    };
+    for (const { key: modeKey } of modeKeys) {
+      obj.$variable_metadata.modes[modeKey] = await valueToJSON(
+        valuesByMode[keyToId[modeKey]],
+        resolvedType,
+        collectionIdToKeyMap,
+        colorResolutionMode
+      );
+    }
+  }
 }
 
 export const getColorValueForMode = (
@@ -254,10 +281,18 @@ async function valueToJSON(
   collectionIdToKeyMap: { [key: string]: string },
   colorResolutionMode: ColorResolutionMode = "hex"
 ) {
+  if (value === undefined || value === null) {
+    return null;
+  }
+
   if (value.type === "VARIABLE_ALIAS") {
     const variable = await figma.variables.getVariableByIdAsync(
       value.id
-    ) as Variable;
+    ) as Variable | null;
+    if (!variable) {
+      console.warn(`Variable Explorer: alias target ${value.id} not found`);
+      return `{missing:${value.id}}`;
+    }
     const collectionNamePrefix =
       collectionIdToKeyMap[variable.variableCollectionId];
 
@@ -275,12 +310,26 @@ async function valueToJSON(
 
   let resolvedValue = value;
   if (resolvedType === "COLOR") {
+    if (!isColorObject(value)) {
+      // Malformed data (e.g. written by a sync tool); show it as-is instead of crashing
+      console.warn(
+        `Variable Explorer: COLOR variable has a non-color value: ${describeValue(value)}`
+      );
+      return typeof value === "object" ? JSON.stringify(value) : String(value);
+    }
     resolvedValue = getColorValueForMode(value, colorResolutionMode);
   } else if (resolvedType === "FLOAT") {
     resolvedValue = roundNumberToFigmaPrecision(value);
   }
 
   return resolvedValue;
+}
+
+function isColorObject(value: any): value is RGBA {
+  return (
+    typeof value === "object" &&
+    ["r", "g", "b"].every((channel) => typeof value[channel] === "number")
+  );
 }
 
 function uniqueKeyIdMaps(

@@ -16,6 +16,7 @@
   },
   "scripts": {
     "build": "build-figma-plugin --typecheck --minify",
+    "build:debug": "build-figma-plugin --typecheck",
     "watch": "build-figma-plugin --typecheck --watch"
   },
 

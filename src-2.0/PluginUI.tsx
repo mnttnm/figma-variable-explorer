@@ -8,6 +8,8 @@ import { ThemeProvider, useTheme } from "./contexts/ThemeContext";
 import { ToastProvider } from "./contexts/ToastContext";
 import { SupportToast } from "./components/SupportToast";
 import { useLaunchTracking } from "./hooks/hooks";
+import { DebugReportBar } from "./components/DebugReportBar";
+import { IS_DEBUG_BUILD } from "./debug";
 import React from "preact/compat";
 import { h } from "preact";
 
@@ -37,6 +39,7 @@ const ThemedApp = () => {
     <div className={`${styles.pluginContainer} ${styles[`theme-${theme}`]}`}>
       <Header />
       <Variables />
+      {IS_DEBUG_BUILD && <DebugReportBar />}
 
       {/* Support Toast Container */}
       {shouldShowPrompt && (

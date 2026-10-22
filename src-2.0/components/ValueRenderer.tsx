@@ -94,7 +94,7 @@ const AliasResolutionPopover = forwardRef<
 
     const handleValueCopy = (value: any, isColor: boolean) => {
       let valueToCopy: string;
-      if (isColor) {
+      if (isColor && typeof value === "object") {
         valueToCopy = (value as ColorValue).hexValue.split(",")[0];
       } else {
         valueToCopy = value as string;
@@ -435,7 +435,7 @@ export const ValueRenderer = ({
           mode={mode}
           title={title}
         />
-      ) : type === "COLOR" ? (
+      ) : type === "COLOR" && typeof varValueInfo.value === "object" ? (
         <ColorValueRenderer
           value={varValueInfo.value as ColorValue}
           title={title}
